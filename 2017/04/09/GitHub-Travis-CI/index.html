@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git,GitHub,Travis," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="# 导语  最近在做一个电影售票系统的大作业，这是一个web app，需要前后端分离开发。而且有多人进行协同开发，这就需要使用git这种类型的工具，来帮助我们合并、管理代码。我们选择使用GitHub这个免费的远程代码托管服务网站来进行托管代码。并且使用Travis CI来进行持续集成开发测试。">
+<meta name="keywords" content="Git,GitHub,Travis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub+Travis CI 持续集成">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;04&#x2F;09&#x2F;GitHub-Travis-CI&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="# 导语  最近在做一个电影售票系统的大作业，这是一个web app，需要前后端分离开发。而且有多人进行协同开发，这就需要使用git这种类型的工具，来帮助我们合并、管理代码。我们选择使用GitHub这个免费的远程代码托管服务网站来进行托管代码。并且使用Travis CI来进行持续集成开发测试。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.freebsdnews.com&#x2F;wp-content&#x2F;uploads&#x2F;Travis-CI-logo.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg7655j8fj20sj0cbwgn.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg79de6bgj20t60jbjwy.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg9qiopmij20tk0mzad8.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg9tu3o06j20v20n7gqb.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fehf6as0sqj21mi0no466.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg8ltbyh6j20ua0hz40x.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg9mdo6vkj21980dumz0.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg9ns4g52j21bw0g8acc.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1feg9q3aa5uj20fs09cwf6.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fejpd4ugqwj20nh08xabd.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fejorphw98j214r03e74s.jpg">
+<meta property="og:updated_time" content="2019-11-29T04:06:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.freebsdnews.com&#x2F;wp-content&#x2F;uploads&#x2F;Travis-CI-logo.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/04/09/GitHub-Travis-CI/"/>
+
+
+
+
+
+  <title>GitHub+Travis CI 持续集成 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/04/09/GitHub-Travis-CI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GitHub+Travis CI 持续集成</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-09T11:41:00+08:00">
+                2017-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/09/GitHub-Travis-CI/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/09/GitHub-Travis-CI/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/09/GitHub-Travis-CI/" class="leancloud_visitors" data-flag-title="GitHub+Travis CI 持续集成">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="https://www.freebsdnews.com/wp-content/uploads/Travis-CI-logo.jpg" referrerPolicy="no-referrer">
+# 导语
+
+<p>最近在做一个电影售票系统的大作业，这是一个web app，需要前后端分离开发。而且有多人进行协同开发，这就需要使用git这种类型的工具，来帮助我们合并、管理代码。我们选择使用GitHub这个免费的远程代码托管服务网站来进行托管代码。并且使用Travis CI来进行持续集成开发测试。</p>
+<a id="more"></a>
+
+<h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><p>在之前，也有一直使用GitHub，但主要无非用来管理自己平时个人写的代码，比较少涉及到多人协同开发以及解决一些冲突的问题。所以有必要再补一下这方面相关的知识。Git是Linux之父Linus当年在开发linux的过程中，不满于SVN的使用，而自己写出来的一个工具（不愧是大神，实在佩服）。</p>
+<p>这里可以参考<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰Git教程</a>，比较简明详细、清晰明了。主要介绍了如何具体实际来操作Git，适合快速上手。在后续的开发过程中，我也会将此类相关注意点和问题再整理成博客的。</p>
+<p>也可以参考<a href="http://iissnan.com/progit/" target="_blank" rel="noopener">Pro Git</a>这本书，里面比较详细地介绍了各种功能使用，以及原理。</p>
+<h2 id="branch-分支"><a href="#branch-分支" class="headerlink" title="branch 分支"></a>branch 分支</h2><p>分支是团队开发中，一个重要的工具，使得开发更加安全和稳定。</p>
+<p>在具体开发过程中使用<code>master</code>分支来保管稳定版本的代码，使用<code>dev</code>分支来管理开发过程中的代码，也可以再新建分支来开发新的特性。等开发完成之后，再将稳定的代码合并到<code>master</code>分支。</p>
+<p>通过<code>git checkout dev</code>可以切换到<code>dev</code>分支。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout dev</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Switched to branch 'dev'</span></pre></td></tr></table></figure>
+
+<p>通过<code>git branch</code>命令来查看所有分支，当前分支带<code>*</code>号。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">* dev</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  master</span></pre></td></tr></table></figure>
+
+<p>通过<code>git merge</code>命令来合并指定分支到当前分支。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge dev</span></span></pre></td></tr></table></figure>
+
+<p>合并完dev分支之后就可以删除了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git branch -d dev</span></span></pre></td></tr></table></figure>
+
+
+
+<p>参考:  <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000" target="_blank" rel="noopener">廖雪峰：创建于合并分支</a></p>
+<h1 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h1><p>了解了Git的使用之后，使用GitHub基本没有什么太大的困难了。开发小组的成员在后续会建立一个GitHub仓库来进行开发。这里推荐使用SSH key来连接到GitHub上，之后就可以直接使用这个本地的private key来push代码到GitHub的远程仓库上了，不用再每次push都要输入密码了，更加安全也方便。官方步骤指南<a href="https://help.github.com/articles/connecting-to-github-with-ssh/" target="_blank" rel="noopener">Connecting to GitHub with SSH</a></p>
+<h2 id="使用Issues进行Bug管理"><a href="#使用Issues进行Bug管理" class="headerlink" title="使用Issues进行Bug管理"></a>使用Issues进行Bug管理</h2><p>GitHub提供了一个很好的功能Issues功能，通过Issues别人可以向项目的开发者提出Bug报告、需求等。我们可以通过使用Issues来记录Bug的发现以及解决。当发现了一个新的Bug之后可以创建一个Issue，当解决了之后再关闭掉这个Issue。开发者也可以自己向自己的项目提出Issues。下面就先拿我之前的一个仓库使用Issues来进行Bug管理来举例。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg7655j8fj20sj0cbwgn.jpg" referrerPolicy="no-referrer">
+
+<p>点进具体的某个issue可以发现它是评论列表风格的，可以在里面描述bug的问题，解决之后也可以评论是如何解决这个bug的，可以很方便地记录开发的过程。</p>
+<h2 id="Labels-标签功能"><a href="#Labels-标签功能" class="headerlink" title="Labels 标签功能"></a>Labels 标签功能</h2><p>并且有一个Lables标签功能，来标记这个Issue是一个Bug还是需求等等。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg79de6bgj20t60jbjwy.jpg" referrerPolicy="no-referrer">
+
+<h2 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h2><p>由于我负责了持续测试这一块，而项目的仓库不是我建立了，在一般的团队协作下，也都是成员fork项目的仓库到自己的帐号下，修改之后再提交pull request。再让自己的项目仓库与上游的项目仓库保持同步，就可以实现我的GitHub帐号来管理Travis了。</p>
+<p>先将自己fork的仓库<code>git clone &quot;repo_address&quot;</code>到本地。</p>
+<p>然后通过<code>git remote add upstream &quot;upstream_address&quot;</code></p>
+<p>再通过<code>git remote -v</code>可以看到多了我们所需要同步的上游地址。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git remote -v</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">origin	Paul_work:Kinpzz/movie-booking.git (fetch)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">origin	Paul_work:Kinpzz/movie-booking.git (push)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">upstream	Paul_work:zhzdeng/movie-booking (fetch)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">upstream	Paul_work:zhzdeng/movie-booking (push)</span></pre></td></tr></table></figure>
+
+<p>然后我们只需要保持着<code>master</code>分支与上游项目仓库保持一致即可，在我们要合并<code>dev</code>分支到<code>master</code>分支的时候，先<code>git checkout master</code>切换到<code>master</code>分支，再将<code>master</code>分支和上游<code>master</code>分支同步。直接<code>git fetch upstream</code>即可。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git checkout master</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git fetch upstream</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git merge upstream/master</span></span></pre></td></tr></table></figure>
+<p>这里要注意</p>
+<ul>
+<li>在每次push到仓库上的时候应该先与上游仓库进行同步</li>
+<li>尽量避免使用<code>git pull</code>其功能等同于fetch+merge，但是隐藏一些细节，存在一些安全问题，本地的有的代码容易被远程仓库直接覆盖。参考：<a href="https://www.oschina.net/translate/git-fetch-and-merge" target="_blank" rel="noopener">Git 少用 Pull 多用 Fetch 和 Merge</a></li>
+</ul>
+<p>要与远程仓库同步的时候，可以通过<code>git push branch_name</code>来选择要push到哪个远程仓库上。</p>
+<p>参考：<a href="https://github.com/staticblog/wiki/wiki/%E4%BF%9D%E6%8C%81fork%E4%B9%8B%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE%E5%92%8C%E4%B8%8A%E6%B8%B8%E5%90%8C%E6%AD%A5" target="_blank" rel="noopener">保持fork之后的项目和上游同步</a></p>
+<h2 id="pull-request-进行代码review"><a href="#pull-request-进行代码review" class="headerlink" title="pull request 进行代码review"></a>pull request 进行代码review</h2><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg9qiopmij20tk0mzad8.jpg" referrerPolicy="no-referrer">
+
+<p>当我的远程仓库开发完了一个稳定的特性之后，就可以向主的项目仓库提出一个<code>pull request</code>的请求了，在里面我们可以清楚地看到代码的改动地方，可以通过这个功能来进行代码review。主仓库的所有者，在review之后，就可以决定要不要合并这个代码，还是继续让提交者进行修改。通过点击<code>Reviewer</code>可以邀请项目作业来进行review。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg9tu3o06j20v20n7gqb.jpg" referrerPolicy="no-referrer">
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fehf6as0sqj21mi0no466.jpg" referrerPolicy="no-referrer">
+
+<h1 id="Travis-CI"><a href="#Travis-CI" class="headerlink" title="Travis CI"></a>Travis CI</h1><p>CI 全称 Continuous Integration（持续集成），在一个项目中，任何人对代码库的任何改动都会触发CI服务器自动对项目进行构建、测试、甚至部署。可以及时发现问题，随时修复。</p>
+<p>而Travis CI是一个在线托管CI的服务，不需要自己搭建CI服务器，可以通过Travis提供的网页服务来配置我们的CI。并且可以直接与GitHub的仓库进行关联，对开源项目免费。</p>
+<p>进入Travis CI 官网<a href="https://travis-ci.org，可以直接使用GitHub账号进行登录。" target="_blank" rel="noopener">https://travis-ci.org，可以直接使用GitHub账号进行登录。</a></p>
+<p>为一个项目配置好Travis CI的步骤也比较简单，主要就有三步：</p>
+<ol>
+<li>激活所需GitHub仓库</li>
+<li>将<code>.travis.yml</code>配置文件加入仓库</li>
+<li>使用<code>git push</code>进行触发</li>
+</ol>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="激活Github仓库"><a href="#激活Github仓库" class="headerlink" title="激活Github仓库"></a>激活Github仓库</h3><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg8ltbyh6j20ua0hz40x.jpg" referrerPolicy="no-referrer">
+
+<p>交互界面设计的不错，直接点用按钮就完成激活了。</p>
+<h3 id="配置-travis-yml文件"><a href="#配置-travis-yml文件" class="headerlink" title="配置.travis.yml文件"></a>配置.travis.yml文件</h3><p><code>.travis.yml</code>文件用来告诉Travis一些项目信息，使用的语言，环境等要求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">language: java</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">jdk:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  - oraclejdk8</span></pre></td></tr></table></figure>
+
+<p>当我们push到GitHub仓库上Travis一看到Java项目，就默认用Maven 3来进行构建，然后执行两个脚本命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn install -DskipTests=<span class="literal">true</span> -Dmaven.javadoc.skip=<span class="literal">true</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn <span class="built_in">test</span> -B</span></span></pre></td></tr></table></figure>
+
+<p>如果我们不使用默认的install和test脚本，可以自己再进行自定义。在<code>.travis.yml</code>里面进行配置install和test标签。</p>
+<p>如在<code>.travis.yml</code>内添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">install: .&#x2F;install-dependencies.sh</span></pre></td></tr></table></figure>
+
+<p>具体可以参考<a href="https://docs.travis-ci.com/user/customizing-the-build" target="_blank" rel="noopener">Travis: Customizing the Build</a></p>
+<p>之后会通过邮件通知我们构建结果，构建成功在下面可以看见build passing的标志。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg9mdo6vkj21980dumz0.jpg" referrerPolicy="no-referrer">
+
+<p>还可以通过点击那个标志获取连接，在项目的<code>README.md</code>文档上显示出一个构建通过的小标志</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg9ns4g52j21bw0g8acc.jpg" referrerPolicy="no-referrer">
+
+
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1feg9q3aa5uj20fs09cwf6.jpg" referrerPolicy="no-referrer">
+
+<p>在发起pull request之后，Travis CI也会对项目进行自动检测，并且可以在发起pull request者的tavis和GitHub中看到构建结果</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fejpd4ugqwj20nh08xabd.jpg" referrerPolicy="no-referrer">
+
+
+<h3 id="使用checkstytle进行风格检测"><a href="#使用checkstytle进行风格检测" class="headerlink" title="使用checkstytle进行风格检测"></a>使用checkstytle进行风格检测</h3><p>通过简单地配置<code>.travis.yml</code>文件，也可以达到在CI服务器上对代码风格进行检测，这里代码风格使用google style，配合checkstyle这个代码检测工具，添加maven命令也可以完成。</p>
+<h4 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h4><p>在<code>.travis.yml</code>配置文件中添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">after_script:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  - mvn checkstyle:check --batch-mode --fail-never</span></pre></td></tr></table></figure>
+<p>注意这种方法默认的是使用<code>sun_checks.xml - Sun Microsystems Definition (default)</code>. 我们这里要使用的的google style所以这种方法，所以需要再另外进行配置。</p>
+<h4 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h4><p>由于我们要使用google style(<code>google_checks.xml - Google Definition.</code>)所以就需要在构建阶段<code>pom.xml</code>文件中另外进行配置，使用checkstyle这个插件。在<code>&lt;configLocation&gt;google_checks.xml&lt;/configLocation&gt;</code>使用<code>google_checks.xml</code>这个配置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-checkstyle-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>validate<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;<span class="name">phase</span>&gt;</span>validate<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">configLocation</span>&gt;</span>google_checks.xml<span class="tag">&lt;/<span class="name">configLocation</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">consoleOutput</span>&gt;</span>true<span class="tag">&lt;/<span class="name">consoleOutput</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">failsOnError</span>&gt;</span>true<span class="tag">&lt;/<span class="name">failsOnError</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">linkXRef</span>&gt;</span>false<span class="tag">&lt;/<span class="name">linkXRef</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>check<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">      <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>在构建之后没有如果代码风格问题会看到，如果有问题会进行提示。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[INFO] --- maven-checkstyle-plugin:2.17:check (validate) @ movie-booking ---</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">[INFO] Starting audit...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Audit done.</span></pre></td></tr></table></figure>
+
+<p>参考：<a href="https://maven.apache.org/plugins/maven-checkstyle-plugin/usage.html" target="_blank" rel="noopener">checkstyle plugin usage</a><br>建议在项目的仓库上也关联Travis CI这样子就能每次提交新改动到项目上的时候同时进行自动化的在线构建和检测了。</p>
+<h3 id="使用pmd进行源码检测"><a href="#使用pmd进行源码检测" class="headerlink" title="使用pmd进行源码检测"></a>使用pmd进行源码检测</h3><p>PMD 是源码检测工具。它能发现常见编程缺陷，如未使用的变量，空catch块，不必要的对象创建等等。</p>
+<p>maven的网站上有给出如何配置pmd，但是在build的时候配置一直不成功于是我决定使用命令来进行检测</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn pmd:check</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn pmd:cpd-check</span></span></pre></td></tr></table></figure>
+<p>检测的结果会输出在target/pmd.xml中，如果有问题会以xml的方式进行记录。然后使用<code>cat</code>来显示这个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ cat target&#x2F;pmd.xml</span></pre></td></tr></table></figure>
+
+<p>命令可以配置在<code>.tarvis.yml</code>中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">before_script:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">  - mvn pmd:check</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  - mvn pmd:cpd-check</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  - cat target/pmd.xml</span></pre></td></tr></table></figure>
+<p>下面测试，代码没有pmd检测出来的问题，所以<code>pmd.xml</code>文件中没有显示错误信息<br><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fejorphw98j214r03e74s.jpg" referrerPolicy="no-referrer"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://www.liaoxuefeng.com/article/0014631488240837e3633d3d180476cb684ba7c10fda6f6000" target="_blank" rel="noopener">使用Travis进行持续集成</a></li>
+<li><a href="http://iissnan.com/progit/" target="_blank" rel="noopener">Pro Git</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰Git教程</a></li>
+<li><a href="https://docs.travis-ci.com/user/customizing-the-build" target="_blank" rel="noopener">Travis: Customizing the Build</a></li>
+<li><a href="https://www.oschina.net/translate/git-fetch-and-merge" target="_blank" rel="noopener">Git 少用 Pull 多用 Fetch 和 Merge</a></li>
+<li><a href="https://maven.apache.org/plugins/maven-checkstyle-plugin/usage.html" target="_blank" rel="noopener">checkstyle plugin usage</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/04/09/GitHub-Travis-CI/" title="GitHub+Travis CI 持续集成">https://blog.kinpzz.com/2017/04/09/GitHub-Travis-CI/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+          
+            <a href="/tags/Travis/" rel="tag"># Travis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/07/TensorFlow-beginner/" rel="next" title="TensorFlow入门——手写体识别(mnist)">
+                <i class="fa fa-chevron-left"></i> TensorFlow入门——手写体识别(mnist)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/15/ssh-config/" rel="prev" title="ssh config配置">
+                ssh config配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#branch-分支"><span class="nav-number">1.1.</span> <span class="nav-text">branch 分支</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GitHub"><span class="nav-number">2.</span> <span class="nav-text">GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Issues进行Bug管理"><span class="nav-number">2.1.</span> <span class="nav-text">使用Issues进行Bug管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Labels-标签功能"><span class="nav-number">2.2.</span> <span class="nav-text">Labels 标签功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork"><span class="nav-number">2.3.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pull-request-进行代码review"><span class="nav-number">2.4.</span> <span class="nav-text">pull request 进行代码review</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Travis-CI"><span class="nav-number">3.</span> <span class="nav-text">Travis CI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">3.1.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#激活Github仓库"><span class="nav-number">3.1.1.</span> <span class="nav-text">激活Github仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-travis-yml文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">配置.travis.yml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用checkstytle进行风格检测"><span class="nav-number">3.1.3.</span> <span class="nav-text">使用checkstytle进行风格检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法一："><span class="nav-number">3.1.3.1.</span> <span class="nav-text">方法一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法二："><span class="nav-number">3.1.3.2.</span> <span class="nav-text">方法二：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用pmd进行源码检测"><span class="nav-number">3.1.4.</span> <span class="nav-text">使用pmd进行源码检测</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/04/09/GitHub-Travis-CI/';
+          this.page.identifier = '2017/04/09/GitHub-Travis-CI/';
+          this.page.title = 'GitHub+Travis CI 持续集成';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

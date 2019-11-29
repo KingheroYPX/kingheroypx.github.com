@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Kaggle,深度学习,图像分割," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言暑假从华为实习结束之后到国庆前这一个多月的时间基本都是在打Kaggle上的Carvana这个比赛，主要做的是车辆与背景的分割，数据集比较简单，都是同一场景的图片，所以对模型的要求也不高，简单的模型就可以胜任。也因此，大家的榜上的成绩都刷得特别高。所以我在比赛前期基本都是在100~200名徘徊，到了后期才逐渐进入了前100。到比赛截止public leaderboard到达60名，private">
+<meta name="keywords" content="Kaggle,深度学习,图像分割">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[比赛总结] Kaggle-Carvana 银牌">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;10&#x2F;13&#x2F;kaggle-carvana&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="前言暑假从华为实习结束之后到国庆前这一个多月的时间基本都是在打Kaggle上的Carvana这个比赛，主要做的是车辆与背景的分割，数据集比较简单，都是同一场景的图片，所以对模型的要求也不高，简单的模型就可以胜任。也因此，大家的榜上的成绩都刷得特别高。所以我在比赛前期基本都是在100~200名徘徊，到了后期才逐渐进入了前100。到比赛截止public leaderboard到达60名，private">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-29T04:08:21.000Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/10/13/kaggle-carvana/"/>
+
+
+
+
+
+  <title>[比赛总结] Kaggle-Carvana 银牌 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/10/13/kaggle-carvana/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[比赛总结] Kaggle-Carvana 银牌</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T16:23:00+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/13/kaggle-carvana/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/10/13/kaggle-carvana/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/13/kaggle-carvana/" class="leancloud_visitors" data-flag-title="[比赛总结] Kaggle-Carvana 银牌">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>暑假从华为实习结束之后到国庆前这一个多月的时间基本都是在打Kaggle上的Carvana这个比赛，主要做的是车辆与背景的分割，数据集比较简单，都是同一场景的图片，所以对模型的要求也不高，简单的模型就可以胜任。也因此，大家的榜上的成绩都刷得特别高。所以我在比赛前期基本都是在100~200名徘徊，到了后期才逐渐进入了前100。到比赛截止public leaderboard到达60名，private leaderboard到达33名(735队)，取得了银牌。最后的结果还是比较出乎我的意料的，从中还是学习到了许多东西的。</p>
+<p>之所以参加这次比赛，也跟这个比赛很像我之前看的那两篇关于肺部分割的论文ChestX-ray8以及SCAN有关。如果之后继续研究相关课题，相信这次比赛的经验也可以帮助我更好地入手该课题的研究。</p>
+<a id="more"></a>
+
+<h1 id="比赛信息"><a href="#比赛信息" class="headerlink" title="比赛信息"></a>比赛信息</h1><ul>
+<li>比赛地址：<a href="https://www.kaggle.com/c/carvana-image-masking-challenge" target="_blank" rel="noopener">https://www.kaggle.com/c/carvana-image-masking-challenge</a></li>
+<li>比赛类型：图像分割</li>
+</ul>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><ol>
+<li>CVPR2015: Unet</li>
+<li>CVPR2017: Instance-Level Salient Object Segmentation</li>
+<li>multiscale</li>
+</ol>
+<p>前阶段的时间主要是在改进师姐CVPR2017年这篇论文的模型，把显著性物体检测的模型应用到了该比赛上。但是由于模型太大，在高分辨率的情况下占用显存巨大，一直无法得到显著提升。而最后阶段使用的Unet，网络模型比较简单，在很短的时间内就训练到了一个不错的成绩。后期通过不同模型和multiscale策略进行模型的ensemble，使得结果得到提升。具体实现的细节在周报上都有进行介绍，后续有机会会继续整理成博文。</p>
+<p>通过观察前几名的介绍，都是训练了多模型，最终进行融合。需要耗费较多的显卡资源，但是与我同等显卡条件的也有进了前10的人。</p>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>介绍几个在比赛过程中常用的工具：</p>
+<h2 id="数据处理-numpy、pandas"><a href="#数据处理-numpy、pandas" class="headerlink" title="数据处理 numpy、pandas"></a>数据处理 numpy、pandas</h2><p>在比赛中经常会使用到numpy和pandas处理一些csv文件、数据，如果能熟练掌握这两个工具对比赛是很有帮助的，要使用到的时候免去搜索的繁琐。可以参考莫凡教程</p>
+<p>教程：<a href="https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/" target="_blank" rel="noopener">https://morvanzhou.github.io/tutorials/data-manipulation/np-pd/</a></p>
+<h2 id="可视化-matplotlib"><a href="#可视化-matplotlib" class="headerlink" title="可视化 matplotlib"></a>可视化 matplotlib</h2><p>可视化可以帮助我们进行调参、观察实验结果、改进网络。caffe中进行可视化可能需要自己写一个层，Tensorflow中可以借助Tensorboard，在python中结合matplotlib和jupyter可以快速的进行可视化和图片展示。同样也可以参考莫凡教程:</p>
+<p>教程：<a href="https://morvanzhou.github.io/tutorials/data-manipulation/plt/" target="_blank" rel="noopener">https://morvanzhou.github.io/tutorials/data-manipulation/plt/</a></p>
+<h2 id="包管理-Anaconda"><a href="#包管理-Anaconda" class="headerlink" title="包管理 Anaconda"></a>包管理 Anaconda</h2><p>一个数据处理的包管理工具，无需管理员权限，内带jupyter、python、pip以及众多python库，是机器学习的好工具，同样也可以安装其他用户上传的包。<code>pip install --user</code>也可以完成用户级的包安装。</p>
+<h2 id="终端复用-Tmux"><a href="#终端复用-Tmux" class="headerlink" title="终端复用 Tmux"></a>终端复用 Tmux</h2><p>终端复用工具，免去多个程序需要多次连接服务器打开多个连接界面的烦恼。在服务器打开tmux，若以外与服务器断开连接，终端状态不会丢失。<br>使用最新版本配合<a href="https://github.com/gpakosz/.tmux" target="_blank" rel="noopener">配置文件</a>使用超方便。</p>
+<h2 id="笔记工具"><a href="#笔记工具" class="headerlink" title="笔记工具"></a>笔记工具</h2><p>必须有云功能，方便不同设备之间同步工作：有道云笔记、印象笔记（免费版有设备数量限制）、typora+dropbox。</p>
+<h1 id="参考论文"><a href="#参考论文" class="headerlink" title="参考论文"></a>参考论文</h1><ol>
+<li>U-Net: Convolutional Networks for Biomedical Image Segmentation<ul>
+<li>Github: <a href="https://github.com/Kinpzz/Kaggle-Carvana-Image-Masking-Challenge" target="_blank" rel="noopener">https://github.com/Kinpzz/Kaggle-Carvana-Image-Masking-Challenge</a></li>
+</ul>
+</li>
+<li>Instance-Level Salient Object Segmentation<ul>
+<li>GitHub: <a href="https://github.com/Kinpzz/deeplab-v2" target="_blank" rel="noopener">https://github.com/Kinpzz/deeplab-v2</a></li>
+</ul>
+</li>
+<li>Deeply supervised salient object detection with short connections<ul>
+<li>GitHub: <a href="https://github.com/Andrew-Qibin/DSS" target="_blank" rel="noopener">https://github.com/Andrew-Qibin/DSS</a></li>
+</ul>
+</li>
+</ol>
+<h1 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h1><h2 id="比赛与科研"><a href="#比赛与科研" class="headerlink" title="比赛与科研"></a>比赛与科研</h2><p>在尝试了比赛与科研之后，发现比赛和科研的差异还是比较大的。Kaggle上的比赛更多的还是利用现有的模型进行改进为主，更多的人使用Keras等封装好的框架，当然现在也有许多人使用pytoch、Tensorflow。而非像ImageNet这样子的比赛，每年的第一名都是新的一种网络结构（当然，比赛规模也不一样）。数据增强和模型的ensemble在kaggle这类型的比赛中显得很重要，基本上前几名都是靠这样子的方法来提升成绩的。而科研可能更注重设计出一种有创新性的模型。</p>
+<p>说起来，我也还不算真正入门了科研，主要还是停留在看论文的阶段，光是看论文没有实践上手其实也有其弊端，通过这次比赛还有DDL的压力也是很大的，但从中也学习到了许多实践性的知识。学会了如何使用caffe、python、修改caffe源码（新建层）、使用Tensorflow等，还养成了写周报的习惯。所以总的来说参加这次比赛对我之后做科研项目来说还是很有帮助的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/10/13/kaggle-carvana/" title="[比赛总结] Kaggle-Carvana 银牌">https://blog.kinpzz.com/2017/10/13/kaggle-carvana/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kaggle/" rel="tag"># Kaggle</a>
+          
+            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/" rel="tag"># 图像分割</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/09/notes-scan/" rel="next" title="[论文笔记] SCAN">
+                <i class="fa fa-chevron-left"></i> [论文笔记] SCAN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比赛信息"><span class="nav-number">2.</span> <span class="nav-text">比赛信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型"><span class="nav-number">3.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具"><span class="nav-number">4.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据处理-numpy、pandas"><span class="nav-number">4.1.</span> <span class="nav-text">数据处理 numpy、pandas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化-matplotlib"><span class="nav-number">4.2.</span> <span class="nav-text">可视化 matplotlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包管理-Anaconda"><span class="nav-number">4.3.</span> <span class="nav-text">包管理 Anaconda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终端复用-Tmux"><span class="nav-number">4.4.</span> <span class="nav-text">终端复用 Tmux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记工具"><span class="nav-number">4.5.</span> <span class="nav-text">笔记工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考论文"><span class="nav-number">5.</span> <span class="nav-text">参考论文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#心得体会"><span class="nav-number">6.</span> <span class="nav-text">心得体会</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比赛与科研"><span class="nav-number">6.1.</span> <span class="nav-text">比赛与科研</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/10/13/kaggle-carvana/';
+          this.page.identifier = '2017/10/13/kaggle-carvana/';
+          this.page.title = '[比赛总结] Kaggle-Carvana 银牌';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

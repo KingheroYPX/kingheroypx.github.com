@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Digital Ocean,linux,server," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言前言里会废话一些自己学习和探索的经历过程，想直接看干货的可以直接跳转到正文部分。 如果看完想申请DigitalOcean的话，又没有学生代金券，可以通过注册入口进行申请，可以获得10刀代金券。">
+<meta name="keywords" content="Digital Ocean,linux,server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注册、配置DigitalOcean上的linux服务器">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2016&#x2F;03&#x2F;15&#x2F;digitalocean-unix-server&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="前言前言里会废话一些自己学习和探索的经历过程，想直接看干货的可以直接跳转到正文部分。 如果看完想申请DigitalOcean的话，又没有学生代金券，可以通过注册入口进行申请，可以获得10刀代金券。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1jw1f1xibkqaa6j21440dk3zq.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww2.sinaimg.cn&#x2F;large&#x2F;6177e8b1jw1f1xiirssnvj21840smgo5.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww4.sinaimg.cn&#x2F;large&#x2F;6177e8b1jw1f1xj9pyqyzj20kg07o77e.jpg">
+<meta property="og:updated_time" content="2019-11-29T03:40:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1jw1f1xibkqaa6j21440dk3zq.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2016/03/15/digitalocean-unix-server/"/>
+
+
+
+
+
+  <title>注册、配置DigitalOcean上的linux服务器 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2016/03/15/digitalocean-unix-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">注册、配置DigitalOcean上的linux服务器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-15T13:53:20+08:00">
+                2016-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/15/digitalocean-unix-server/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/15/digitalocean-unix-server/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/03/15/digitalocean-unix-server/" class="leancloud_visitors" data-flag-title="注册、配置DigitalOcean上的linux服务器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前言里会废话一些自己学习和探索的经历过程，想直接看干货的可以直接跳转到正文部分。</p>
+<p>如果看完想申请DigitalOcean的话，又没有学生代金券，可以通过<a href="https://m.do.co/c/0933388dea91" target="_blank" rel="noopener">注册入口</a>进行申请，可以获得10刀代金券。</p>
+<a id="more"></a>
+
+<h2 id="申请GitHub学生礼包"><a href="#申请GitHub学生礼包" class="headerlink" title="申请GitHub学生礼包"></a>申请GitHub学生礼包</h2><p>今日几经周折总算是申请到了GitHub的学生礼包，历经三次失败。发现edu.cn简直一生黑，由于国内许多滥用导致从历经多个月的审核到后来的直接被ban。在发了一封email证明了自己货真价实的学生身份之后直接就通过了验证了。顺利地拿到了student pack啦～其中最诱人的莫非就是digitalocean的代金券和5个private 仓库啦。货真价实的美钞。</p>
+<p><img src="https://ww3.sinaimg.cn/large/6177e8b1jw1f1xibkqaa6j21440dk3zq.jpg" alt=""></p>
+<p>如果申请久久没有通过，还是写封邮件申请一下吧。传送门：<a href="https://github.com/contact" target="_blank" rel="noopener">Contact GitHub</a>.阐述一下自己的为什么需要这些资源，最重要的就是证明自己真实的学生身份。不是学生的最好还是能够付费的，不要假冒学生身份了。</p>
+<h2 id="激活DigitalOcean"><a href="#激活DigitalOcean" class="headerlink" title="激活DigitalOcean"></a>激活DigitalOcean</h2><p>在获取了GiHub所给的代金券之后，注册完DO的账号还需要绑定信用卡或者通过paypal付费5美金才可以使用。</p>
+<p><img src="https://ww2.sinaimg.cn/large/6177e8b1jw1f1xiirssnvj21840smgo5.jpg" alt=""></p>
+<p>学生党没有信用卡，只能选择paypal这条方式了。在注册了paypal的账号之后发现paypal同时也是要进行认证的。国内的认证方式就是绑定银联卡，农行绑定不了，转战中国银行。但却一直卡在确定认证步骤，明明已经银联确认通过，但是和paypal的链接却一直没有做好，导致认证失败。折腾了一个多小时，尝试了不同的卡，甚至还想上淘宝买认证卡了。</p>
+<p>由于全程没有用梯子都可以正常地访问，一直没有想到是墙的原因。最后临睡前尝试了一下上ss的梯子，结果银联确认页面的https安全了没有红叉了，但是却一直安不上密码插件，无奈关掉ss，点了重试结果就成功了。这一出一进才成功，是巧合吗，还是真的是墙的原因。不管了，反正成功了就好了。</p>
+<p>这里顺便吐槽一下，DO的新加坡节点实在太不稳定了，旧金山节点很快，但是有人用来恶意请求谷歌，导致谷歌经常上不去。</p>
+<h2 id="官方测速节点"><a href="#官方测速节点" class="headerlink" title="官方测速节点"></a>官方测速节点</h2><p>旧金山(San Francisco)：<a href="https://link.zhihu.com/?target=http%3A//speedtest-sfo1.digitalocean.com">http://speedtest-sfo1.digitalocean.com</a></p>
+<p>在里面可以进行选择测速，选择比较适合自己网络的服务器。</p>
+<h1 id="使用DigitalOcean"><a href="#使用DigitalOcean" class="headerlink" title="使用DigitalOcean"></a>使用DigitalOcean</h1><p>经历了上面的步骤之后，我们就可以进入云服务器的使用啦！问我为什么不选择阿里云学生账户？一个月只要9.9？Because DO can do more . 关键的一点就是可以使用Shadowsocks啦，经常需要谷歌的人，目前VPN又不给力的情况下，这是一个很好的选择。以及省去了备案的麻烦，一个月五美金也不算太贵，在自己以后的学习中也可以经常用到。</p>
+<p>创建droplet这不是什么难事，下面主要介绍在创建的时候就加入ssh keys或者再服务器创建完再加入ssh keys的方法。</p>
+<p>根据之前文章所提到的关于ssh的介绍中，ssh有两种登陆方式。一种是通过密码，还有一种就是通过public keys 和 pravite keys的匹配来完成了。两种方式的数据传输都是通过ssh加密的，但是总的来说后一种会来的更加安全。</p>
+<h2 id="添加ssh-keys"><a href="#添加ssh-keys" class="headerlink" title="添加ssh keys"></a>添加ssh keys</h2><ul>
+<li>可以在建立droplet的时候就加入ssh keys</li>
+</ul>
+<ul>
+<li>如果在创建droplet创建的时候没有加入ssh keys，DO会发送服务器的临时密码到你的邮箱。在第一次登陆服务器之后要修改密码。具体可以参考官方资料<a href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh" target="_blank" rel="noopener">How To Connect To Your Droplet with SSH</a></li>
+</ul>
+<p>如何创建ssh keys可以参考上一篇文章。</p>
+<p>下面直接贴出方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">~/.ssh/public_keys_name | ssh root@server_address "cat &gt;&gt; ~/.ssh/authorized_keys"</span></pre></td></tr></table></figure>
+
+<p>使用cat的方法往服务器上添加public keys</p>
+<p>其中public_keys_name是你创建的public keys的名字，server_address是你的服务器的地址。</p>
+<p>ps：linux命令</p>
+<p>其实这两个管道符号很容易记忆，向左边的箭头意思就是把前面命令的内容输入到后面的文件中去，刚才那个“|”管道符号是用来把前面命令的输出结果当作后面一个命令的输入数据。下面我们看一个和刚才“&gt;&gt;”刚刚相反的管道符号“&lt;&lt;”： </p>
+<h2 id="使用ssh-keys-登陆"><a href="#使用ssh-keys-登陆" class="headerlink" title="使用ssh keys 登陆"></a>使用ssh keys 登陆</h2><p>在添加完成之后，输入下列命令，在使用key的时候输入你创建这个keys用的密码就可以了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ssh -i ~/.ssh/private_keys_name root@server_address</span></pre></td></tr></table></figure>
+
+<p><img src="https://ww4.sinaimg.cn/large/6177e8b1jw1f1xj9pyqyzj20kg07o77e.jpg" alt=""></p>
+<p>这样子登陆就免去了每次都输入密码的麻烦了，而且更加安全。</p>
+<p>下次再进行登陆就可以直接按照下面指令进行登陆了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">ssh username@server_address</span></pre></td></tr></table></figure>
+
+<p>具体可以参照</p>
+<p><a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04?utm_source=Customerio&utm_medium=Email_Internal&utm_campaign=Email_UbuntuDistroApacheWelcome" target="_blank" rel="noopener">Initial Server Setup with Ubuntu 14.04</a> 关闭root用户的ssh keys登陆(为了更加安全)，创建新的super user。通过添加sudo指令来完成需要权限的命令。</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>适合linux和Mac osx下操作。windows不适合。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://blog.csdn.net/delphiwcdj/article/details/42581781" target="_blank" rel="noopener">体验DigitalOcean的VPS云服务</a></p>
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh" target="_blank" rel="noopener">How To Connect To Your Droplet with SSH</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2016/03/15/digitalocean-unix-server/" title="注册、配置DigitalOcean上的linux服务器">https://blog.kinpzz.com/2016/03/15/digitalocean-unix-server/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Digital-Ocean/" rel="tag"># Digital Ocean</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/server/" rel="tag"># server</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/13/unity3d-priests-and-devils/" rel="next" title="unity3d-牧师与恶魔">
+                <i class="fa fa-chevron-left"></i> unity3d-牧师与恶魔
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/19/unity3d-simple-factory/" rel="prev" title="unity3d-基础知识及简单工厂">
+                unity3d-基础知识及简单工厂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#申请GitHub学生礼包"><span class="nav-number">1.1.</span> <span class="nav-text">申请GitHub学生礼包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活DigitalOcean"><span class="nav-number">1.2.</span> <span class="nav-text">激活DigitalOcean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方测速节点"><span class="nav-number">1.3.</span> <span class="nav-text">官方测速节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用DigitalOcean"><span class="nav-number">2.</span> <span class="nav-text">使用DigitalOcean</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加ssh-keys"><span class="nav-number">2.1.</span> <span class="nav-text">添加ssh keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ssh-keys-登陆"><span class="nav-number">2.2.</span> <span class="nav-text">使用ssh keys 登陆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2016/03/15/digitalocean-unix-server/';
+          this.page.identifier = '2016/03/15/digitalocean-unix-server/';
+          this.page.title = '注册、配置DigitalOcean上的linux服务器';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

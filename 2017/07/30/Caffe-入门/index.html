@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深度学习,Caffe," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="导语在目前学术界中，使用Caffe来做计算机视觉方面的，还是比较主流的。我一开始对Caffe的了解还是只停留下跑过caffe的代码，用caffe进行过训练，但是自己对其各个依赖包和原理还不是特比了解，主要就参考赵永科的《深度学习：21天实战caffe》这本书来了解一下caffe的原理，并整理下笔记。主要看了他介绍caffe各个依赖包和架构的部分，书本大概有一半的内容贴的是caffe的源码以及作者的">
+<meta name="keywords" content="深度学习,Caffe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caffe 入门">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;07&#x2F;30&#x2F;Caffe-%E5%85%A5%E9%97%A8&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="导语在目前学术界中，使用Caffe来做计算机视觉方面的，还是比较主流的。我一开始对Caffe的了解还是只停留下跑过caffe的代码，用caffe进行过训练，但是自己对其各个依赖包和原理还不是特比了解，主要就参考赵永科的《深度学习：21天实战caffe》这本书来了解一下caffe的原理，并整理下笔记。主要看了他介绍caffe各个依赖包和架构的部分，书本大概有一半的内容贴的是caffe的源码以及作者的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-29T03:23:49.000Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/07/30/Caffe-入门/"/>
+
+
+
+
+
+  <title>Caffe 入门 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Caffe 入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T22:01:00+08:00">
+                2017-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/30/Caffe-入门/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/" class="leancloud_visitors" data-flag-title="Caffe 入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h1><p>在目前学术界中，使用Caffe来做计算机视觉方面的，还是比较主流的。我一开始对Caffe的了解还是只停留下跑过caffe的代码，用caffe进行过训练，但是自己对其各个依赖包和原理还不是特比了解，主要就参考赵永科的《深度学习：21天实战caffe》这本书来了解一下caffe的原理，并整理下笔记。主要看了他介绍caffe各个依赖包和架构的部分，书本大概有一半的内容贴的是caffe的源码以及作者的注释，整体来说只能说是比较适合入门者，适合刚刚接触caffe框架的人快速了解整体的框架。</p>
+<p>想要了解Caffe入门使用，如何使用caffe在猫狗分类的数据集上进行训练可以参考我的GitHub：<a href="https://github.com/Kinpzz/caffe-beginner/blob/master/train.ipynb" target="_blank" rel="noopener">caffe-beginner</a></p>
+<p>PS: 此处未包含Caffe依赖包安装，默认服务器已经安装，详细可以参考<a href="http://caffe.berkeleyvision.org/installation.html" target="_blank" rel="noopener">Caffe官网</a> 查看更多安装细节。</p>
+<a id="more"></a>
+
+<h1 id="深度学习框架选择"><a href="#深度学习框架选择" class="headerlink" title="深度学习框架选择"></a>深度学习框架选择</h1><ul>
+<li>Caffe</li>
+<li>Caffe2</li>
+<li>Tensorflow( wrapper : Keras)</li>
+<li>torch( in lua)</li>
+<li>pytorch</li>
+</ul>
+<p>我接触过Caffe，Tensorflow和Keras，学习keras时觉得很简洁很好写，但是后来发现它存在不足的是包装过度，可能并不是特别适合做research，存在效率问题。而Tensorflow虽然有着强大的社区支持，但是对图的定义、debug自己在写的过程中也感觉是比较复杂的。</p>
+<p>在接下来做research的过程中，会继续深入学习一下caffe，了解caffe2（拥有更好的效率和速度）。以及接触学习facebook在2017年年初刚发布的pytorch，使用的是python，更加像是过程式编程，可以自动完成图的构建。主要应该是会关注caffe和pytorch两个框架。</p>
+<p>更多关于框架的选择可以参考知乎上面的讨论<a href="https://www.zhihu.com/question/59274399" target="_blank" rel="noopener">Keras，Theano，pytorch，caffe2 哪个更好一些，应该怎么尝试学习？</a></p>
+<h1 id="Caffe"><a href="#Caffe" class="headerlink" title="Caffe"></a>Caffe</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Caffe，全称Convolutional Architecture for Fast Feature Embedding，是一个计算CNN相关算法的框架，由Yangqing Jia老师编写，Caffe主要是用C++实现的，并提供了C++、Python、Matlab的接口。</p>
+<ul>
+<li>Caffe 主页：<a href="http://caffe.berkeleyvision.org/" target="_blank" rel="noopener">http://caffe.berkeleyvision.org/</a></li>
+<li>Github：<a href="https://github.com/BVLC/caffe" target="_blank" rel="noopener">https://github.com/BVLC/caffe</a></li>
+</ul>
+<h2 id="依赖包"><a href="#依赖包" class="headerlink" title="依赖包"></a>依赖包</h2><h3 id="ProtoBuffer"><a href="#ProtoBuffer" class="headerlink" title="ProtoBuffer"></a>ProtoBuffer</h3><p>ProtoBUffer是由Google开发的一种可以实现内存与非易失存储介质（如硬盘文件）交换的协议接口。Caffe源码中大量使用ProtoBuffer作为权值和模型参数的载体。如<code>solver.prototxt</code>, <code>deploy.prototxt</code>, <code>train.prototxt</code>. Caffe训练时会读取这些文件，获取特定字段数值，并据此设置内存中模型训练时的超参数变量值，通过ProtoBUffer自动完成复杂的接口实现。相比于结构体能够更方便的实现序列化和反序列化，可以做到接口标准化。</p>
+<h3 id="Boost"><a href="#Boost" class="headerlink" title="Boost"></a>Boost</h3><p>Caffe中使用了Boost的智能指针，避免共享指针的时候造成内存泄漏或多次释放。pycaffe使用Boost Python实现了C/c++和Python语言的连接。</p>
+<h3 id="GFLAGS"><a href="#GFLAGS" class="headerlink" title="GFLAGS"></a>GFLAGS</h3><p>在Caffe中主要起倒<strong>命令行</strong>参数解析的作用，具体使用参考<code>tools/caffe.cpp</code></p>
+<h3 id="GLOG"><a href="#GLOG" class="headerlink" title="GLOG"></a>GLOG</h3><p>记录日志</p>
+<h3 id="BLAS"><a href="#BLAS" class="headerlink" title="BLAS"></a>BLAS</h3><p>CPU端的矩阵、向量计算，GPU端的计算使用cuBLAS</p>
+<h3 id="HDF5"><a href="#HDF5" class="headerlink" title="HDF5"></a>HDF5</h3><p>Caffe训练模型可以选择保存为HDF5格式或者ProtoBuffer格式。HDF( Hierachical Data File )是美国国家高级计算应用中心（NCSA）为了满足各种领域研究需求而研制的一种高效存储和分发科学数据的新型数据格式。</p>
+<h3 id="Opencv"><a href="#Opencv" class="headerlink" title="Opencv"></a>Opencv</h3><p>开源计算机视觉库</p>
+<h3 id="LMDB和LEVELDB"><a href="#LMDB和LEVELDB" class="headerlink" title="LMDB和LEVELDB"></a>LMDB和LEVELDB</h3><p>LMDB( Lightning Memory-Mapped Database Manager )，在Caffe中主要提供数据管理，将原始数据（JPEG图片、二进制数据）转换为统一的Key-Value存储，便于Caffe的DataLayer获取这些数据。LEVELDB是caffe早期版本所使用的，由Goggle开发，现多使用LMDB代替。</p>
+<h3 id="Snappy"><a href="#Snappy" class="headerlink" title="Snappy"></a>Snappy</h3><p>用来压缩和解压的C++库</p>
+<h2 id="Layer"><a href="#Layer" class="headerlink" title="Layer"></a>Layer</h2><p>卷积层在输出特征图维度实现了权值共享，降低了参数量。卷积的局部连接特性（相比全连接）也大幅减少了参数量。<br>计算加速优化重点放在卷积层，参数优化和权值剪裁重点放在全连接层。</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="Blob"><a href="#Blob" class="headerlink" title="Blob"></a>Blob</h3><p>Caffe使用称为Blob的4维数组用于存储和交换数据。Blob提供了统一的存储器接口，持有一批图像或其他数据、权值、权值更新值。类似Torch/Theano/TensorFlow中的Tensor。使用BlobProto可以方便的实现序列化和反序列化。</p>
+<p>有两种类型的Blob，以param开头的权值Blob和以blob开头的Layer输入/输出Blob。权值Blob会随着学习过程而更新，归属于“模型”。Layer输入/输出Blob则只会随网络输入变化，归属于“数据”。深度学习的目的急速不断从“数据”中学习，存储到“模型”中，应用于后来的“数据”。</p>
+<h3 id="Layer-1"><a href="#Layer-1" class="headerlink" title="Layer"></a>Layer</h3><p>Layer是Caffe的基本计算单元，至少有一个输入Blob( Bottom Blob )和一个输出Blob( Top Blob )，部分Layer带有权值( Weight )和偏置项( Bias )，有两个运算方向：前向传播和反向传播，其中前向传播计算会对输入Blob进行处理，得到输出Blob，而反向传播计算则会对输出Blob的diff进行处理，得到输出Blob的diff。</p>
+<h3 id="Net"><a href="#Net" class="headerlink" title="Ｎet"></a>Ｎet</h3><p>Net在Caffe中代表一个完成的CNN模型，它包含若干Layer实例。</p>
+<p>Net是一张图纸，对应描述文件为*.prototxt，Net既包含Layer对象又包含Blob对象，其中Blob对象用于存放每个Layer输入/输出中间结果，Layer则根据Net描述对指定的输入Blob进行某些计算处理（卷积、下采样、全连接、非线性变换、计算代价函数等），输出结果放到指定的输出Blob中。输入Blob和输出Blob可能为同一个。所有的Layer的Blob对象都用名字区分，同名的Blob表示同一个Blob对象，同名的Layer表示同一个Layer对象。而Blob和Layer同名则不代表它们有任何直接关系。</p>
+<h2 id="I-O-模块"><a href="#I-O-模块" class="headerlink" title="I/O 模块"></a>I/O 模块</h2><h3 id="数据读取层"><a href="#数据读取层" class="headerlink" title="数据读取层"></a>数据读取层</h3><p>Caffe数据读取层（DataLayer）是Layer的派生类。除了读取LMDB、LEVELDB之外，也可以从原始图像直接读取（ImageDataLayer）。</p>
+<h3 id="数据变换器"><a href="#数据变换器" class="headerlink" title="数据变换器"></a>数据变换器</h3><p>Caffe的数据变换器（DataTransformer）主要提供了对原始输入图像的预处理方法，包括随机切块、随机镜像、幅度缩放、去均值、灰度/色度变换等。</p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li>可学习参数（Learnable Parameter）：又称可训练参数、神经网络权系数、权重，其数值由模型初始化参数、误差反向传播过程控制，一般不可人工干预。在Caffe中，在内存中使用Blob对象保持，必要时以二进制ProtoBuffer文件（.caffemodel）形态序列化并存储于磁盘上，以便进一步fine-tune、共享、性能评估（benchmark）</li>
+<li>结构参数（Archetecture Parameter），包括卷积层/全连接层/下采样层数目、卷积核数目、卷积核大小等描述网络结构的参数，一旦设定好，在网络训练阶段不能更改：值得注意的是，训练阶段网络结构参数和预测阶段结构参数可能不同。在Caffe中，使用ProtoBuffer文本格式（*.prototxt）描述，网络初始化时通过该描述文件构建Net对象、Layer对象形成有向无环图结构，在Layer与Layer之间、Net输入源和输出均为持有数据和中间结果的Blob对象。</li>
+<li>训练超参数（Hyper-Parameter），用来控制网络训练收敛的参数，训练阶段可以自动或手动调节以获得更好的效果，预测阶段不需要该参数。在Caffe中同样使用ProtoBuffer文本格式（<em>.prototxt）描述，训练阶段利用该描述文件构建求解器（Solver）对象(Sovler.prototxt)。该对象按照一定规则在*</em>训练**网络时自动调节这些超参数，如学习速率，优化器。</li>
+</ul>
+<h2 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h2><p>传统的BP算法在训练CNN的时候包括了两个阶段：前向传播计算（Forward）和反向传播计算（Backward）。<br>通常只有在训练阶段才需要反向传播计算，预测任务就只需要前向传播。</p>
+<h2 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h2><p>CNN进行前向传播阶段，依次调用每个Layer和Forward函数，得到逐层的输出，最后一层与目标函数比较得到损失函数，计算误差更新值，通过反向传播路径逐层达到第一层，所有权值层在反向传播结束后<strong>一起更新</strong>。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>损失层（Loss Layer）是CNN训练阶段的终点，接受两个Blob作为输入，其中一个为CNN的预测值，另一个是真实标签。</p>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><p><code>build/tools/extract_features.bin</code>实现了特征提取功能，该程序需要一个训练好的网络和一个数据输入层，运行后可以得到相应数据通过网络某个中间层产生的特征图并保存到磁盘。</p>
+<h3 id="计算图像均值"><a href="#计算图像均值" class="headerlink" title="计算图像均值"></a>计算图像均值</h3><p><code>tools/compute_image_mean.cpp</code></p>
+<h1 id="GPU-加速"><a href="#GPU-加速" class="headerlink" title="GPU 加速"></a>GPU 加速</h1><p>GPU:（Graphics Processing Unit）</p>
+<h2 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h2><p>CUDA（Compute Unified Device Architecture）是NVIDIA在2006年推出的一套针对异构计算资源（Intel CPU + NVIDIA GPU）下的大规模并行计算的架构，包括编译器（nvcc）、开发工具、运行时库和驱动等模块。<br>CUDA语法和C语言高度像素，大大降低了GPU编程的门槛。使用的时候直接利用CUDA提供的cuBLAS软件库进行运算即可。</p>
+<h2 id="cuDNN"><a href="#cuDNN" class="headerlink" title="cuDNN"></a>cuDNN</h2><p>NVIDIA从2014年开始推出了面向深度学习的专用加速库cuDNN，支持常见的深度学习计算模型（卷积、下采样、非线性、Softmax）</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://caffe.berkeleyvision.org/" target="_blank" rel="noopener">Caffe</a> 贾扬清</li>
+<li>《深度学习：21天实战caffe》 赵永科</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/" title="Caffe 入门">https://blog.kinpzz.com/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/Caffe/" rel="tag"># Caffe</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/26/Kaggle-Planet-Records/" rel="next" title="Kaggle: Planet Competion Record">
+                <i class="fa fa-chevron-left"></i> Kaggle: Planet Competion Record
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/02/notes-chestX-ray8/" rel="prev" title="[论文笔记] ChestX-ray8">
+                [论文笔记] ChestX-ray8 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深度学习框架选择"><span class="nav-number">2.</span> <span class="nav-text">深度学习框架选择</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Caffe"><span class="nav-number">3.</span> <span class="nav-text">Caffe</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">3.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖包"><span class="nav-number">3.2.</span> <span class="nav-text">依赖包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ProtoBuffer"><span class="nav-number">3.2.1.</span> <span class="nav-text">ProtoBuffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boost"><span class="nav-number">3.2.2.</span> <span class="nav-text">Boost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GFLAGS"><span class="nav-number">3.2.3.</span> <span class="nav-text">GFLAGS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GLOG"><span class="nav-number">3.2.4.</span> <span class="nav-text">GLOG</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BLAS"><span class="nav-number">3.2.5.</span> <span class="nav-text">BLAS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDF5"><span class="nav-number">3.2.6.</span> <span class="nav-text">HDF5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Opencv"><span class="nav-number">3.2.7.</span> <span class="nav-text">Opencv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LMDB和LEVELDB"><span class="nav-number">3.2.8.</span> <span class="nav-text">LMDB和LEVELDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Snappy"><span class="nav-number">3.2.9.</span> <span class="nav-text">Snappy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layer"><span class="nav-number">3.3.</span> <span class="nav-text">Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">3.4.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Blob"><span class="nav-number">3.4.1.</span> <span class="nav-text">Blob</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer-1"><span class="nav-number">3.4.2.</span> <span class="nav-text">Layer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net"><span class="nav-number">3.4.3.</span> <span class="nav-text">Ｎet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O-模块"><span class="nav-number">3.5.</span> <span class="nav-text">I/O 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据读取层"><span class="nav-number">3.5.1.</span> <span class="nav-text">数据读取层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据变换器"><span class="nav-number">3.5.2.</span> <span class="nav-text">数据变换器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型"><span class="nav-number">3.6.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">3.6.1.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向传播"><span class="nav-number">3.7.</span> <span class="nav-text">前向传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向传播"><span class="nav-number">3.8.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#损失函数"><span class="nav-number">3.9.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">3.10.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征提取"><span class="nav-number">3.10.1.</span> <span class="nav-text">特征提取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算图像均值"><span class="nav-number">3.10.2.</span> <span class="nav-text">计算图像均值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPU-加速"><span class="nav-number">4.</span> <span class="nav-text">GPU 加速</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CUDA"><span class="nav-number">4.1.</span> <span class="nav-text">CUDA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cuDNN"><span class="nav-number">4.2.</span> <span class="nav-text">cuDNN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/';
+          this.page.identifier = '2017/07/30/Caffe-入门/';
+          this.page.title = 'Caffe 入门';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

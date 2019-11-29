@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Jenkins,Docker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言在博客Docker 入门 &amp;amp; CI&#x2F;CD实践中，提及到了如何搭建Jenkins来进行持续集成和持续部署，并且跑了对大作业的web后端进行了一个简单的demo，使用自动触发抓取GitHub上项目代码进行持续集成测试，通过了mvn clean test的构建测试。本文将进一步通过Jenkins和docker对整个“订你所想”订票系统的Web Service Server、Web Pag">
+<meta name="keywords" content="Jenkins,Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins + Docker 项目持续部署实践">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;06&#x2F;08&#x2F;jenkins-docker-ci-cd&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="前言在博客Docker 入门 &amp;amp; CI&#x2F;CD实践中，提及到了如何搭建Jenkins来进行持续集成和持续部署，并且跑了对大作业的web后端进行了一个简单的demo，使用自动触发抓取GitHub上项目代码进行持续集成测试，通过了mvn clean test的构建测试。本文将进一步通过Jenkins和docker对整个“订你所想”订票系统的Web Service Server、Web Pag">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgdxuizqhpj21370ivgoq.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgdsmdwahfj21b40jwq5a.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgeu0lqnqtj21hc0jpqf7.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgeu0x9jq3j21hc0nsgrz.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgeu16xcpmj21hc0m2gr4.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgf7natxycj20ze0asdhv.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgf81n6g03j21g60hcgof.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgf81uwyzbj21l00mq0xp.jpg">
+<meta property="og:updated_time" content="2019-11-29T04:07:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgdxuizqhpj21370ivgoq.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/06/08/jenkins-docker-ci-cd/"/>
+
+
+
+
+
+  <title>Jenkins + Docker 项目持续部署实践 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/06/08/jenkins-docker-ci-cd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jenkins + Docker 项目持续部署实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T17:24:00+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/08/jenkins-docker-ci-cd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/08/jenkins-docker-ci-cd/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/08/jenkins-docker-ci-cd/" class="leancloud_visitors" data-flag-title="Jenkins + Docker 项目持续部署实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgdxuizqhpj21370ivgoq.jpg" referrerPolicy="no-referrer">
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在博客<a href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/">Docker 入门 &amp; CI/CD实践</a>中，提及到了如何搭建Jenkins来进行持续集成和持续部署，并且跑了对大作业的web后端进行了一个简单的demo，使用自动触发抓取GitHub上项目代码进行持续集成测试，通过了<code>mvn clean test</code>的构建测试。本文将进一步通过Jenkins和docker对整个<a href="https://github.com/SevenDwarfs" target="_blank" rel="noopener">“订你所想”订票系统</a>的Web Service Server、Web Page Server、Database server 等进行持续集成和持续部署。</p>
+<p><strong>PS:</strong> 本文的自动部署方法可能仍然存在一些问题，因为这系列的docker集群存在着一定的依赖关系，单独自动部署某个容器过程如果某个失败，可能会破坏其他容器的依赖关系，所以后续会再改用docker compose 对docker container集群进行部署的改进，使用docker compose可以实现集群依赖关系的先后部署和统一管理。</p>
+<a id="more"></a>
+<p>GitHub : <a href="https://github.com/SevenDwarfs" target="_blank" rel="noopener">https://github.com/SevenDwarfs</a></p>
+<h1 id="为什么是-Jenkins"><a href="#为什么是-Jenkins" class="headerlink" title="为什么是 Jenkins"></a>为什么是 Jenkins</h1><p>相比于travis-ci，我选择使用自己搭建Jenkins服务的原因有以下几个：</p>
+<ul>
+<li><strong>构建速度过慢</strong>：我们的项目每次构建时都要重新下载大量的maven插件和npm插件，尤其是下载maven插件的时间需要花费很多时间。</li>
+<li><strong>持续部署存在困难</strong>：使用travis-ci之后，无法直接在宿主机上进行docker image的构建和容器的运行，只能将构建好的image发送到远程服务器如阿里云或者Docker Hub或者进行远程构建，需要部署的时候在重新docker pull下来。而一个image通常比较大，会花费大量时间。</li>
+</ul>
+<p>以上原因主要都是时间花费过多，这就给开发过程带来了一定的困扰，可能一个项目得很久才能看到部署的结果，不利于开发的进行。所以我再搭建自己的jenkins服务器，对一些耗时的maven插件进行缓存，避免重复下载浪费时间，但是搭建自己的jenkins服务器也有几点是需要重新配置的。主要原因就是网络环境问题，国内使用国外maven、npm、docker的源速度太慢，而且经常下载失败，所以需要重新对这些源进行配置，经过重新配置之后，每个项目基本都能在五分钟之内完成构建或者部署。</p>
+<p>但是如果是只要进行持续测试的话，travis-ci还是来的比较方便的，所以项目既保留了travis-ci的持续测试，也使用了jenkins进行持续部署。构建通过还有会有个building pass的图表，项目后端travis-ci地址: <a href="https://travis-ci.org/SevenDwarfs/WebService" target="_blank" rel="noopener">https://travis-ci.org/SevenDwarfs/WebService</a></p>
+<h2 id="使用国内镜像加速"><a href="#使用国内镜像加速" class="headerlink" title="使用国内镜像加速"></a>使用国内镜像加速</h2><p>国内使用国外maven、docker、npm源进行下载，会出现速度过慢和下载失败问题，下面是一些参考文章，可以用来修改相应的源。</p>
+<ul>
+<li><a href="http://blog.csdn.net/hyzhou33550336/article/details/58033405" target="_blank" rel="noopener">docker镜像加速器</a></li>
+<li><a href="http://www.jianshu.com/p/4d5bb95b56c5" target="_blank" rel="noopener">maven 亲测可用国内镜像 阿里云</a></li>
+<li><a href="http://riny.net/2014/cnpm/" target="_blank" rel="noopener">国内优秀npm镜像推荐及使用</a></li>
+</ul>
+<p>建议：在使用docker之前改用阿里云的docker镜像加速器、在使用maven构建之前改用阿里云maven镜像、在使用npm之前改用淘宝的npm源镜像。下面文章的实践过程，默认已经改用了这些源来加速，便不再做具体的说明。有的可能是直接在宿主机上进行修改，有的在docker image构建的Dockerfile里就进行修改，根据具体需求来实现。</p>
+<h2 id="Jenkins-安装Tips"><a href="#Jenkins-安装Tips" class="headerlink" title="Jenkins 安装Tips"></a>Jenkins 安装Tips</h2><p>参考博客<a href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/">Docker 入门 &amp; CI/CD实践</a>，假设已经搭建好了jenkins的docker容器，但是在我们要进行持续部署之前还要进行一些调整。jenkins官方所提供的docker容器是不包含maven、npm等环境的，所以我们有两种解决方法，一是使用安装了这些环境的jenkins并且与宿主机使用volume进行maven安装位置的映射(用于保存插件缓存），还有docker.sock的映射（用于在宿主机上执行docker命令）；二是直接将jenkins安装在宿主机上，并且给宿主机配置好相关环境。</p>
+<p>这里我就接着上一次的内容，仍然是使用docker来安装jenkins，并且进行一些调整。这里使用了<a href="https://hub.docker.com/r/lw96/java8-jenkins-maven-git-vim/" target="_blank" rel="noopener">lw96/java8-jenkins-maven-git-vim</a>镜像。该镜像带有maven、docker等环境。可以在其docker hub页面相关环境变量的位置。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">docker run -d -p 0.0.0.0:8080:8080 -v /root/data:/jenkins \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">-v /etc/localtime:/etc/localtime:ro \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">-v /root/data/maven:/opt/maven \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">-v /var/run/docker.sock:/var/run/docker.sock \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">--name jenkins lw96/java8-jenkins-maven-git-vim</span></pre></td></tr></table></figure>
+<ul>
+<li><code>/var/run/docker.sock</code> : 将宿主机的docker.sock映射到容器中，docker.sock是unix的socket通讯方式，可以将jenkins的docker命令传送到宿主机中进行执行。<a href="https://stackoverflow.com/questions/35110146/can-anyone-explain-docker-sock/35110344" target="_blank" rel="noopener">参考StackOverflow</a></li>
+<li><code>/root/data:/jenkins</code> : 与宿主机共享jenkins的工作目录，方便容器的迁移，保存之前jenkins所存留的数据</li>
+<li><code>/opt/maven</code> : 映射宿主机与jenkins的maven安装位置，使得jenkins可以使用maven插件的缓存</li>
+</ul>
+<h1 id="持续部署项目实践"><a href="#持续部署项目实践" class="headerlink" title="持续部署项目实践"></a>持续部署项目实践</h1><h2 id="GitHub-地址"><a href="#GitHub-地址" class="headerlink" title="GitHub 地址"></a>GitHub 地址</h2><p><strong>GitHub 项目地址:</strong> <a href="https://github.com/SevenDwarfs" target="_blank" rel="noopener">https://github.com/SevenDwarfs</a></p>
+<p>*<em>GitHub 部署说明: *</em><a href="https://github.com/SevenDwarfs/Deployment" target="_blank" rel="noopener">https://github.com/SevenDwarfs/Deployment</a></p>
+<p>该项目主要使用Nginx作为静态资源服务器以及进行反向代理，使用docker来模拟节点运行。静态网页资源的<code>npm build</code>，web service server、database server都是运行在单独的docker容器上。其中Nginx直接运行在宿主机上，为了方便宿主机上一些docker的端口服务进行通讯，且考虑到Nginx配置一次即可，未再运行docker来持续部署Nginx，其他服务仅将端口暴露在内部或者宿主机的localhost上，避免外部直接访问端口，提升安全性。</p>
+<h2 id="节点配置"><a href="#节点配置" class="headerlink" title="节点配置"></a>节点配置</h2><ul>
+<li>阿里云华南节点：<ul>
+<li>CPU核数：1</li>
+<li>内存大小：1GB</li>
+<li>带宽：1Mbps</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目部署图"><a href="#项目部署图" class="headerlink" title="项目部署图"></a>项目部署图</h2><p><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgdsmdwahfj21b40jwq5a.jpg" alt="项目部署图"></p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>Demo Website: <a href="http://aliyun.kinpzz.com:8000" target="_blank" rel="noopener">http://aliyun.kinpzz.com:8000</a></p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgeu0lqnqtj21hc0jpqf7.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgeu0x9jq3j21hc0nsgrz.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgeu16xcpmj21hc0m2gr4.jpg" referrerPolicy="no-referrer">
+
+<h2 id="持续部署-CD"><a href="#持续部署-CD" class="headerlink" title="持续部署 (CD)"></a>持续部署 (CD)</h2><p>本文利用Jenkins与Docker实现项目的持续部署，通过Jenkins GitHub Plugin来实现GitHub hook，当GitHub的项目代码进行了更新或者合并，都会触发Jenkins执行指定的命令进行自动化的构建。然后通过Jenkins与宿主机的docker进行通讯，将构建好的项目通过docker镜像打包，再通过容器运行。一些容器之间存在着父子相应的依赖关系，本文尚未采用docker compose来支持这种依赖关系的先后构建顺序，而是采用当父容器发生改变之后，对依赖该父容器的子容器也进行重新构建、运行的方法来实现依赖关系，在后续的过程中可能会改用docker compose。例如该项目中的Database Server与Web Service Server就存在相应的依赖关系，后面会具体阐述做法，其中网页服务需要依赖数据库服务。</p>
+<h3 id="Web-Page-Dockerfile"><a href="#Web-Page-Dockerfile" class="headerlink" title="Web Page (Dockerfile)"></a>Web Page <a href="https://github.com/SevenDwarfs/Webpage/blob/master/Dockerfile" target="_blank" rel="noopener"><em>(Dockerfile)</em></a></h3><p>使用下面的Dockerfile进行构建，主要就是执行从node环境进行npm包的安装和使用<code>npm run build</code>进行静态资源的生成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">FROM node:6.10.3</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">WORKDIR &#x2F;web-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">COPY . .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">RUN npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &amp;&amp; npm config get registry</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">RUN npm install \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &amp;&amp; npm run build</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">CMD [&quot;tail&quot;, &quot;-f&quot;, &quot;&#x2F;var&#x2F;log&#x2F;faillog&quot;]</span></pre></td></tr></table></figure>
+
+<p>在jenkins中执行下列shell指定，主要就是构建web page的镜像和运行容器，并且把镜像中生成的静态资源使用<code>docker cp</code>拷贝到jenkins的工作目录下，以便后面Nginx进行访问。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> jenkins run shell</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">docker stop web-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">docker rm web-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">docker rmi web-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">docker build -t web-server .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">docker run -d --name web-server web-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> save to /home/kinpzz/webpage</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">docker cp web-server:/web-server/dist /jenkins/webpage</span></pre></td></tr></table></figure>
+
+<h3 id="Nginx-Nginx-conf"><a href="#Nginx-Nginx-conf" class="headerlink" title="Nginx (Nginx.conf)"></a>Nginx <a href="https://github.com/SevenDwarfs/Deployment/blob/master/nginx.conf" target="_blank" rel="noopener"><em>(Nginx.conf)</em></a></h3><p>这里Nginx，我选择直接安装在宿主机上，而不是构建成docker镜像。主要是出于以下两个原因。</p>
+<ul>
+<li>Nginx 需要进行反向代理，连接到只暴露到localhost的web service server端口。</li>
+<li>Nginx 需要访问拷贝到宿主机上的静态资源。</li>
+<li>Nginx 只需要修改一个配置文件，变动不大。</li>
+</ul>
+<p>出于以上原因，若Nginx需要在docker的镜像里，则需要与Web Page构建的docker在同一个容器中，才能访问到相应的静态资源，且要访问web service server需要进行docker的link，加大了依赖关系。且Nginx配置文件变化不大，所以我就选择了直接简单地配置在宿主机上。</p>
+<p>下面是对<code>Nginx.conf</code>主要进行的修改,在http标签下添加了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">server &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        listen 8000;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        server_name aliyun.kinpzz.com:8000;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        charset utf-8;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        # 反向代理RESTful server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        location &#x2F;api&#x2F; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">                proxy_pass http:&#x2F;&#x2F;127.0.0.1:8082;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        # 获取静态资源</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        location &#x2F; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">                # 静态资源位置</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">                root &#x2F;root&#x2F;data&#x2F;webpage&#x2F;dist;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">                index index.html;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr></table></figure>
+
+<p>这里让Nginx负责监听8000端口，由于服务器没有备案，所以无法使用域名加80端口进行访问，但是效果是一样的。以<code>/api</code>开头的请求就转送到宿主机的8082端口，由web service server来进行处理，其他静态资源则有Nginx服务器直接返回。</p>
+<p>PS: 这里要注意的是Nginx用户 <code>www-data</code>(配置文件开头所设置)，对一些root文件夹是没有访问权限的，需要手动使用<code>chmod</code>命令进行权限的授予，也可以选择放在一个普通权限用户可以访问的目录，由于静态资源在上一步中存储在了jenkins的工作目录下，所以这里我就需要手动的授予读权限，注意<strong>每层目录</strong>都要授予相应读权限才可以，否则进不了当前一层的目录仍是访问不了下一层的目录的。当然也可以将用户修改成有root权限的用户，出于安全因素，这种做法通常不推荐。</p>
+<h3 id="Database-Server-Dockerfile"><a href="#Database-Server-Dockerfile" class="headerlink" title="Database Server (Dockerfile)"></a>Database Server <a href="https://github.com/SevenDwarfs/DatabaseServer/blob/master/Dockerfile" target="_blank" rel="noopener"><em>(Dockerfile)</em></a></h3><p>使用下面的Dockerfile来进行数据库的构建，主要是在mysql的环境下创建一个数据库用户并授予相关权限、数据库以及指定该数据库的source。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">FROM mysql:5.7</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">WORKDIR &#x2F;db-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">COPY .&#x2F;sql&#x2F;init_data.sql .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">COPY .&#x2F;init.sh .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">CMD [&quot;sh&quot;, &quot;init.sh&quot;]</span></pre></td></tr></table></figure>
+<p>下列的<code>init.sh</code>就是实现数据库相关操作的过程，具体操作可以参考我的另外一篇博文介绍: <a href="https://blog.kinpzz.com/2017/06/04/connect-mysql-server/">连接mysql远程服务器</a>。其中，mysql的官方docker镜像已经将<code>bind-address=127.0.0.1</code>给注释掉允许外网进行访问了，所以这里可以不用再进行另外进行操作了。注意的一点是，docker容器如果没有在前台执行的任务是会自动结束容器运行的，所以数据库的服务器只在后台运行是不行的，这里再用了<code>tail</code>在前台不断输出mysql的错误日志，使得docker容器能够一直执行。</p>
+<p>init.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">service mysql start</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">mysql &lt;&lt; EOF</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">CREATE DATABASE movie;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">use movie</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">source init_data.sql</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">CREATE USER 'movie_database'@'%' IDENTIFIED BY 'movie_database';</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">GRANT ALL ON movie.* TO 'movie_database'@'%';</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">EOF</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">service mysql restart</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">tail -f /var/log/mysql/error.log</span></pre></td></tr></table></figure>
+
+
+<p>在Jenkins执行下列的<code>run.sh</code>脚本来构建docker镜像以及运行容器。这里要注意的是，web service server是依赖于database server的，所以重新构建database server之前需要停止web service server，构建完之后也要重新构建web service server的镜像再运行。因为通过<code>docker --link</code>的标签会产生一个依赖于database server的容器，database server的镜像发生了改变，自然web service server也要依赖于新的镜像进行新的容器的运行了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">docker stop restful-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">docker stop db</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">docker rm db</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">docker rmi db-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">docker build -t db-server .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">docker run -d --name db db-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">docker rm restful-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">docker rmi kinpzz/restful-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">cd ../WebService</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">git pull origin</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">docker build -t kinpzz/restful-server .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">docker run -d -p 127.0.0.1:8082:8082 --name restful-server --link db:db-server kinpzz/restful-server</span></pre></td></tr></table></figure>
+
+<p>** PS: 使用link的作用： **</p>
+<blockquote>
+<p>link 是在两个contain之间建立一种父子关系，父container中的web，可以得到子container db上的信息。<br>通过link的方式创建容器，我们可以使用被Link容器的别名进行访问，而不是通过IP，解除了对IP的依赖。</p>
+</blockquote>
+<p>所以我们后端服务器在连接数据库的时候就不需要通过ip地址，通过db这个别名即可。实现机理就关系到了docker的网络架构是通过linux的bridge来实现的，能够获取到兄弟节点的ip就可以相互访问，而link通过将ip与别名写入了/etc/hosts来解除对ip的依赖。</p>
+<p>参考：</p>
+<ul>
+<li><a href="http://dockone.io/question/795" target="_blank" rel="noopener">docker link 作用</a></li>
+<li><a href="https://docs.docker.com/engine/userguide/networking" target="_blank" rel="noopener">docker network</a></li>
+</ul>
+<h3 id="Web-Service-Server-Dockerfile"><a href="#Web-Service-Server-Dockerfile" class="headerlink" title="Web Service Server (Dockerfile)"></a>Web Service Server <a href="https://github.com/SevenDwarfs/WebService/blob/master/Dockerfile" target="_blank" rel="noopener"><em>(Dockerfile)</em></a></h3><p>这里Dockerfile主要执行的就是运行好jenkins打包好的war包即可运行好服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">FROM java:8</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">VOLUME &#x2F;tmp</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">COPY target&#x2F;movie-booking.war .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;movie-booking.war&quot;]</span></pre></td></tr></table></figure>
+
+<p>在jenkins中执行<code>run.sh</code>, 这里直接在jenkins环境下进行<code>mvn package</code>的命令将maven项目进行打包成可以执行的war包。之所以没有选择在docker中进行包的构建，是为了缓存一些使用过的mvn插件，来减少因重复下载包所花费的时间。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">export MAVEN_HOME=/opt/maven</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/java/jdk1.8.0_112</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">export JENKINS_HOME=/jenkins</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">mvn package</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">docker stop restful-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">docker rm restful-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">docker rmi kinpzz/restful-server</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">docker build -t kinpzz/restful-server .</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">docker run -d -p 127.0.0.1:8082:8082 --name restful-server --link db:db-server kinpzz/restful-server</span></pre></td></tr></table></figure>
+
+<h4 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h4><p>这里使用了<code>docker -link</code>来进行两个容器的连接，原本想把数据库容器的端口暴露在127.0.0.1:3306,但是暴露在宿主机的127.0.0.1上之后，这里的web service server仍然是无法访问到的（因为docker的网络是隔离的），所以这里就使用了<code>docker -link</code>这个操作，可以让docker之间通过bridge的方式进行连接。更多关于docker link的知识可以参考: <a href="https://www.oschina.net/translate/dockerlinks" target="_blank" rel="noopener">Docker 中如何连接多个 Container 协同工作</a></p>
+<p>通过bash查看相连的数据库docker容器的ip</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it restful-server bash</span></span></pre></td></tr></table></figure>
+<ul>
+<li><code>-i</code>: 指的是interactive 交互式</li>
+<li><code>-t</code>: 指的是terminal 终端形式</li>
+<li><code>restful-server</code>: 指的是所指定的容器的名字</li>
+<li><code>bash</code>: 在这个容器中执行 bash指令</li>
+</ul>
+<p>我们通过查看<code>/etc/host</code>文件来查看数据库的ip为192.168.0.3，在bash中执行ping也是可以ping通的</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgf7natxycj20ze0asdhv.jpg" referrerPolicy="no-referrer">
+
+<p>所以在web service server生产环境配置<a href="https://github.com/SevenDwarfs/WebService/blob/master/src/main/resources/application-prod.properties" target="_blank" rel="noopener">application-prod.properties</a>，我们将JDBC数据库连接的地址设置为<code>192.168.0.3:3306</code>。这样子就可以避免直接向外部暴露数据库的ip地址了，也只有通过docker连接的方式才能访问到我们的数据库服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">spring.datasource.jdbcUrl&#x3D;jdbc:mysql:&#x2F;&#x2F;192.168.0.3:3306&#x2F;movie?useSSL&#x3D;false\</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">  &amp;serverTimezone&#x3D;UTC\</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  &amp;useUnicode&#x3D;true\</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">  &amp;characterEncoding&#x3D;utf8&amp;autoReconnect&#x3D;true\</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  &amp;failOverReadOnly&#x3D;false</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr></table></figure>
+
+<h3 id="Jenkins-配置"><a href="#Jenkins-配置" class="headerlink" title="Jenkins 配置"></a>Jenkins 配置</h3><p>在配置好上述的Dockerfile和jenkins下run的shell命令之后，还要配置好jenkins中的项目。写好了jenkins应该执行的指令之后，配置就比较简单的了。</p>
+<p>首先要先安装好jenkins的GitHub plugin，如何安装插件上一篇博文<a href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/#Jenkins">Docker 入门 &amp; CI/CD实践</a>已经介绍过了，具体可以再看看如何操作。主要步骤为：</p>
+<ol>
+<li>对每个仓库的新建一个风格自由的jenkins项目</li>
+<li>设置好Github项目地址，相关访问权限</li>
+<li>设置好GitHub项目上的jenkins地址、还有jenkins构建触发器</li>
+<li>在构建中执行<code>run.sh</code></li>
+</ol>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgf81n6g03j21g60hcgof.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgf81uwyzbj21l00mq0xp.jpg" referrerPolicy="no-referrer">
+
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="缺点与改进"><a href="#缺点与改进" class="headerlink" title="缺点与改进"></a>缺点与改进</h2><p>配置好持续部署方案之后，极大地提高了开发到部署的进程，有新版本的代码更新之后，马上就可以在线上看到部署的结果了。但是同时也存在着一些缺点：</p>
+<ul>
+<li><p>docker之间的依赖关系实现的不是很好，(<strong>待改进</strong>:)可以改进使用docker compose来支持docker集群之间的以来关系。但是有时候删除原有容器的时候偶尔会发生错误，只能手动进行删除，这点需要改进。看到了一套博客的CD方案也可以参考一下：<a href="https://www.binss.me/blog/binsite-3.2-release/" target="_blank" rel="noopener">binsite 3.2</a></p>
+</li>
+<li><p>如果开发人员提交了一个错误版本的代码，那么可能会使得整个部署系统崩溃，所以这一套自动部署方案应该还是比较适合作为一个模拟实际的测试环境，要正式上线的项目应该经过更严格的审核和测试才能进行上线。</p>
+</li>
+</ul>
+<h2 id="体会与收获"><a href="#体会与收获" class="headerlink" title="体会与收获"></a>体会与收获</h2><p>实践过程中踩了许多坑，主要还是对docker了解不够充分，比如Dockerfile中WORKDIR的作用，每一条RUN都是独立的环境下执行的，如果要更换目录应该采用WORKDIR语句（若没有该文件夹会自动创建并进入）。使用cd命令来切换工作目录是无效的，因为每一条CMD和RUN语句的执行环境都是独立的，这是很多新手容易犯的一个错误。体会到了老师所说的“在云时代，部署也是一种编程”，更进一步了解了docker技术，感受到了它的强大和魅力，也感觉到还有许多可以学习的地方，相信在将来还会有许多业务场景会使用上这一项技术，也将做进一步的学习、记录和分享！</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>参考中有前面关于docker相关的命令解释和概念，docker的开发者应该都要熟悉的。</p>
+<ul>
+<li><a href="https://www.oschina.net/translate/dockerlinks" target="_blank" rel="noopener">Docker 中如何连接多个 Container 协同工作</a></li>
+<li><a href="https://yeasy.gitbooks.io/docker_practice/content/image/dockerfile/workdir.html" target="_blank" rel="noopener">WORKDIR 指定工作目录</a></li>
+<li><a href="http://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/" target="_blank" rel="noopener">Docker RUN vs CMD vs ENTRYPOINT</a></li>
+<li><a href="https://stackoverflow.com/questions/35110146/can-anyone-explain-docker-sock/35110344" target="_blank" rel="noopener">StackOverflow: Can anyone explain docker.sock
+</a></li>
+<li><a href="https://www.binss.me/blog/binsite-3.2-release/" target="_blank" rel="noopener">binsite 3.2部署方案</a></li>
+<li><a href="http://blog.csdn.net/hyzhou33550336/article/details/58033405" target="_blank" rel="noopener">Docker 镜像加速器</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/06/08/jenkins-docker-ci-cd/" title="Jenkins + Docker 项目持续部署实践">https://blog.kinpzz.com/2017/06/08/jenkins-docker-ci-cd/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/04/connect-mysql-server/" rel="next" title="连接mysql远程服务器">
+                <i class="fa fa-chevron-left"></i> 连接mysql远程服务器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/26/Kaggle-Planet-Records/" rel="prev" title="Kaggle: Planet Competion Record">
+                Kaggle: Planet Competion Record <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么是-Jenkins"><span class="nav-number">2.</span> <span class="nav-text">为什么是 Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用国内镜像加速"><span class="nav-number">2.1.</span> <span class="nav-text">使用国内镜像加速</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins-安装Tips"><span class="nav-number">2.2.</span> <span class="nav-text">Jenkins 安装Tips</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持续部署项目实践"><span class="nav-number">3.</span> <span class="nav-text">持续部署项目实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-地址"><span class="nav-number">3.1.</span> <span class="nav-text">GitHub 地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点配置"><span class="nav-number">3.2.</span> <span class="nav-text">节点配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目部署图"><span class="nav-number">3.3.</span> <span class="nav-text">项目部署图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo"><span class="nav-number">3.4.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持续部署-CD"><span class="nav-number">3.5.</span> <span class="nav-text">持续部署 (CD)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Page-Dockerfile"><span class="nav-number">3.5.1.</span> <span class="nav-text">Web Page (Dockerfile)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-Nginx-conf"><span class="nav-number">3.5.2.</span> <span class="nav-text">Nginx (Nginx.conf)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Database-Server-Dockerfile"><span class="nav-number">3.5.3.</span> <span class="nav-text">Database Server (Dockerfile)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Service-Server-Dockerfile"><span class="nav-number">3.5.4.</span> <span class="nav-text">Web Service Server (Dockerfile)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库连接"><span class="nav-number">3.5.4.1.</span> <span class="nav-text">数据库连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jenkins-配置"><span class="nav-number">3.5.5.</span> <span class="nav-text">Jenkins 配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点与改进"><span class="nav-number">4.1.</span> <span class="nav-text">缺点与改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#体会与收获"><span class="nav-number">4.2.</span> <span class="nav-text">体会与收获</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/06/08/jenkins-docker-ci-cd/';
+          this.page.identifier = '2017/06/08/jenkins-docker-ci-cd/';
+          this.page.title = 'Jenkins + Docker 项目持续部署实践';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

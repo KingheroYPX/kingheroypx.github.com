@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深度学习,医学影像," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="IntroductionTitle: ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks（标杆） onWeakly-Supervised（弱监督） Classiﬁcation and Localization of Common Thorax（胸部） Diseases Author: Xiaosong Wang, Yifa">
+<meta name="keywords" content="深度学习,医学影像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[论文笔记] ChestX-ray8">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;08&#x2F;02&#x2F;notes-chestX-ray8&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="IntroductionTitle: ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks（标杆） onWeakly-Supervised（弱监督） Classiﬁcation and Localization of Common Thorax（胸部） Diseases Author: Xiaosong Wang, Yifa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;mw690&#x2F;6177e8b1gy1fi5pxtckz5j216e0tc7wh.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi5qdi5qcsj214u0gkq68.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;mw690&#x2F;6177e8b1gy1fi5qfby2jtj20uu0kw0w8.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6ubdom7mj21jm0v01kx.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;mw690&#x2F;6177e8b1gy1fi6vj95bimj20wy08mn6s.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6vy6h7wwj20v80u07fr.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6vyjb62ij21n209a0w1.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6vz9wbvnj20tw0letdp.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6w07eyhuj21n005ognk.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6w45itgzj21oe0ne465.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6w60tbj9j21iy0ugn6a.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fi6w6yx6j9j21hc0kutqv.jpg">
+<meta property="og:updated_time" content="2019-11-29T04:07:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;mw690&#x2F;6177e8b1gy1fi5pxtckz5j216e0tc7wh.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/08/02/notes-chestX-ray8/"/>
+
+
+
+
+
+  <title>[论文笔记] ChestX-ray8 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/08/02/notes-chestX-ray8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[论文笔记] ChestX-ray8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-02T20:20:00+08:00">
+                2017-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/02/notes-chestX-ray8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/02/notes-chestX-ray8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/02/notes-chestX-ray8/" class="leancloud_visitors" data-flag-title="[论文笔记] ChestX-ray8">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><strong>Title:</strong> ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks（标杆） on<br>Weakly-Supervised（弱监督） Classiﬁcation and Localization of Common Thorax（胸部） Diseases</p>
+<p><strong>Author:</strong> Xiaosong Wang, Yifan Peng, Le Lu, Zhiyong Lu, Mohammadhadi Bagheri, Ronald M. Summers</p>
+<p>arXiv: <a href="https://arxiv.org/abs/1705.02315" target="_blank" rel="noopener">https://arxiv.org/abs/1705.02315</a></p>
+<p>本文主要是一篇关于胸部X光片的诊断和病理位置定位的论文，作者分析了当前医学图像在深度学习领域的应用仍然存在着数据的稀缺性，以及对标记数据的依赖性。作者旨在构建大规模高准确率的计算机辅助诊断系统，希望引起学术界能对构建大规模医学图像数据库的兴趣。作者通过自然语言处理(NLP)方法从医院PACS系统中，提取报告内容，获取标签，构建了一套医院规模的胸片数据库，主要包含了8种胸部疾病和正常样例，由十万张胸片构成（相比于其他成果，这个数据集已经算比较大的了）。作者又在这个数据集的基础上，通过设计了一套统一DCNN的训练框架，适用于不同的pre-trained model，完成病理识别，证明了能通过弱监督学习完成病理位置的空间定位，减少了对专业的病理位置标记图像的依赖性。是该研究方向的一个benchmark。</p>
+<h1 id="Keyword"><a href="#Keyword" class="headerlink" title="Keyword"></a>Keyword</h1><ul>
+<li>Weakly-Supervised（弱监督）</li>
+<li>Multi-labels Classification（多标签分类）</li>
+<li>Localization（定位）</li>
+<li>Hospital-scale Chest X-ray Database（医院规模X光胸片数据库）</li>
+<li>Commn Thorax Diseases（常见胸部疾病）</li>
+<li>NLP（自然语言处理）</li>
+</ul>
+<p>弱监督：没有基于像素标记的训练图像，只有基于图像类别标签的图像， image-level class labels only。</p>
+<h1 id="Main-Work"><a href="#Main-Work" class="headerlink" title="Main Work"></a>Main Work</h1><ul>
+<li>构建了一个新的弱监督多标签医学图像数据集数据集ChestX-ray8，比以往做研究的样本量要大。（亮点）</li>
+<li>证明了在<strong>弱监督多标签</strong>图像的情况下，还可以判断和<strong>空间定位</strong>常见的胸部疾病。（亮点）</li>
+<li>未来目标：构建全自动的“reading chest X-rays” 系统<br>PS: 介绍可围绕chestX-ray8和判断定位方法两个方面来介绍</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>Mordern hospitals’ PACS(Picture Archiving and Communication Systems) has a tremendous number of X-ray imaging studies accompanied by radiological reports(ie. loosely labeled).<br>Open question: How this type of hospital-size Knowledge database can be used for large-scale high precision computer-aided diagnosis(CAD) systems.</p>
+<p>目前医院PACS中有大量X光图像和放射报告，目前存在着如何将医院的这些数据库应用到构建大规模高准确率的计算机辅助诊断系统中来的问题。</p>
+<h2 id="State-of-the-art-object-dection-and-segmentation"><a href="#State-of-the-art-object-dection-and-segmentation" class="headerlink" title="State-of-the-art object dection and segmentation"></a>State-of-the-art object dection and segmentation</h2><h3 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h3><ul>
+<li>MS COCO: 80 categories, 200k images, 1.2M instances(350k people)</li>
+<li>PASCAL VOC: 20 categories, 11530 images, containing 27450 annotated objects with bounding-boxes(BBox)<h3 id="Object-Detection"><a href="#Object-Detection" class="headerlink" title="Object Detection"></a>Object Detection</h3></li>
+<li>MS COCO: 0.413 mAP</li>
+<li>PASCAL VOC: 0.884 mAP</li>
+</ul>
+<h2 id="Main-limitation-of-recent-notable-work"><a href="#Main-limitation-of-recent-notable-work" class="headerlink" title="Main limitation of recent notable work"></a>Main limitation of recent notable work</h2><p>All proposed methods are eavaluated on some small-to-middle scale problems of (<strong>at most</strong>) several hunders patients. The performance of deep learning techniques remians unclear when it scales up to tens of thousands of patient sudies.</p>
+<p>目前研究的不足：样本量偏小，数据稀缺</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><p>There have been recent efforts on creating openly available annotated medical image database.</p>
+<ul>
+<li>OpenI (An open access biomedical search engine): 3955 radiology reports, 7470 associated chest x-rays –&gt; caption generation</li>
+</ul>
+<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge"></a>Challenge</h2><ol>
+<li>Generic, opened iamge-level anatomy and pathology labels cannot be obtained through crowd-sourcing, such as AMT(Amazon Mechanical Turk) 无医学背景的标注者无法标注医学图像标签，所以使用NLP结合image和reports 提取标签。</li>
+<li>The spatial dimensions of an chest X-ray are usually 2000x3000 pixels. 但是局部病理图片区域大小差异大，且相对于原图片很小。对此，本文提出了一种弱监督多标签分类和定位的框架来解决这个困难。</li>
+<li>医学图像诊断不适合直接使用ImageNet pre-trained DCNN model来fine-tune，因此需要建立弱监督医学图像数据库并学习recognition和localization。</li>
+</ol>
+<h1 id="Construting-Database"><a href="#Construting-Database" class="headerlink" title="Construting Database"></a>Construting Database</h1><h2 id="ChestX-ray8"><a href="#ChestX-ray8" class="headerlink" title="ChestX-ray8"></a>ChestX-ray8</h2><ul>
+<li>A new chest X-ray database proposed by this paper.</li>
+<li>108,948 frontal-view X-ray images of 32,717 unique patients (collected from 1992 to 2015).</li>
+<li>24636 images contain one or more pathologies. 84312 images are normal cases.</li>
+<li>Mined from authors’ institute’s  PACS system.</li>
+<li>Dimension: 1024 x 1024 bitmap</li>
+<li>200 instances for each pathology (totally 983 images) labeled with a B-Box as GT</li>
+<li>8 thoracic pathologies<ul>
+<li>Atelectasis（肺不张，肺萎缩）</li>
+<li>Cardiomegaly（心肥大，心脏扩大症）</li>
+<li>Effusion（积液）</li>
+<li>Infiltration（浸润）</li>
+<li>Mass（肿块）</li>
+<li>Nodule（结节）</li>
+<li>Pneumonia（肺炎）</li>
+<li>Pneumothorax（气胸）</li>
+</ul>
+</li>
+<li>Each image can have multi-labels, including 8 thoracic pathologies and “Normal” labels. (Nomal指的是不含任何病理症状，不局限上述8个病理）</li>
+<li>Labels from the associated radiological reports using NLP.</li>
+<li>There are connections between different pathologies</li>
+</ul>
+<img src="https://ws1.sinaimg.cn/mw690/6177e8b1gy1fi5pxtckz5j216e0tc7wh.jpg" width="500px"/>
+
+<h3 id="Labeling-Disease-Names-by-Text-Mining（标签提取）"><a href="#Labeling-Disease-Names-by-Text-Mining（标签提取）" class="headerlink" title="Labeling Disease Names by Text Mining（标签提取）"></a>Labeling Disease Names by Text Mining（标签提取）</h3><h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><ul>
+<li>DNorm: a machine learning method for disease recognition and normalization. It maps every mention of keywords in a report to a unique concept ID in the Systematized Nomenclature of Medicine Clinical Terms (or SNOMED-CT), which is a standardized vocalbulary of clinical terminology for the electronic exchange of clinical health infromation.（临床术语转换）</li>
+<li>MetaMap: a tool to detect bioconcepts from the biomedical text corpus. Different from DNorm, it is an ontology-based approach for the detection of Unified Medical Language System(UMLS) Metathesaurus.（也是用于临床术语检测和转换）</li>
+<li><em>Process:*</em> Merge the results of DNorm and MetaMap. Transefer : reports –&gt;SNOMED-CT –&gt; UMLS terminology</li>
+</ul>
+<p>作者一开始使用了DNorm和MetaMap工具，并综合两者的结果处理的结果来提取标签，每种疾病样本标签存储在一个UML文件中，但是存在着噪声问题，主要是否定形式的表达和不确定形式的表达，在语义方面存在着一些问题，据此作者提出了一种基础NLP的改进流程。（这里暂时不关注NLP的具体实现和算法）</p>
+<h4 id="Noise（上述工具存在噪声问题）"><a href="#Noise（上述工具存在噪声问题）" class="headerlink" title="Noise（上述工具存在噪声问题）"></a>Noise（上述工具存在噪声问题）</h4><p>Eliminate noisy labeling by ruling out <strong>negated</strong> pathological statements（否认形式的陈述） and <strong>uncertain</strong> mentions of findings and diseases, e.g., “suggesting obstructive lung disease”.<br>Use regular expression can not capture various syntatic constructions for multiple subjects. for example, “clear of A and B” -&gt; A as a negation but not B.</p>
+<h4 id="Improvement"><a href="#Improvement" class="headerlink" title="Improvement"></a>Improvement</h4><p>syntactic level, utilize the syntactic dependency information. Define rules on the dependency graph, by utilizing the dependency label and direction information between words.</p>
+<h5 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h5><ol>
+<li>Split and tokenize the reports into sentences using NLTK.</li>
+<li>Parse each sentence by Bllip parser using David McCloskys biomedical model.</li>
+<li>The syntactic dependencies are obtained from “CCProcesed” dependencies output by applying Stanford dependencies converter on the parse tree.</li>
+</ol>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi5qdi5qcsj214u0gkq68.jpg" width="500"/>
+
+<h4 id="Quality-Control"><a href="#Quality-Control" class="headerlink" title="Quality Control"></a>Quality Control</h4><p>Using OpenI API, retrieve a total of 3851 unique radiology reports for validation. </p>
+<p>使用OpenI API来对提出的方法进行校验，Performance相比于MetaMap有较大的提升。特别是在Infiltration、Pneumothorax等类别上。</p>
+<img src="https://ws1.sinaimg.cn/mw690/6177e8b1gy1fi5qfby2jtj20uu0kw0w8.jpg" width="500"/>
+
+<h3 id="Processing-Chest-X-ray-Images"><a href="#Processing-Chest-X-ray-Images" class="headerlink" title="Processing Chest X-ray Images"></a>Processing Chest X-ray Images</h3><ul>
+<li>DICOM : Digital Imaging and Communication on Medicine</li>
+<li>Typical X-ray image dimensions: $3000 \times 2000$</li>
+<li>ChestX-ray8 : resized as $1024 \times 1024$ bitmap</li>
+<li>OpenI: $512 \times 512$</li>
+</ul>
+<h4 id="DICOM"><a href="#DICOM" class="headerlink" title="DICOM"></a>DICOM</h4><p>DICOM表示“医学数字成像和通讯”。DICOM是由“美国国家电气制造商协会”（NEMA）发布的标准，这一标准规范了医学成像的管理、储存、打印和信息传输，这些都是扫描仪或医院“医疗影像储传系统”（PACS）中的文件格式。 DICOM包括了一个文件格式和一个网络通讯协议，其中的网络通讯协议是医疗实体间使用TCP/IP进行沟通的一个规范和准则。 一个DICOM文件由一个数据头和图像数据组成的。数据头的大小取决于数据信息的多少。数据头中的内容包括病人编号、病人姓名等等。同时，它还决定了图像帧数以及分辨率。这是图片查看器用于显示图像的。即使是一个单一的图像获取，都会有很多DICOM文件。</p>
+<p>参考：<a href="https://www.leiphone.com/news/201707/oHpedrbiTzU4nKvK.html" target="_blank" rel="noopener">https://www.leiphone.com/news/201707/oHpedrbiTzU4nKvK.html</a></p>
+<h3 id="Bouding-Box-for-Pathologies"><a href="#Bouding-Box-for-Pathologies" class="headerlink" title="Bouding Box for Pathologies"></a>Bouding Box for Pathologies</h3><ul>
+<li>200 instances for each pathology( 1600 instances total), consisting of 983 images. </li>
+<li>Given an image and a disease keyword, a board-certified radiologist identified only the corresponding disease instance in the image and labeled it with a B-Box.</li>
+</ul>
+<p>挑取了其中一部分样本，请专业认证的放射科医师进行B-Box的标定，作为Ground Truth。</p>
+<h1 id="Unified-DCNN-Framework"><a href="#Unified-DCNN-Framework" class="headerlink" title="Unified DCNN Framework"></a>Unified DCNN Framework</h1><ul>
+<li>Models: ImageNet pre-trained models, e.g., AlexNet, GoogleNet, VGGNet-16, ResNet-50, by leaving out the fully-connected layers and the final classification layers.</li>
+<li>Improvoment：Insert a transition layer, a global pooling layer, a prediction layer, a loss layer</li>
+</ul>
+<p>使用了global pooling layer, prediction layer来代替传统的全连接层和softmax层。</p>
+<p>Unified一致性体现在新设的Transition Layer，通过不同的pre-trained model通过输出层转换为$S\times S \times D$的标准输出层。使用卷积层的方法（每张图片当做一个神经元，该层输出数目为神经元数目，等于卷积核数目），经过Transition layer之后得到$ S\times S \times D$的输出。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6ubdom7mj21jm0v01kx.jpg" referrerPolicy="no-referrer">
+
+<h2 id="Multi-label-Setup"><a href="#Multi-label-Setup" class="headerlink" title="Multi-label Setup"></a>Multi-label Setup</h2><p>8-dimensional label vector $ y = [y_1,…, y_c, …, y_C], y_c \in \lbrace 0,1 \rbrace, C= 8 $ for each image. $ y_c $ indicates the presence with respect to according pathology. Normal: $[0, 0, 0, 0, 0, 0, 0, 0]$</p>
+<h2 id="Transition-Layer"><a href="#Transition-Layer" class="headerlink" title="Transition Layer"></a>Transition Layer</h2><p>To transform the activations from previous layers into a uniform dimension of output, $ S \times S \times D, S \in \lbrace 8, 16, 32 \rbrace $. D represents the dimension of features at spatial location $ (i, j), i,j \in \lbrace1, …, S\rbrace$, which can be avried in different model settings, e.g., $D=1024$ for GoogLeNet and $D=2048$ for ResNet.</p>
+<h2 id="Multi-label-Classification-Loss-Layer"><a href="#Multi-label-Classification-Loss-Layer" class="headerlink" title="Multi-label Classification Loss Layer"></a>Multi-label Classification Loss Layer</h2><ul>
+<li>Firstly, Hinge Loss(HL), Euclidean Loss(EL), and Cross Entropy Loss(CEL) replace softmax loss.<ul>
+<li>It has difficulty learning positive instances(with pathologies), because there are more ‘0’s than ‘1’s</li>
+</ul>
+</li>
+<li>Improvement: positive/negative instances balanced loss function: weight CEL(W-CEL)</li>
+</ul>
+<p>$$ L_{W-CEL} \cdot (f(\vec{x}), \vec{y}) = \beta_P\sum_{y_c=1}-\ln (f(x_c))+\beta_N\sum_{y_c=0}-\ln (1-f(x_c))$$</p>
+<p>where $\beta_P$ is set to $\frac{|P|+|N|}{|P|}$, while $\beta_N$ is set to $\frac{|P|+|N|}{|N|}$. $|P|$ and $|N|$ are the total number of ‘1’s and ‘0’s in a batch of image labels.</p>
+<p>损失函数在CEL的基础上，根据多标签分类样本分布不均衡的情况，中加入了对正负样本均衡性的考虑。</p>
+<h2 id="Global-Pooling-Layer"><a href="#Global-Pooling-Layer" class="headerlink" title="Global Pooling Layer"></a>Global Pooling Layer</h2><ul>
+<li>Role: choose what information to be passed down</li>
+<li>Max pooling, average pooling, Log-Sum-Exp(LSE) pooling<ul>
+<li>LSE pooled value $$x_p = \frac{1}{r} \cdot \log[\frac{1}{S} \cdot \sum_{(i,j)\in S} exp(r \cdot x_{ij})]$$<br>$x_{ij}$ is the activation value at $(i,j),(i,j)$ is one location in the pooling region S, and $ S=s\times s$ is the total number of locations in S.</li>
+<li>LSE ranges from maximum $(r \rightarrow \inf )$ to average $(r \rightarrow  0)$ It serves as an adjustable option between max pooling and average pooling.</li>
+<li>LSE has overflow/underflow problems</li>
+</ul>
+</li>
+<li>Improvment: $$ x_p = x^* + \frac{1}{r} \cdot \log [\frac{1}{S} \cdot \sum_{(i,j) \in S} \cdot exp(r \cdot(x_{ij} - x^*)]$$<br>where $ x^* = max\lbrace |x_{ij}|, (i,j)\in S\rbrace$.</li>
+</ul>
+<p>使用修改的LSE值（防overflow和underflow）来作为全局池化层。</p>
+<h2 id="Prediction-layer"><a href="#Prediction-layer" class="headerlink" title="Prediction layer"></a>Prediction layer</h2><ul>
+<li>Weight of prediction layer : size of $ D \times C $ (C = 8, class number)</li>
+<li>Transfer $1 \times D $ to $ 1 \times C $</li>
+</ul>
+<p>Prediction layer输出8类疾病每类的概率，类似softmax层，而prediction layer的权值又可以在后续求每一类疾病的Heat map的时候所使用。关于疾病的判断，并不直接计算出其最佳阈值。而是使用了ROC curve和AUC来进行评判。每个不同的阈值会对应ROC曲线上不同的点，从而通过构建ROC曲线求AUC来评判模型的好坏。</p>
+<h2 id="Heat-map"><a href="#Heat-map" class="headerlink" title="Heat map"></a>Heat map</h2><ul>
+<li>Multiply activations form transition layer with weights from prediction layer</li>
+<li>8 heatmap for 8 diseases</li>
+<li>size: $ S \times S, S \in \lbrace 8, 16, 32 \rbrace $</li>
+</ul>
+<img src="https://ws1.sinaimg.cn/mw690/6177e8b1gy1fi6vj95bimj20wy08mn6s.jpg" referrerPolicy="no-referrer">
+
+<h2 id="Bounding-Box-Generation"><a href="#Bounding-Box-Generation" class="headerlink" title="Bounding Box Generation:"></a>Bounding Box Generation:</h2><ul>
+<li>Normalized heatmaps to [0,255]</li>
+<li>Threshold heatmap by {60, 180} individually (ad-hoc)</li>
+<li>B-Boxes are generated to cover the isolated regions in the resulting binary maps</li>
+</ul>
+<p>使用阈值来对Heat map的每个点进行二值化处理，后选取孤立区域绘制B-Box</p>
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><p>主要是关于实验中的一些具体参数设定，还有调试方法，模型评判标准。</p>
+<h2 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h2><ul>
+<li>SGD</li>
+<li>training(70%), validation(10%), testing(20%)</li>
+<li>Recognition on testing set</li>
+<li>generate B-Boxes on 983 images with GT</li>
+<li>Caffe framework</li>
+<li>ImageNet pre-trained models , i.e., AlexNet. GoogLeNet, VGGNet-16, ResNet-50 from Caffe model zoo.</li>
+<li>set $ batch_size \times iter_size = 80$ as a constant</li>
+<li>total trainning iterations are customized for different CNN models to prevent over-fitting.</li>
+</ul>
+<h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><h3 id="ROC-and-AUC"><a href="#ROC-and-AUC" class="headerlink" title="ROC and AUC"></a>ROC and AUC</h3><ul>
+<li>performance on four models</li>
+<li>Mass : AUC=0.5609, huge within-class appearance variation</li>
+<li>Pneumonia: AUC=0.6333, lack of total instances(less than 1%)<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6vy6h7wwj20v80u07fr.jpg" referrerPolicy="no-referrer">
+
+</li>
+</ul>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6vyjb62ij21n209a0w1.jpg" referrerPolicy="no-referrer">
+
+<p>ROC（Receiver Operating Characteristic）曲线和AUC常被用来评价一个二值分类器（binary classifier）的优劣。此处将每类疾病prediction layer对应的输出值作为一个二值分类器来评判。不同的阈值，会对应ROC曲线不同的点，最终可以描绘出一个ROC曲线，从而求出AUC (Area Under Curve)。</p>
+<p>若不了解ROC的话，很有必要先了解一下相关概念，可以参考下面博文，包括了TN, TP, FN, FP, precision， recall，f1-score, fbeta-score等一些度量标准的概念：</p>
+<ul>
+<li><a href="http://blog.csdn.net/pipisorry/article/details/51788927?locationNum=1&fps=1" target="_blank" rel="noopener">分类模型评估之ROC-AUC曲线和PRC曲线</a></li>
+<li><a href="http://blog.csdn.net/taoyanqi8932/article/details/54409314?locationNum=5&fps=1" target="_blank" rel="noopener">深度探讨机器学习中的ROC和PR曲线</a></li>
+</ul>
+<h3 id="Different-pooling-strategies"><a href="#Different-pooling-strategies" class="headerlink" title="Different pooling strategies"></a>Different pooling strategies</h3><ul>
+<li>AVE, MAX, different hyper-parameter r in LSE</li>
+<li>best in r = 10<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6vz9wbvnj20tw0letdp.jpg" referrerPolicy="no-referrer">
+
+</li>
+</ul>
+<h3 id="W-CEL"><a href="#W-CEL" class="headerlink" title="W-CEL"></a>W-CEL</h3><p>使用了考虑权值的CEL，模型的表现有所提升。<br><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6w07eyhuj21n005ognk.jpg" referrerPolicy="no-referrer"></p>
+<h3 id="Disease-Localization"><a href="#Disease-Localization" class="headerlink" title="Disease Localization"></a>Disease Localization</h3><ul>
+<li>standard Intersection over Union ratio (IoU)</li>
+<li>the Intersection over the detected B-Box area ratio (IoBB)</li>
+<li>computed B-Boxes are often larger than GT due to heat map resolution<ul>
+<li>difine a correct localization by requiring either $$IoU &gt; T(IoU) or IoBB &gt; T(IoBB)$$</li>
+<li>T(IoBB) 为超参数，用来筛选B-Box</li>
+</ul>
+</li>
+<li>localization accuracy (Acc,)</li>
+<li>Average False Positive (AFP)</li>
+</ul>
+<p>对B-Box加入了一个后验处理条件，根据所侦测到的B-Box与GT B-Box的交集区域面积与该B-Box区域面积的比例(IoBB)与T(IoBB)的比较筛选掉一部分B-Box，再来进行准确率的判断。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6w45itgzj21oe0ne465.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6w60tbj9j21iy0ugn6a.jpg" referrerPolicy="no-referrer">
+
+<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fi6w6yx6j9j21hc0kutqv.jpg" referrerPolicy="no-referrer">
+
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>ChestX-ray8 can enable the data-hungry deep neural network paradigms to create clinically meaningful applications, including common disease pattern mining, disease correlation analysis, automated radiological report generation, etc. For future work, ChestX-ray8 will be extended to cover more disease classes and integrated with other clinical information, e.g., followup studies across time and patient history.</p>
+<h1 id="Personal-Experience"><a href="#Personal-Experience" class="headerlink" title="Personal Experience"></a>Personal Experience</h1><p>目前刚开始精读一篇论文，发现一篇论文往往要读不止一遍才能看懂其中精髓。第一遍往往是粗略一读，明白大体的意思。后来几遍细致去读，参考论文中所涉及到其他论文，边整理笔记，理清论文大体的架构。一开始读发现，会延伸到很多其他论文，都是自己所不懂的，所以得花比较多的时间。关于论文笔记，自己有在思考要用纯中文来写呢，但是做摘要的时候又大量引用到原文中的表述，又怕自己翻译转述不够准确。如果用纯英文写的话，可能自己下次看的时候会比较费力，还可能分布清楚哪些是自己写的哪些是摘要。当然学习论文的目的，也是在培养自己写论文的能力，所以目标肯定是希望自己能有良好的英文表述。但是目前呢，就先索性保留自己刚开始做摘要和笔记，然后加入自己中文的理解。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li>ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases. Xiaosong Wang, Yifan Peng, Le Lu, Zhiyong Lu, Mohammadhadi Bagheri, Ronald M. Summers</li>
+<li><a href="https://www.leiphone.com/news/201707/oHpedrbiTzU4nKvK.html" target="_blank" rel="noopener">深度学习下的医学图像分析（四）</a></li>
+<li><a href="http://blog.csdn.net/pipisorry/article/details/51788927?locationNum=1&fps=1" target="_blank" rel="noopener">分类模型评估之ROC-AUC曲线和PRC曲线</a></li>
+<li><a href="http://blog.csdn.net/taoyanqi8932/article/details/54409314?locationNum=5&fps=1" target="_blank" rel="noopener">深度探讨机器学习中的ROC和PR曲线</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/08/02/notes-chestX-ray8/" title="[论文笔记] ChestX-ray8">https://blog.kinpzz.com/2017/08/02/notes-chestX-ray8/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F/" rel="tag"># 医学影像</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/" rel="next" title="Caffe 入门">
+                <i class="fa fa-chevron-left"></i> Caffe 入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/notes-scan/" rel="prev" title="[论文笔记] SCAN">
+                [论文笔记] SCAN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keyword"><span class="nav-number">2.</span> <span class="nav-text">Keyword</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Work"><span class="nav-number">3.</span> <span class="nav-text">Main Work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">4.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#State-of-the-art-object-dection-and-segmentation"><span class="nav-number">4.1.</span> <span class="nav-text">State-of-the-art object dection and segmentation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataset"><span class="nav-number">4.1.1.</span> <span class="nav-text">Dataset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Detection"><span class="nav-number">4.1.2.</span> <span class="nav-text">Object Detection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-limitation-of-recent-notable-work"><span class="nav-number">4.2.</span> <span class="nav-text">Main limitation of recent notable work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">4.3.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Challenge"><span class="nav-number">4.4.</span> <span class="nav-text">Challenge</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Construting-Database"><span class="nav-number">5.</span> <span class="nav-text">Construting Database</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ChestX-ray8"><span class="nav-number">5.1.</span> <span class="nav-text">ChestX-ray8</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Labeling-Disease-Names-by-Text-Mining（标签提取）"><span class="nav-number">5.1.1.</span> <span class="nav-text">Labeling Disease Names by Text Mining（标签提取）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tools"><span class="nav-number">5.1.1.1.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Noise（上述工具存在噪声问题）"><span class="nav-number">5.1.1.2.</span> <span class="nav-text">Noise（上述工具存在噪声问题）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Improvement"><span class="nav-number">5.1.1.3.</span> <span class="nav-text">Improvement</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Steps"><span class="nav-number">5.1.1.3.1.</span> <span class="nav-text">Steps</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Quality-Control"><span class="nav-number">5.1.1.4.</span> <span class="nav-text">Quality Control</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Processing-Chest-X-ray-Images"><span class="nav-number">5.1.2.</span> <span class="nav-text">Processing Chest X-ray Images</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DICOM"><span class="nav-number">5.1.2.1.</span> <span class="nav-text">DICOM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bouding-Box-for-Pathologies"><span class="nav-number">5.1.3.</span> <span class="nav-text">Bouding Box for Pathologies</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unified-DCNN-Framework"><span class="nav-number">6.</span> <span class="nav-text">Unified DCNN Framework</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-label-Setup"><span class="nav-number">6.1.</span> <span class="nav-text">Multi-label Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transition-Layer"><span class="nav-number">6.2.</span> <span class="nav-text">Transition Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-label-Classification-Loss-Layer"><span class="nav-number">6.3.</span> <span class="nav-text">Multi-label Classification Loss Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Global-Pooling-Layer"><span class="nav-number">6.4.</span> <span class="nav-text">Global Pooling Layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prediction-layer"><span class="nav-number">6.5.</span> <span class="nav-text">Prediction layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heat-map"><span class="nav-number">6.6.</span> <span class="nav-text">Heat map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bounding-Box-Generation"><span class="nav-number">6.7.</span> <span class="nav-text">Bounding Box Generation:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experiments"><span class="nav-number">7.</span> <span class="nav-text">Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CNN"><span class="nav-number">7.1.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance"><span class="nav-number">7.2.</span> <span class="nav-text">Performance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROC-and-AUC"><span class="nav-number">7.2.1.</span> <span class="nav-text">ROC and AUC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Different-pooling-strategies"><span class="nav-number">7.2.2.</span> <span class="nav-text">Different pooling strategies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#W-CEL"><span class="nav-number">7.2.3.</span> <span class="nav-text">W-CEL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disease-Localization"><span class="nav-number">7.2.4.</span> <span class="nav-text">Disease Localization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample"><span class="nav-number">7.2.5.</span> <span class="nav-text">Sample</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conclusion"><span class="nav-number">8.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Personal-Experience"><span class="nav-number">9.</span> <span class="nav-text">Personal Experience</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">10.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/08/02/notes-chestX-ray8/';
+          this.page.identifier = '2017/08/02/notes-chestX-ray8/';
+          this.page.title = '[论文笔记] ChestX-ray8';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

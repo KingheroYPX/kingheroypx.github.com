@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="unity3d,UGUI," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="导语NGUI的功能比unity自带的OnGUI强大很多，可以实现各种复杂的功能。其中背包功能是许多游戏所需要实现的，做出一个美观实用的背包系统也是一款商业游戏的基础。NGUI 的出现，2D&#x2F;3D 无缝对接，菜单制作容易，效果好，几乎占领了 UI 100% 市场。 于是，Unity 重金聘请 NGUI 开发者开了半成品的 new UI 系统，尽管如此，Unity 5 已经可以实现 NGUI 的几乎所">
+<meta name="keywords" content="unity3d,UGUI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UGUI 实现Inventory(背包系统)">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2016&#x2F;05&#x2F;21&#x2F;unity3d-ugui-Inventory&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="导语NGUI的功能比unity自带的OnGUI强大很多，可以实现各种复杂的功能。其中背包功能是许多游戏所需要实现的，做出一个美观实用的背包系统也是一款商业游戏的基础。NGUI 的出现，2D&#x2F;3D 无缝对接，菜单制作容易，效果好，几乎占领了 UI 100% 市场。 于是，Unity 重金聘请 NGUI 开发者开了半成品的 new UI 系统，尽管如此，Unity 5 已经可以实现 NGUI 的几乎所">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42sxsw6drg20z80i9npm.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww4.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f446tyyfoog20sc0hbe86.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42tx4fjeaj20vy0ladke.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww4.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42tzf9mcbj20790bmq44.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww2.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42x2mvptoj20cv05daad.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f446ibkqarj20940bwt92.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww2.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42x4hnc4sj20sv0e4q4e.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww4.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42xo21r8eg20pq0dg0xp.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42y6ei7koj204t01nt8i.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42ytswjvej20pu0bpdi8.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42yuv4tajj20cu0f7wfx.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww2.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42zdvh4i0j20cn0fq0u2.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42yxj6rc9j20v20hoagx.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42zuoc160j21ha0j9tib.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww2.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f4308x1ol1j20s40i9tbq.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f430adq7t3g20s20gghdu.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f446mug6ayj20a807mjrh.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ww4.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f446tyyfoog20sc0hbe86.gif">
+<meta property="og:updated_time" content="2019-11-29T04:08:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ww3.sinaimg.cn&#x2F;large&#x2F;6177e8b1gw1f42sxsw6drg20z80i9npm.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2016/05/21/unity3d-ugui-Inventory/"/>
+
+
+
+
+
+  <title>UGUI 实现Inventory(背包系统) | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2016/05/21/unity3d-ugui-Inventory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UGUI 实现Inventory(背包系统)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-21T15:25:20+08:00">
+                2016-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/unity3d/" itemprop="url" rel="index">
+                    <span itemprop="name">unity3d</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/05/21/unity3d-ugui-Inventory/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/05/21/unity3d-ugui-Inventory/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/05/21/unity3d-ugui-Inventory/" class="leancloud_visitors" data-flag-title="UGUI 实现Inventory(背包系统)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h2><p>NGUI的功能比unity自带的OnGUI强大很多，可以实现各种复杂的功能。其中背包功能是许多游戏所需要实现的，做出一个美观实用的背包系统也是一款商业游戏的基础。NGUI 的出现，2D/3D 无缝对接，菜单制作容易，效果好，几乎占领了 UI 100% 市场。 于是，Unity 重金聘请 NGUI 开发者开了半成品的 new UI 系统，尽管如此，Unity 5 已经可以实现 NGUI 的几乎所有效果。</p>
+<p>今天，我就尝试着使用unity GUI来实现NGUI的官方例子的部分功能：<a href="http://www.tasharen.com/ngui/exampleX.html" target="_blank" rel="noopener">http://www.tasharen.com/ngui/exampleX.html</a></p>
+<img src="https://ww3.sinaimg.cn/large/6177e8b1gw1f42sxsw6drg20z80i9npm.gif" referrerPolicy="no-referrer">
+
+<a id="more"></a>
+
+<h2 id="目标效果"><a href="#目标效果" class="headerlink" title="目标效果"></a>目标效果</h2><ul>
+<li><p>背包的背景图片</p>
+</li>
+<li><p>背包系统的格子</p>
+</li>
+<li><p>背包格随鼠标转动</p>
+</li>
+<li><p>物品进出背包（同理进出装备栏）</p>
+<p>暂未实现添加装备的效果，手头没有现成的Assets可供实现。</p>
+</li>
+</ul>
+<h2 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h2><p>现上一张最终实现的效果，然后开始按步骤分析。</p>
+<img src="https://ww4.sinaimg.cn/large/6177e8b1gw1f446tyyfoog20sc0hbe86.gif" referrerPolicy="no-referrer">
+
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="Canvas实现背包基础结构"><a href="#Canvas实现背包基础结构" class="headerlink" title="Canvas实现背包基础结构"></a>Canvas实现背包基础结构</h3><p>首先，要利用Canvas来实现背包系统的背景和总体的框架。这一块包含了Canvas、Camera的配置。我是通过参考课程上所给的SampleUI来实现的。</p>
+<h4 id="新建Canvas"><a href="#新建Canvas" class="headerlink" title="新建Canvas"></a>新建Canvas</h4><p>首先进入2D场景，新建一张Canvas命名为MyCanvas</p>
+<img src="https://ww1.sinaimg.cn/large/6177e8b1gw1f42tx4fjeaj20vy0ladke.jpg" referrerPolicy="no-referrer">
+
+<p>设置Reander Mode、 Render Camera、 UI Scale mode、 Match如下</p>
+<p>其中新建一个Camera命名为GUI Camera并设置Render Camera为它。</p>
+<img src="https://ww4.sinaimg.cn/large/6177e8b1gw1f42tzf9mcbj20790bmq44.jpg" referrerPolicy="no-referrer">
+
+<p>在MyCanvas里面新建一个Canvas子对象，命名为Inventory。并去除他的Canvas Scaler部件。这个Canvas将别用来作为存放背包栏和装备栏的画布。</p>
+<h4 id="建立背包格子"><a href="#建立背包格子" class="headerlink" title="建立背包格子"></a>建立背包格子</h4><p>在Invertory里创建子两个对象Panel（面板）改名为Bag和Wear表示物品栏和装备栏，给它添加Gird LayOut Group组件，通过该组件可以实现自动布局。指定子对象元素大小，间隔。调整Pannel大小。锚点的话自己调整到合适的位置即可。</p>
+<img src="https://ww2.sinaimg.cn/large/6177e8b1gw1f42x2mvptoj20cv05daad.jpg" referrerPolicy="no-referrer">
+
+<p>然后补充所需要的背包格子。直接使用Image类型。同理补充Wear装备栏。并添加适当的Text文本。</p>
+<img src="https://ww3.sinaimg.cn/large/6177e8b1gw1f446ibkqarj20940bwt92.jpg" referrerPolicy="no-referrer">
+
+<p>看到了如下效果：</p>
+<img src="https://ww2.sinaimg.cn/large/6177e8b1gw1f42x4hnc4sj20sv0e4q4e.jpg" referrerPolicy="no-referrer">
+
+<p>效果还是比较简陋的。运行一下，Window还不能随鼠标移动。下面给Window添加代码。</p>
+<h4 id="window随鼠标运动"><a href="#window随鼠标运动" class="headerlink" title="window随鼠标运动"></a>window随鼠标运动</h4><p>新建一个脚本TitlWindow.cs，将脚本挂在在两个Window对象上。可以实现以下效果。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TiltWindow</span> : <span class="title">MonoBehaviour</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">	<span class="keyword">public</span> Vector2 range = <span class="keyword">new</span> Vector2(<span class="number">5f</span>, <span class="number">3f</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">	Transform mTrans;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">	Quaternion mStart;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">	Vector2 mRot = Vector2.zero;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Start</span> (<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>	&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">		mTrans = transform;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">		mStart = mTrans.localRotation;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Update</span> (<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>	&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">		Vector3 pos = Input.mousePosition;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">float</span> halfWidth = Screen.width * <span class="number">0.5f</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">float</span> halfHeight = Screen.height * <span class="number">0.5f</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">float</span> x = Mathf.Clamp((pos.x - halfWidth) / halfWidth, <span class="number">-1f</span>, <span class="number">1f</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">		<span class="keyword">float</span> y = Mathf.Clamp((pos.y - halfHeight) / halfHeight, <span class="number">-1f</span>, <span class="number">1f</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">		mRot = Vector2.Lerp(mRot, <span class="keyword">new</span> Vector2(x, y), Time.deltaTime * <span class="number">5f</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">		mTrans.localRotation = mStart * Quaternion.Euler(-mRot.y * range.y, mRot.x * range.x, <span class="number">0f</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<img src="https://ww4.sinaimg.cn/large/6177e8b1gw1f42xo21r8eg20pq0dg0xp.gif" referrerPolicy="no-referrer">
+
+<p>已经有了一个初步的效果。下面就是要添加背景和任务模型了。</p>
+<h3 id="添加背景"><a href="#添加背景" class="headerlink" title="添加背景"></a>添加背景</h3><p>在场景下创建一个空对象命名为SF Scene Elements，用来放主摄像机和背景图片。在SF Scene Elements里面添加一个空对象，空对象命名为Backgound，并给它添加Sprite Rendera组件。</p>
+<img src="https://ww1.sinaimg.cn/large/6177e8b1gw1f42y6ei7koj204t01nt8i.jpg" referrerPolicy="no-referrer">
+
+<p>记得要将图片的格式设置为Sprite格式，然后在Backgound中的Sprite选择你所需要的背景图片。</p>
+<img src="https://ww3.sinaimg.cn/large/6177e8b1gw1f42ytswjvej20pu0bpdi8.jpg" referrerPolicy="no-referrer">
+
+<h4 id="摄像机调整"><a href="#摄像机调整" class="headerlink" title="摄像机调整"></a>摄像机调整</h4><p>还有需要重新调整一下两个摄像机的参数。一个负责显示UI，一个负责显示背景图片及其他信息。</p>
+<img src="https://ww3.sinaimg.cn/large/6177e8b1gw1f42yuv4tajj20cu0f7wfx.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ww2.sinaimg.cn/large/6177e8b1gw1f42zdvh4i0j20cn0fq0u2.jpg" referrerPolicy="no-referrer">
+
+<p>需要关注的就是Culling Mask这一个参数。一个显示UI，一个显示其余部分。至于位置大小，根据具体的情况进行调整，调整到可以效果良好即可。</p>
+ <img src="https://ww1.sinaimg.cn/large/6177e8b1gw1f42yxj6rc9j20v20hoagx.jpg" referrerPolicy="no-referrer">
+
+<p>可以看到这样子的初步效果。下面还需要添加角色。</p>
+<h3 id="添加角色"><a href="#添加角色" class="headerlink" title="添加角色"></a>添加角色</h3><p>角色的话，这里就使用之前课程有使用到的盖伦且他带有Idel动作，也可以自己使用Assets store上的其他资源。直接将Garen资源包拖入项目，将Garen对象拖入场景，找到transformGaren，将贴图拖入Render。调整Garen的大小和位置。</p>
+<img src="https://ww1.sinaimg.cn/large/6177e8b1gw1f42zuoc160j21ha0j9tib.jpg" referrerPolicy="no-referrer">
+
+<h4 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h4><p>接下来就是给盖伦添加动画。这里使用Animotor新动画，对应的动作要改成Generic类型的才可以。然后在盖伦资源文件目录下新建一个Animotor Controller设置如下，并赋值给Garen对象的动画控制器。通过状态机实现盖伦重复的idel动作。</p>
+<img src="https://ww2.sinaimg.cn/large/6177e8b1gw1f4308x1ol1j20s40i9tbq.jpg" referrerPolicy="no-referrer">
+
+<p>点击运行，现在可以看到这样子的效果了：</p>
+<img src="https://ww1.sinaimg.cn/large/6177e8b1gw1f430adq7t3g20s20gghdu.gif" referrerPolicy="no-referrer">
+
+<h3 id="完善背包功能"><a href="#完善背包功能" class="headerlink" title="完善背包功能"></a>完善背包功能</h3><p>进行到这里，我们基本的效果都是有的了。而且在第一步已经实现了背包格子的功能，接下来就要实现背包最重要的功能。对物品的存储和拖拽功能了。</p>
+<h4 id="实现物品拖拽"><a href="#实现物品拖拽" class="headerlink" title="实现物品拖拽"></a>实现物品拖拽</h4><p>我们新建一个对象树在Inventory里面来存放物品。每一个对象都为一个Image表示一个物品。存放我们所需要的物品。在Image组件里选择相应的Source Image作为装备贴图。</p>
+<img src="https://ww1.sinaimg.cn/large/6177e8b1gw1f446mug6ayj20a807mjrh.jpg" referrerPolicy="no-referrer">
+
+<p>物品的拖拽，这是一个比较复杂的功能，我们需要实现这几个接口IBeginDragHandler, IDragHandler, IEndDragHandler。因为Unity的Event Trigger能够自动检测到你的拖拽操作，所以你需要做的就是当在物品上执行拖拽操作时，你要做什么，比如让物品跟随鼠标一起移动，物品移动到包包中的格子区域释放时，要把物品对齐好格子，又或者在空白区域释放时，物品要复位，又或者在另一物品上释放时两物品交换位置等。这就是你对物品拖拽操作所要做的内容，说着简单，实际的代码逻辑有点复杂。不过思路清晰就好。</p>
+<p>代码如下：</p>
+<p>DragItem.cs</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.EventSystems;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DragItem</span> : <span class="title">MonoBehaviour</span>, <span class="title">IBeginDragHandler</span>, <span class="title">IDragHandler</span>, <span class="title">IEndDragHandler</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> Transform myTransform;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> RectTransform myRectTransform;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 用于event trigger对自身检测的开关</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> CanvasGroup canvasGroup;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 拖拽操作前的有效位置，拖拽到有效位置时更新</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> Vector3 originalPosition;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 记录上一帧所在物品格子</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> GameObject lastEnter = <span class="literal">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 记录上一帧所在物品格子的正常颜色</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> Color lastEnterNormalColor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 拖拽至新的物品格子时，该物品格子的高亮颜色</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> Color highLightColor = Color.cyan;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        myTransform = <span class="keyword">this</span>.transform;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        myRectTransform = <span class="keyword">this</span>.transform <span class="keyword">as</span> RectTransform;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        canvasGroup = GetComponent&lt;CanvasGroup&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        originalPosition = myTransform.position;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnBeginDrag</span>(<span class="params">PointerEventData eventData</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">        canvasGroup.blocksRaycasts = <span class="literal">false</span>;<span class="comment">//让event trigger忽略自身，这样才可以让event trigger检测到它下面一层的对象,如包裹或物品格子等</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">        lastEnter = eventData.pointerEnter;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">        lastEnterNormalColor = lastEnter.GetComponent&lt;Image&gt;().color;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">        originalPosition = myTransform.position;<span class="comment">//拖拽前记录起始位置</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line">        gameObject.transform.SetAsLastSibling();<span class="comment">//保证当前操作的对象能够优先渲染，即不会被其它对象遮挡住</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">50</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnDrag</span>(<span class="params">PointerEventData eventData</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">51</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">52</span></pre></td><td class="code"><pre><span class="line">        Vector3 globalMousePos;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">53</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (RectTransformUtility.ScreenPointToWorldPointInRectangle(myRectTransform, eventData.position, eventData.pressEventCamera, <span class="keyword">out</span> globalMousePos))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">54</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">55</span></pre></td><td class="code"><pre><span class="line">            myRectTransform.position = globalMousePos;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">56</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">57</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">58</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">59</span></pre></td><td class="code"><pre><span class="line">        GameObject curEnter = eventData.pointerEnter;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">60</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">61</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">bool</span> inItemGrid = EnterItemGrid(curEnter);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">62</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (inItemGrid)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">63</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">64</span></pre></td><td class="code"><pre><span class="line">            Image img = curEnter.GetComponent&lt;Image&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">65</span></pre></td><td class="code"><pre><span class="line">			lastEnter.GetComponent&lt;Image&gt;().color = lastEnterNormalColor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">66</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> (lastEnter != curEnter)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">67</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">68</span></pre></td><td class="code"><pre><span class="line">				lastEnter.GetComponent&lt;Image&gt;().color = lastEnterNormalColor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">69</span></pre></td><td class="code"><pre><span class="line">                lastEnter = curEnter;<span class="comment">//记录当前物品格子以供下一帧调用</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">70</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">71</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">72</span></pre></td><td class="code"><pre><span class="line">            <span class="comment">//当前格子设置高亮</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">73</span></pre></td><td class="code"><pre><span class="line">            img.color = highLightColor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">74</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">75</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">76</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">77</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">78</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnEndDrag</span>(<span class="params">PointerEventData eventData</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">79</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">80</span></pre></td><td class="code"><pre><span class="line">        GameObject curEnter = eventData.pointerEnter;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">81</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">82</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//拖拽到的空区域中（如包裹外），恢复原位</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">83</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (curEnter == <span class="literal">null</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">84</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">85</span></pre></td><td class="code"><pre><span class="line">            myTransform.position = originalPosition;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">86</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">87</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">88</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">89</span></pre></td><td class="code"><pre><span class="line">            <span class="comment">//移动至物品格子上</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">90</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> (curEnter.name == <span class="string">"UI_ItemGrid"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">91</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">92</span></pre></td><td class="code"><pre><span class="line">                myTransform.position = curEnter.transform.position;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">93</span></pre></td><td class="code"><pre><span class="line">                originalPosition = myTransform.position;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">94</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">95</span></pre></td><td class="code"><pre><span class="line">				curEnter.GetComponent&lt;Image&gt;().color = lastEnterNormalColor;<span class="comment">//当前格子恢复正常颜色</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">96</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">97</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">98</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">else</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">99</span></pre></td><td class="code"><pre><span class="line">            &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">100</span></pre></td><td class="code"><pre><span class="line">                <span class="comment">//移动至包裹中的其它物品上</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">101</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">if</span> (curEnter.name == eventData.pointerDrag.name &amp;&amp; curEnter != eventData.pointerDrag)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">102</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">103</span></pre></td><td class="code"><pre><span class="line">                    Vector3 targetPostion = curEnter.transform.position;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">104</span></pre></td><td class="code"><pre><span class="line">                    curEnter.transform.position = originalPosition;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">105</span></pre></td><td class="code"><pre><span class="line">                    myTransform.position = targetPostion;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">106</span></pre></td><td class="code"><pre><span class="line">                    originalPosition = myTransform.position;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">107</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">108</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">else</span><span class="comment">//拖拽至其它对象上面（包裹上的其它区域）</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">109</span></pre></td><td class="code"><pre><span class="line">                &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">110</span></pre></td><td class="code"><pre><span class="line">                    myTransform.position = originalPosition;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">111</span></pre></td><td class="code"><pre><span class="line">                &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">112</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">113</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">114</span></pre></td><td class="code"><pre><span class="line">		lastEnter.GetComponent&lt;Image&gt;().color = lastEnterNormalColor;<span class="comment">//上一帧的格子恢复正常颜色</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">115</span></pre></td><td class="code"><pre><span class="line">        canvasGroup.blocksRaycasts = <span class="literal">true</span>;<span class="comment">//确保event trigger下次能检测到当前对象</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">116</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">117</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">118</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">119</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">120</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 判断鼠标指针是否指向包裹中的物品格子</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">121</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// &lt;param name="go"&gt;鼠标指向的对象&lt;/param&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">122</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">EnterItemGrid</span>(<span class="params">GameObject go</span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">123</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>    &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">124</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (go == <span class="literal">null</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">125</span></pre></td><td class="code"><pre><span class="line">        &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">126</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">127</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">128</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> go.name == <span class="string">"UI_ItemGrid"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">129</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">130</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">131</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">132</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">133</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h2 id="还可以改进的功能"><a href="#还可以改进的功能" class="headerlink" title="还可以改进的功能"></a>还可以改进的功能</h2><p>时间关系，所以没有实现随机穿上装备的功能。但是实现起来应该也不难，主要思路就是从游戏装备对象树里面随机抽取一个放到装备栏。</p>
+<p>还有可以实现鼠标悬浮到物品商家可以显示相应的信息。在Unity中，只需要实现IPointerEnterHandler, IPointerExitHandler这两个接口。就可以实现了。</p>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><img src="https://ww4.sinaimg.cn/large/6177e8b1gw1f446tyyfoog20sc0hbe86.gif" referrerPolicy="no-referrer">
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.manew.com/thread-39589-1-1.html" target="_blank" rel="noopener">利用UGUI制作的包裹系统（一）</a></p>
+<p><a href="http://ss.sysu.edu.cn/~pml/se347/10_UI_C_EXT.html" target="_blank" rel="noopener">UI &amp; c# 扩展方法</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2016/05/21/unity3d-ugui-Inventory/" title="UGUI 实现Inventory(背包系统)">https://blog.kinpzz.com/2016/05/21/unity3d-ugui-Inventory/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/unity3d/" rel="tag"># unity3d</a>
+          
+            <a href="/tags/UGUI/" rel="tag"># UGUI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/02/unity3d-particle-system/" rel="next" title="unity3d——粒子光环效果">
+                <i class="fa fa-chevron-left"></i> unity3d——粒子光环效果
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/22/unity3d-serialization/" rel="prev" title="unity3d 游戏序列化">
+                unity3d 游戏序列化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标效果"><span class="nav-number">2.</span> <span class="nav-text">目标效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现效果"><span class="nav-number">3.</span> <span class="nav-text">实现效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程"><span class="nav-number">4.</span> <span class="nav-text">过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas实现背包基础结构"><span class="nav-number">4.1.</span> <span class="nav-text">Canvas实现背包基础结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建Canvas"><span class="nav-number">4.1.1.</span> <span class="nav-text">新建Canvas</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立背包格子"><span class="nav-number">4.1.2.</span> <span class="nav-text">建立背包格子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window随鼠标运动"><span class="nav-number">4.1.3.</span> <span class="nav-text">window随鼠标运动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加背景"><span class="nav-number">4.2.</span> <span class="nav-text">添加背景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#摄像机调整"><span class="nav-number">4.2.1.</span> <span class="nav-text">摄像机调整</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加角色"><span class="nav-number">4.3.</span> <span class="nav-text">添加角色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态机"><span class="nav-number">4.3.1.</span> <span class="nav-text">状态机</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完善背包功能"><span class="nav-number">4.4.</span> <span class="nav-text">完善背包功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现物品拖拽"><span class="nav-number">4.4.1.</span> <span class="nav-text">实现物品拖拽</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还可以改进的功能"><span class="nav-number">5.</span> <span class="nav-text">还可以改进的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终效果"><span class="nav-number">6.</span> <span class="nav-text">最终效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2016/05/21/unity3d-ugui-Inventory/';
+          this.page.identifier = '2016/05/21/unity3d-ugui-Inventory/';
+          this.page.title = 'UGUI 实现Inventory(背包系统)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

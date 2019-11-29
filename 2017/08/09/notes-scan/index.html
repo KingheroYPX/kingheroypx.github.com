@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="深度学习,医学影像," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="IntroductionTitle: Structure Correcting Adversarial Network for Organ Segmentation in Chest X-raysAuthor: Wei Dai, Joseph Doyle, Xiaodan Liang, Hao Zhang, Nanqing Dong, Yuan Li, Eric P. Xing Petuum In">
+<meta name="keywords" content="深度学习,医学影像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[论文笔记] SCAN">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;08&#x2F;09&#x2F;notes-scan&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="IntroductionTitle: Structure Correcting Adversarial Network for Organ Segmentation in Chest X-raysAuthor: Wei Dai, Joseph Doyle, Xiaodan Liang, Hao Zhang, Nanqing Dong, Yuan Li, Eric P. Xing Petuum In">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fidtyc6tnoj21vu0w014l.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fidub1n2s0j21ug0u6165.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fidubgabyij20ws0oa43x.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fidufhfz00j20tc0iu781.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fidufuqvqnj20tw0k20x3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fiduhdsi95j21g40ps1kx.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;mw690&#x2F;6177e8b1gy1fiduhssxfwj20nu06a3zo.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fiduif47zbj20z00pwx5n.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;mw690&#x2F;6177e8b1gy1fiduj0w01kj20sy0acdit.jpg">
+<meta property="og:updated_time" content="2019-11-29T04:07:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fidtyc6tnoj21vu0w014l.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/08/09/notes-scan/"/>
+
+
+
+
+
+  <title>[论文笔记] SCAN | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/08/09/notes-scan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[论文笔记] SCAN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T21:21:00+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/09/notes-scan/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/09/notes-scan/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/09/notes-scan/" class="leancloud_visitors" data-flag-title="[论文笔记] SCAN">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><strong>Title:</strong> Structure Correcting Adversarial Network for Organ Segmentation in Chest X-rays<br><strong>Author:</strong> Wei Dai, Joseph Doyle, Xiaodan Liang, Hao Zhang, Nanqing Dong, Yuan Li, Eric P. Xing Petuum Inc.<br><strong>arXiv:</strong> <a href="https://arxiv.org/abs/1703.08770" target="_blank" rel="noopener">https://arxiv.org/abs/1703.08770</a></p>
+<p>本文主要是一篇关于对双肺和心脏进行语义分割的论文，作者认为器官语义分割是针对胸片（CXR）构建计算机辅助诊断系统的重要一步，器官的区域提供了丰富的结构信息，可用于诊断许多病症。而目前胸片又因辐射小、花费低，而十分普遍，给放射科工作者带来了巨大的工作量。所以本文的研究具有现实意义。同时该研究也存在着巨大的挑战，CXR为2d灰度图片，且目前公开数据集数据量很少（多只有几百张），无法直接应用在大规模数据集上训练好的网络模型。作者据此提出了SCAN框架，该模型采用了GAN（生成对抗网络）的思想，包含了一个分割网络(segmentation network)和一个判别网络(critic network)，采用零和博弈的思想，在公开数据集JSRT和Montgomery上进行单独交替训练。这两个网络都是一个复杂的神经网络，包含FCN、和VGG-based（VGG基础上进行修改）、残差块(residual block)。这是一个数据依赖性小（不依赖大规模数据）、参数量小的模型，取得了一个高准确率（人类专家水平）、高效率（&lt;1s）、迁移性强（泛化能力强）的结果，超过该研究领域的state-of-the-art Registration-based approach。</p>
+<h1 id="Keyword"><a href="#Keyword" class="headerlink" title="Keyword"></a>Keyword</h1><ul>
+<li>Adversarial Network（对抗网络）<ul>
+<li>critic network（判别网络）</li>
+<li>segmentaiton network（分割网络）</li>
+</ul>
+</li>
+<li>Organ Segmentation（器官图像分割）</li>
+<li>Chest X-rays (CXR)</li>
+<li>Structure Correcting（通过critic network 获取 Global structure information 全局结构信息）</li>
+<li>FCN + GAN</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="Main-Work"><a href="#Main-Work" class="headerlink" title="Main Work"></a>Main Work</h1><ol>
+<li><p>Propose Structure Correcting Adversarial Network(SCAN) to segment lung fields and the heart in CXR images（提出SCAN框架）</p>
+<ul>
+<li>a critic network: learns to discriminate between the ground truth organ annotations from the masks synthesized by the segmentation network during trainning; learns the higher order regularities and effectively transfers this global information back to the segmentation model to achieve realistic segmentation outcome（critic network帮助学习到高层的结构信息，单靠分割模型会面临训练样本量不足问题）</li>
+<li>segmentation model : convolutional network</li>
+<li>end-to-end（端到端）</li>
+</ul>
+</li>
+<li><p>The model produces highly accurate and natural segmentation. （高准确率）</p>
+<ul>
+<li>94.7% IoU for lung fields (human experts: 94.6%)</li>
+<li>86.6% IoU for heart fields (human experts: 87.8%)</li>
+<li>Surpass current state-of-the-art（超越当前最高水平）</li>
+</ul>
+</li>
+<li><p>Using only very limited trainning data availabel, the model reaches human-level performance without relying on any existing trained model or dataset.（数据依赖性小，可达人类识别水平）</p>
+<ul>
+<li>SCAN model is more robust when applied to a new, unseen dataset, outperforming the vanilla segmentation model by 4.3%</li>
+</ul>
+</li>
+</ol>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><ol>
+<li>Chest X-ray (CXR) ofen with over 2-10x more scans than other imaging modalities such as MRI, CT scan and PET scans due to its low cost and low dose of radiation. It is asignificant workloads on radiologists and medical practitioners.（CXR花费低，辐射少，导致数量多, 工作负担重）<ul>
+<li>In 2015/16, in UK’s public medical sector: 22.5M X-ray images (8M CXR), 4.5M CT, 3.1M MRI</li>
+<li>Shortage of radilogists in the world</li>
+</ul>
+</li>
+<li>Organ segmentation is a crucial step to obtain effecive computer-aided detection on CXR.（器官分割CXR计算机辅助诊断重要一步）<ul>
+<li>The segmentation of the lung fields and the heart provides rich structure information about <strong>shape irregularities</strong> and <strong>size measurements</strong> that can be used to directly assess certain serious clinical conditions, such as cardiomegaly（心肥大）, pneumothorax（气胸）, pleural effusion（胸腔积液）, emphysema（肺气肿）.</li>
+<li>Explicit lung region masks can improve interpretability of computer-aided detection, which is important fir clinical use.</li>
+</ul>
+</li>
+</ol>
+<p>CXR有着花费低，辐射少的有点，但是同时也导致了数量多, 放射科工作者工作负担重的问题。能对CXR进行器官语义分割是构建计算机辅助诊断系统的重要步骤，通过器官结构信息可以发现许多病症的存在。因此本文的研究是有现实意义的。</p>
+<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge"></a>Challenge</h2><ul>
+<li>X-rays have low resolution and 2-D projection compared with the more modern medical imaging technologies such as CT scan and PET scans.（X光分辨率低，2d成像）</li>
+<li>Very limited CXR trainning data with pixel-level annotations due to expense（像素级标注的CXR训练数据很少）</li>
+<li>CXRs exhibit substantial variations across different patient populations, pathological conditions, imaging technology and operation（CXR样本差异性大）</li>
+<li>CXR images are gray-scale and drastically different from natural images（CXR图是灰度图，现有模型可迁移性差）</li>
+<li>to incorporate the implicit mdedical knowledge involved in contour determination.（如何将医学知识融入边缘判定）<ul>
+<li>medical experts look for certain consistent structures surrounding the lung fields while annotating the lung fields.（医学专家在标定边缘的时候会寻找特定结构，如aortic arch（主动脉弓），cardiodiaphragmatic angles（心隔角））</li>
+<li>Therefore， a successful segmentation model must effectively leverage global structual information to resolve the local details.（可突破点：应用全局结构信息）</li>
+</ul>
+</li>
+<li>high contrast between rib cage and lung fields.</li>
+</ul>
+<p>针对CXR图片进行器官语义分割，存在着一定的困难。如CXR图片缺少颜色信息，无法直接使用基于ImageNet的pre-train model，相比于MRI,CT等3d图片比也CXR只是2d图像，包含的信息更少。且目前相关的公开数据集数据量很小，且样本差异性较大，在现有网络模型上训练容易产生过拟合等问题。因此需要一种能够利用全局结构信息与局部结构信息结合的框架，且能够克服上述困难。</p>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><h3 id="Lung-Field-Segmentation"><a href="#Lung-Field-Segmentation" class="headerlink" title="Lung Field Segmentation"></a>Lung Field Segmentation</h3><h4 id="Categories"><a href="#Categories" class="headerlink" title="Categories"></a>Categories</h4><ol>
+<li>Rule-based systems apply pre-defined set of thresholding and morphological operations that are derived from heuristics.</li>
+<li>Pixel classification methods classify the pixels as inside or outside of the lung fields based on pixel intensities.（像素分类）</li>
+<li>Based on deformable（可变形） models such as Active Shape Model (ASM) and Active Appearance Model.</li>
+</ol>
+<h4 id="Current-state-of-the-art"><a href="#Current-state-of-the-art" class="headerlink" title="Current state-of-the-art"></a>Current state-of-the-art</h4><p>Registration-based approach: to build a lung model for a test patient, finds patients in an existing database that are most similar to the test patient and perform linear deformation of their lung profiles based on key point matching.（比较法；关键点匹配）</p>
+<h3 id="Semantic-Segmentation-with-Convolutional-Networks"><a href="#Semantic-Segmentation-with-Convolutional-Networks" class="headerlink" title="Semantic Segmentation with Convolutional Networks"></a>Semantic Segmentation with Convolutional Networks</h3><p>Aims to assign a pre-defined class to <strong>each pixel</strong></p>
+<h4 id="Current-state-of-the-art-1"><a href="#Current-state-of-the-art-1" class="headerlink" title="Current state-of-the art"></a>Current state-of-the art</h4><ul>
+<li>Fully convolutional network (FCN)</li>
+<li>Improvement: Semantic segmentation using adversarial networks</li>
+</ul>
+<p>We note that there is a growing body of recent works that apply neural networks end-to-end on CXR images [25, 34]. These models directly output clinical targets such as disease labels without well-deﬁned intermediate outputs to aid interpretability. Furthermore, they generally require a large number of CXR images for training, which is not readily available for many clinical tasks involving CXR images.</p>
+<p>目前一些成果的不足：结果未输出辅助性中间结果，直接输出标签，且需要大量训练数据。</p>
+<h1 id="Problem-Definition"><a href="#Problem-Definition" class="headerlink" title="Problem Definition"></a>Problem Definition</h1><ul>
+<li>CXRs in the posteroanterior (PA 由后向前) view</li>
+<li>Lung fields definition: lung fileds consist of all the pixels for which radiation passes through the lung but not through the following structures, the heart, the mediastinum（纵膈，介于两肺之间的不透明区域）, below the diaphragm（膈）, the aorta（主动脉）, and if visible, the superior vena cava（上腔静脉）.</li>
+<li>The heart boundary is generally visible on two sides, while the top and bottom borders of the heart have to be inferred due to occlusion by the mediastinum（心脏左右边界通常可见，上下边界被纵膈遮挡需要推测）</li>
+</ul>
+<p>定义了CXR拍摄方向为PA和肺区域和心脏区域的定义。</p>
+<h1 id="Structure-Correcting-Adversarial-Network-SCAN"><a href="#Structure-Correcting-Adversarial-Network-SCAN" class="headerlink" title="Structure Correcting Adversarial Network (SCAN)"></a>Structure Correcting Adversarial Network (SCAN)</h1><p>Authors adapt FCNs to gray-scale CXR images uder the stringent constraint of very limited trainning dataset of 247 images. It departs from the usual VGG architecture and can be trained without transfer learning from existing models or dataset.</p>
+<p>论文方法提出的方法SCAN：FCN+对抗网络，仅需要少量训练数据，不依赖现有模型或数据库</p>
+<h2 id="Adversarial-Training-for-Smeantic-Segmentation"><a href="#Adversarial-Training-for-Smeantic-Segmentation" class="headerlink" title="Adversarial Training for Smeantic Segmentation"></a>Adversarial Training for Smeantic Segmentation</h2><h3 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h3><p>Adversarial trainning was first proposed in Generative Adversarial Network (GAN)</p>
+<ul>
+<li><strong>a generator network:</strong> learn the data distribution</li>
+<li><strong>a critic network:</strong> estimates the probability that a sample comes from the tranning data instead of synthesized by the generator</li>
+<li><strong>Adversarial process:</strong> The generator’s objective is to maximize the probability that the critic makes a mistake, while the critic is optimized to minimize the chance of mistake.</li>
+<li>The critic, which itself can be a complex neural network, can learn to exploit higher order inconsistencies in the samples synthesized by the generator.</li>
+</ul>
+<p>Use the critic to learn these higher order structures and guide the segmentation network to generate masks more consistent with the learned global structures.</p>
+<p>Key: 利用判别模型来学习高阶的结构信息来指导分割网络学习到全局结构信息。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fidtyc6tnoj21vu0w014l.jpg" referrerPolicy="no-referrer">
+
+<h2 id="Training-Objectives"><a href="#Training-Objectives" class="headerlink" title="Training Objectives"></a>Training Objectives</h2><h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><ul>
+<li>$S$: segmentation network</li>
+<li>$D$: critic network</li>
+<li>$x_i$: input image, shape $[H,W,1]$ for a single-channel gray-scale image with heigh $H$ and width $W$</li>
+<li>$y_i$: the associated mask labels, shape $[H,W,C]$ where $C$ is the number of classes including the background.<ul>
+<li>for each pixel location $(j,k)$, $y_i^{jkc}=1$ for the labeled class $c$ while the rest of the channels are zero($y_i^{jkc’}=0$ for $c’ \neq c$).</li>
+</ul>
+</li>
+<li>$S(x) \in \lbrace 0, 1 \rbrace ^{\lbrace H,W,C \rbrace}$: denote the class probabilities predicted by $S$ at each pixel location such that class probailities normalize to 1 at each pixel.（$S(x)$:通过S预测的每一个像素点每个类的概率） </li>
+<li>$D(x_i, y)$: scalar probability estimate of $y$ coming from the traning data (ground truth) $y_i$ instead of the predicted mask $S(x_i)$ （$D(x_i,y)$: $y$来自训练数据(ground truth)$y_i$而非$S(x_i)$的概率）</li>
+</ul>
+<h3 id="Optimization-problem"><a href="#Optimization-problem" class="headerlink" title="Optimization problem"></a>Optimization problem</h3><p>Eq.(1):<br>$$\begin{equation}<br>\min_S \max_D \lbrace J(S,D):=\sum_{i=1}^N J_s(S(x_i), y_i) - \lambda [J_d(D(x_i, y_i), 1) + J_d(D(x_i, S(x_i)),0)] \rbrace<br>\end{equation}$$</p>
+<ul>
+<li>固定$S$，针对$D$（max下标），最大化$J(S,D)$</li>
+<li>固定$D$，针对$S$最大化$J(S,D)$,</li>
+<li>$ J_s(\hat y, y) := \frac{1}{HW} \sum_{j,k} \sum_{c=1}^C-y^{jkc} \ln y^{jkc}$: multi-class cross-entropy loss for predicted mask $\hat y$ averaged over all pixels.</li>
+<li>$J_d(\hat t, t):= -t\ln \hat t + (1-t) \ln(1-\hat t)$ : binary logistic loss for the critic’s predition</li>
+<li>$\lambda$ : tuning parameter balancing pixel-wise loss and the adversarial loss<br>We can solve Eq.(1) by alternate between optimizing $S$ and optimizing $D$ using their respective loss functions.（训练方法：单独交替迭代训练）</li>
+</ul>
+<p>上述公式可以拆分为下面两个阶段：</p>
+<h4 id="Trainning-the-Critic"><a href="#Trainning-the-Critic" class="headerlink" title="Trainning the Critic"></a>Trainning the Critic</h4><p>Train the critic network by <em>minimizing</em> the following objective with respect to $D$ for a fixed $S$:<br>$$  \sum_{i=1}^N J_d(D(x_i, y_i), 1) + J_d(D(x_i, S(x_i)),0) $$<br>相比于Eq(1) 优化公式，少了负号，所以变成了最小化问题。</p>
+<h4 id="Trainning-the-Segmentation-Network"><a href="#Trainning-the-Segmentation-Network" class="headerlink" title="Trainning the Segmentation Network"></a>Trainning the Segmentation Network</h4><p>Given a fixed D, we train the segmentation network by minimizing the following objective with respect to $S$:<br>$$ \sum_{i=1}^N J_s(S(x_i),y_i) + \lambda J_d(D(x_i,S(x_i)),0)$$</p>
+<ul>
+<li>Use $J_d(D(x_i, S(x_i)),1)$ in place of $-J_d(D(x_i, S(x_i)),0)$, for $J_d(D(x_i, S(x_i)),0)$ leads to weaker gradient signals when $D$ makes accurate predictions.</li>
+</ul>
+<p>参考</p>
+<ul>
+<li>GAN理解: <a href="http://blog.csdn.net/on2way/article/details/72773771?locationNum=7&amp;fps=1" target="_blank" rel="noopener">http://blog.csdn.net/on2way/article/details/72773771?locationNum=7&amp;fps=1</a></li>
+<li>minimax：<a href="https://en.wikipedia.org/wiki/Minimax" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Minimax</a>  </li>
+<li>零和博弈(zero-sum game)</li>
+<li>minimizing the possible loss for a worst case (maximum loss) scenario</li>
+</ul>
+<h2 id="Segmentation-Network"><a href="#Segmentation-Network" class="headerlink" title="Segmentation Network"></a>Segmentation Network</h2><h3 id="FCN"><a href="#FCN" class="headerlink" title="FCN"></a>FCN</h3><ul>
+<li>The down-sampling path(下采样) 类似图像分类网络架构<ul>
+<li>convolutional layers</li>
+<li>max/average pooling layer</li>
+<li>VGG-based</li>
+<li>residual block architecture</li>
+</ul>
+</li>
+<li>The up-sampling path(上采样)<ul>
+<li>convolutional layers</li>
+<li><strong>deconvolutional layers</strong>(transposed convolution) 反卷积层</li>
+</ul>
+</li>
+<li>Most FCNs are applied to color images with RGB channels which this model cannot use.</li>
+<li>3 classes<ul>
+<li>the left lung</li>
+<li>the right lung</li>
+<li>the heart</li>
+</ul>
+</li>
+<li>247 CXR images</li>
+</ul>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fidub1n2s0j21ug0u6165.jpg" referrerPolicy="no-referrer">
+
+<h2 id="Critic-Network"><a href="#Critic-Network" class="headerlink" title="Critic Network"></a>Critic Network</h2><ul>
+<li>input: 4 or 5(including input image) channels</li>
+<li>segmentation network</li>
+<li>global average pool</li>
+<li>fully connected layer</li>
+</ul>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fidubgabyij20ws0oa43x.jpg" referrerPolicy="no-referrer">
+
+<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h2 id="Dataset-and-Processing"><a href="#Dataset-and-Processing" class="headerlink" title="Dataset and Processing"></a>Dataset and Processing</h2><h3 id="Dataset"><a href="#Dataset" class="headerlink" title="Dataset"></a>Dataset</h3><p>Use two publicly available dataset with at least lung field annotations.</p>
+<h4 id="JSRT"><a href="#JSRT" class="headerlink" title="JSRT"></a>JSRT</h4><ul>
+<li>Released by Japanese Society of Radiological Technology (JSRT)</li>
+<li>247 CXRs (154 have lung nodules and 93 have no lung nodule)</li>
+<li>Resolution: $2048 \times 2048$</li>
+<li>gray-scale with color depth of 12 bits.</li>
+<li>represents mostly normal lung and heart masks (lung nodules in most cases do not alter the counter of the lungs and heart</li>
+</ul>
+<h4 id="Montgomery"><a href="#Montgomery" class="headerlink" title="Montgomery"></a>Montgomery</h4><ul>
+<li>Department of Health and Human Services, Montgomer Country, Marland, USA</li>
+<li>138 CXRs (80 normal patients and 58 patients with manifested tuberculosis(TB肺结核))</li>
+<li>Resolution: $4020 \times 4892$ or $4892 \times 4020$</li>
+<li>gray-scale with color depth of 12 bits.</li>
+<li>Only the two lung masks annotations are available</li>
+</ul>
+<h3 id="Processing"><a href="#Processing" class="headerlink" title="Processing"></a>Processing</h3><ul>
+<li>scale all images to $ 400 \times 400$ pixels(with sufficient visual details for vascular structures)</li>
+<li>$800 \times 800$ does not improve the segmentation performance</li>
+<li>image normalization : for given image $x$<br>$$x^{jk} := \frac{x^{jk} - \hat x}{\sqrt{var(x)}}$$<ul>
+<li>$\hat x$: mean of pixels in $x$</li>
+<li>$var(x)$: variance of pixels in $x$</li>
+<li>do not use statistics from the whole dataset（取单张图片均值和方差非整个数据集）</li>
+</ul>
+</li>
+<li>post-processing: fill in any hole in the predicted mask, and remove the small patches disjoint from the largest mask<ul>
+<li>PS: In practice, this is important for the predition output of the segmentation network (FCN alone), but dose not affect the evalutation results for FCN with adversarial trainning*（post-prcessing对FCN有效，对FCN对抗网络无提升效果）</li>
+</ul>
+</li>
+</ul>
+<h2 id="Training-Protocols"><a href="#Training-Protocols" class="headerlink" title="Training Protocols"></a>Training Protocols</h2><ul>
+<li>GANs are unstable during the training process</li>
+<li>pre-train the segmentation network using only the pixel-wise loss $J_s$<ul>
+<li>faster</li>
+<li>do not train critic network</li>
+</ul>
+</li>
+<li>Adam optimizer with learning rate 0.0002 to train all models for 350 epochs</li>
+<li>mini-batch size : 10</li>
+<li>with critic network : perform 5 optimization steps on the segmentation for each optimization steps on the critic network ( 5次segementation，1次critic）</li>
+<li>evaluation: IoU (Intersection-over-Union)<ul>
+<li>$P$: the set of pixels in the predicted segmentation mask for a class</li>
+<li>$G$: the set of pixels in the ground truth mask for a class</li>
+<li>$IoU=\frac{|P \cap G|}{|P \cup G|} = \frac{|TP|}{|TP|+|FP|+|FN|}$</li>
+<li>Dice Coefficient: $ \frac{2|P \cap G|}{|P + G|} = \frac{2|TP|}{2|TP|+|FP|+|FN|}$</li>
+</ul>
+</li>
+</ul>
+<h2 id="Experiment-Design-and-Result"><a href="#Experiment-Design-and-Result" class="headerlink" title="Experiment Design and Result"></a>Experiment Design and Result</h2><h3 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h3><ul>
+<li>JSRT<ul>
+<li>development set: 209 images (randomly)</li>
+<li>evaluation set: 38 images</li>
+<li>tune hyperparameters (such as $\lambda$ in Eq.(1)) using a validation set within development set</li>
+</ul>
+</li>
+<li>Montgomery<ul>
+<li>development set: 117 images(randomly)</li>
+<li>evaluation set: 21 images</li>
+<li>use the same hyperparameters tuned in JSRT</li>
+</ul>
+</li>
+</ul>
+<h3 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h3><ol>
+<li>Compare FCN with SCAN on JSRT</li>
+</ol>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fidufhfz00j20tc0iu781.jpg" referrerPolicy="no-referrer">
+2. Compare to existing methods on JSRT
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fidufuqvqnj20tw0k20x3.jpg" referrerPolicy="no-referrer">
+  * current state-of-the-art: registration-based
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fiduhdsi95j21g40ps1kx.jpg" referrerPolicy="no-referrer">
+3. on Different dataset（迁移性）
+  * different population
+  * train on the full JSRT and test on the full montgomery
+  * 单纯使用FCN数据集迁移性不佳
+
+<img src="https://ws1.sinaimg.cn/mw690/6177e8b1gy1fiduhssxfwj20nu06a3zo.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fiduif47zbj20z00pwx5n.jpg" referrerPolicy="no-referrer">
+
+<ol start="4">
+<li>time efficiency</li>
+</ol>
+<img src="https://ws1.sinaimg.cn/mw690/6177e8b1gy1fiduj0w01kj20sy0acdit.jpg" referrerPolicy="no-referrer">
+
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://blog.csdn.net/on2way/article/details/72773771?locationNum=7&fps=1" target="_blank" rel="noopener">简单理解与实验生成对抗网络GAN</a></li>
+<li><a href="http://blog.csdn.net/Solomon1558/article/details/52338052?locationNum=6&fps=1" target="_blank" rel="noopener"> 生成式模型 &amp; 生成对抗网络——资料梳理（专访资料 + 论文分类）</a></li>
+<li><a href="http://blog.csdn.net/u012759136/article/details/52434826?locationNum=6&fps=1" target="_blank" rel="noopener">图像语义分割之FCN和CRF</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Minimax" target="_blank" rel="noopener">wikipedia: minimax</a></li>
+<li>I. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu, D.Warde-Farley, S. Ozair, A. Courville, and Y. Bengio. Gen-erative adversarial nets. In Advances in Neural Information Processing Systems, pages 2672–2680, 2014. 3, 4</li>
+<li>J. Long, E. Shelhamer, and T. Darrell. Fully convolutional networks for semantic segmentation. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 3431–3440, 2015. 3, 4, 5</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/08/09/notes-scan/" title="[论文笔记] SCAN">https://blog.kinpzz.com/2017/08/09/notes-scan/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F/" rel="tag"># 医学影像</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/02/notes-chestX-ray8/" rel="next" title="[论文笔记] ChestX-ray8">
+                <i class="fa fa-chevron-left"></i> [论文笔记] ChestX-ray8
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/13/kaggle-carvana/" rel="prev" title="[比赛总结] Kaggle-Carvana 银牌">
+                [比赛总结] Kaggle-Carvana 银牌 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keyword"><span class="nav-number">2.</span> <span class="nav-text">Keyword</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Main-Work"><span class="nav-number">3.</span> <span class="nav-text">Main Work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Background"><span class="nav-number">4.</span> <span class="nav-text">Background</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">4.1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Challenge"><span class="nav-number">4.2.</span> <span class="nav-text">Challenge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">4.3.</span> <span class="nav-text">Related Work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lung-Field-Segmentation"><span class="nav-number">4.3.1.</span> <span class="nav-text">Lung Field Segmentation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Categories"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">Categories</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Current-state-of-the-art"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">Current state-of-the-art</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Semantic-Segmentation-with-Convolutional-Networks"><span class="nav-number">4.3.2.</span> <span class="nav-text">Semantic Segmentation with Convolutional Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Current-state-of-the-art-1"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">Current state-of-the art</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Problem-Definition"><span class="nav-number">5.</span> <span class="nav-text">Problem Definition</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Structure-Correcting-Adversarial-Network-SCAN"><span class="nav-number">6.</span> <span class="nav-text">Structure Correcting Adversarial Network (SCAN)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adversarial-Training-for-Smeantic-Segmentation"><span class="nav-number">6.1.</span> <span class="nav-text">Adversarial Training for Smeantic Segmentation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GAN"><span class="nav-number">6.1.1.</span> <span class="nav-text">GAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training-Objectives"><span class="nav-number">6.2.</span> <span class="nav-text">Training Objectives</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data"><span class="nav-number">6.2.1.</span> <span class="nav-text">Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimization-problem"><span class="nav-number">6.2.2.</span> <span class="nav-text">Optimization problem</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Trainning-the-Critic"><span class="nav-number">6.2.2.1.</span> <span class="nav-text">Trainning the Critic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Trainning-the-Segmentation-Network"><span class="nav-number">6.2.2.2.</span> <span class="nav-text">Trainning the Segmentation Network</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Segmentation-Network"><span class="nav-number">6.3.</span> <span class="nav-text">Segmentation Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FCN"><span class="nav-number">6.3.1.</span> <span class="nav-text">FCN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Critic-Network"><span class="nav-number">6.4.</span> <span class="nav-text">Critic Network</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experiments"><span class="nav-number">7.</span> <span class="nav-text">Experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dataset-and-Processing"><span class="nav-number">7.1.</span> <span class="nav-text">Dataset and Processing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dataset"><span class="nav-number">7.1.1.</span> <span class="nav-text">Dataset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSRT"><span class="nav-number">7.1.1.1.</span> <span class="nav-text">JSRT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Montgomery"><span class="nav-number">7.1.1.2.</span> <span class="nav-text">Montgomery</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Processing"><span class="nav-number">7.1.2.</span> <span class="nav-text">Processing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training-Protocols"><span class="nav-number">7.2.</span> <span class="nav-text">Training Protocols</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Experiment-Design-and-Result"><span class="nav-number">7.3.</span> <span class="nav-text">Experiment Design and Result</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Design"><span class="nav-number">7.3.1.</span> <span class="nav-text">Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance"><span class="nav-number">7.3.2.</span> <span class="nav-text">Performance</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">8.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/08/09/notes-scan/';
+          this.page.identifier = '2017/08/09/notes-scan/';
+          this.page.title = '[论文笔记] SCAN';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

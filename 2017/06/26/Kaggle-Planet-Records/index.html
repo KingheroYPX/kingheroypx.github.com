@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Kaggle,深度学习,图像分类," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="概述比赛信息： Name: Planet: Understanding the Amazon from Space.  *Goal: *Use satellite data to track the human footprint in the Amazon rainforest Kaggle 比赛地址: https:&#x2F;&#x2F;www.kaggle.com&#x2F;c&#x2F;planet-understanding-">
+<meta name="keywords" content="Kaggle,深度学习,图像分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle: Planet Competion Record">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;06&#x2F;26&#x2F;Kaggle-Planet-Records&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="概述比赛信息： Name: Planet: Understanding the Amazon from Space.  *Goal: *Use satellite data to track the human footprint in the Amazon rainforest Kaggle 比赛地址: https:&#x2F;&#x2F;www.kaggle.com&#x2F;c&#x2F;planet-understanding-">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgynnrf8dvj21p00rqdpw.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgzie4juknj20ry0bwdhq.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgzif0b3y7j21be0dkjtl.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgyparkg52j20qc0iqwgy.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgzih1qddxj20ya0oidns.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fh0xlcnilgj21q80lejwj.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fh2j48zjxpj20ql03tjru.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fh2jds7biqj20qp03t3yy.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fh9zg5ddltj20qs0qogyg.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fh9zhzdparj20o80ncdr8.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fh9zjk3monj20rk0lkn8p.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fha7ajenggj21e404o3z0.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fha7c86bsej21i002qjrs.jpg">
+<meta property="og:updated_time" content="2019-11-29T04:07:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fgynnrf8dvj21p00rqdpw.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/06/26/Kaggle-Planet-Records/"/>
+
+
+
+
+
+  <title>Kaggle: Planet Competion Record | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/06/26/Kaggle-Planet-Records/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kaggle: Planet Competion Record</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-26T17:49:00+08:00">
+                2017-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/26/Kaggle-Planet-Records/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/26/Kaggle-Planet-Records/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/26/Kaggle-Planet-Records/" class="leancloud_visitors" data-flag-title="Kaggle: Planet Competion Record">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="比赛信息："><a href="#比赛信息：" class="headerlink" title="比赛信息："></a>比赛信息：</h2><ul>
+<li><strong>Name:</strong> Planet: Understanding the Amazon from Space. </li>
+<li>*<em>Goal: *</em>Use satellite data to track the human footprint in the Amazon rainforest</li>
+<li>Kaggle 比赛地址: <a href="https://www.kaggle.com/c/planet-understanding-the-amazon-from-space" target="_blank" rel="noopener">https://www.kaggle.com/c/planet-understanding-the-amazon-from-space</a></li>
+<li>个人GitHub仓库（存放相关代码）:<a href="https://github.com/Kinpzz/Kaggle-Planet-Competition" target="_blank" rel="noopener">https://github.com/Kinpzz/Kaggle-Planet-Competition</a></li>
+</ul>
+<h2 id="主要工作"><a href="#主要工作" class="headerlink" title="主要工作"></a>主要工作</h2><p>进行亚马逊热带雨林卫星图像的分类，其中每张图片可能包含多个标签</p>
+<h1 id="进度"><a href="#进度" class="headerlink" title="进度"></a>进度</h1><h2 id="Previous-work"><a href="#Previous-work" class="headerlink" title="Previous work"></a>Previous work</h2><ul>
+<li>May 30th 使用单个vgg16、ResNet提交baseline，发现存在问题</li>
+</ul>
+<h2 id="weeks"><a href="#weeks" class="headerlink" title="weeks"></a>weeks</h2><ul>
+<li>Day 1, June 26th Mon. 完成数据集分析</li>
+<li>Day 2, June 27th Tue. 完成天气分类训练</li>
+<li>Day 3, June 28th Wed. 完成校验集划分输出F beta score观察，完成陆地类训练，观察各类精度</li>
+<li>Day 4, June 29th Thurs. 完成阈值搜索，完成初次提交和改进，成绩LB 0.91816</li>
+<li>Day 5, June 30th Fri. 对LB 0.91816预测结果进行分析，发现问题，尝试改进</li>
+<li>Day 6, July 3th Mon. 改用Inception v3模型，使用Keras进行修改和fine-tune</li>
+<li>Day 7, July 4th Tue. 使用旋转、对称方法预处理图像，增加训练样本</li>
+<li>Day 8, July 5th, Wed. 考试，剩余时间在训练Inception v3 模型 (LB 0.91815)</li>
+<li>Day 9, July 6th Thurs. 使用投票的方法，将不同方法预处理的结果进行投票综合, 准备答辩</li>
+</ul>
+<a id="more"></a>
+
+
+<h1 id="具体进展"><a href="#具体进展" class="headerlink" title="具体进展"></a>具体进展</h1><h2 id="Day-1-数据集分析-June-26th-Mon"><a href="#Day-1-数据集分析-June-26th-Mon" class="headerlink" title="Day 1 : 数据集分析(June 26th. Mon)"></a>Day 1 : 数据集分析(June 26th. Mon)</h2><h3 id="一、先前进展"><a href="#一、先前进展" class="headerlink" title="一、先前进展"></a>一、先前进展</h3><p>先前采用了一个Vgg 16网络对多个标签同时进行训练，并采用阈值设定的方法来进行标签的筛选，准确率为78%左右。</p>
+<p>后将Vgg 16模型改为ResNet并进行上述相同的训练策略，效果不佳，准确率为72%左右</p>
+<h3 id="二、问题概览"><a href="#二、问题概览" class="headerlink" title="二、问题概览"></a>二、问题概览</h3><ol>
+<li>数据集存在的问题<ul>
+<li>数据集不均衡，有的样本量多有的样本量少</li>
+<li>直接在同一个网络里对多标签进行训练效果不佳、存在天气、地形等标签</li>
+<li>不同标签之间存在着依赖关系，比如出现cloudy就不会出现其他的标签</li>
+</ul>
+</li>
+<li>对应改进方法<ul>
+<li>采用随机批量训练的方法，每次训练都从所训练的类中取相同数目的训练集进行训练，若该标签的训练集不足，则重复。</li>
+<li>先对样本进行标签分类，针对每个类别建立一个神经网络，观察是单标签还是多标签</li>
+<li>建立共生矩阵，查看相互之间的关系</li>
+<li>训练方法：validation set + training set 训练出基础模型，再对基础模型训练一遍training set</li>
+</ul>
+</li>
+<li>待改进<ul>
+<li>图片格式jpg和tiff有什么区别？</li>
+<li>各个类别的阈值设定：他人的最佳实践、动态计算</li>
+</ul>
+</li>
+</ol>
+<h3 id="三、数据集分析"><a href="#三、数据集分析" class="headerlink" title="三、数据集分析"></a>三、数据集分析</h3><h4 id="训练样本："><a href="#训练样本：" class="headerlink" title="训练样本："></a>训练样本：</h4><ul>
+<li>数目：40479</li>
+<li>样例文件名： <code>train_1.jpg</code></li>
+</ul>
+<h4 id="标签"><a href="#标签" class="headerlink" title="标签:"></a>标签:</h4><ul>
+<li><p>Header: image_name,tags</p>
+</li>
+<li><p>样子行: train_0, haze primary</p>
+</li>
+<li><p>标签类别: 17类</p>
+<p>  <code>[&#39;haze&#39;, &#39;primary&#39;, &#39;agriculture&#39;, &#39;clear&#39;, &#39;water&#39;, &#39;habitation&#39;, &#39;road&#39;, &#39;cultivation&#39;, &#39;slash_burn&#39;, &#39;cloudy&#39;, &#39;partly_cloudy&#39;, &#39;conventional_mine&#39;, &#39;bare_ground&#39;, &#39;artisinal_mine&#39;, &#39;blooming&#39;, &#39;selective_logging&#39;, &#39;blow_down&#39;]</code></p>
+<p>  注：具体标签释义、样例图片请参考<a href="https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/data" target="_blank" rel="noopener">官方数据集描述</a></p>
+</li>
+<li><p>标签组合: 431种</p>
+</li>
+<li><p>类别：</p>
+<ul>
+<li>天气：haze、clear、partly_cloudy、cloudy（关系：互斥？）</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>天气标签</th>
+<th>数目</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>haze</td>
+<td>2679</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>28431</td>
+</tr>
+<tr>
+<td>partly_cloudy</td>
+<td>7261</td>
+</tr>
+<tr>
+<td>cloudy</td>
+<td>2089</td>
+</tr>
+<tr>
+<td>* 地形：余下13类（关系：非互斥，具体有什么关系？）</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>地形标签</th>
+<th>数目</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>primary</td>
+<td>37513</td>
+</tr>
+<tr>
+<td>agriculture</td>
+<td>12315</td>
+</tr>
+<tr>
+<td>water</td>
+<td>7411</td>
+</tr>
+<tr>
+<td>habitation</td>
+<td>3660</td>
+</tr>
+<tr>
+<td>road</td>
+<td>8071</td>
+</tr>
+<tr>
+<td>cultivation</td>
+<td>4547</td>
+</tr>
+<tr>
+<td>slash_burn</td>
+<td>209</td>
+</tr>
+<tr>
+<td>conventional mine</td>
+<td>100</td>
+</tr>
+<tr>
+<td>bare_ground</td>
+<td>862</td>
+</tr>
+<tr>
+<td>artisinal_mine</td>
+<td>339</td>
+</tr>
+<tr>
+<td>blooming</td>
+<td>332</td>
+</tr>
+<tr>
+<td>selective_logging</td>
+<td>340</td>
+</tr>
+<tr>
+<td>blow_down</td>
+<td>101</td>
+</tr>
+</tbody></table>
+<h4 id="共生矩阵："><a href="#共生矩阵：" class="headerlink" title="共生矩阵："></a>共生矩阵：</h4><p>陆地的类型与天气的类型应该是两个分析数据的维度，天气不同短时间内基本不会影响陆地的类型，所以打算将两种类别分在不同的网络中进行训练，暂不做相关性考虑。</p>
+<h5 id="天气类别共生矩阵-4类"><a href="#天气类别共生矩阵-4类" class="headerlink" title="天气类别共生矩阵(4类)"></a>天气类别共生矩阵(4类)</h5><table>
+<thead>
+<tr>
+<th></th>
+<th>clear</th>
+<th>partly_cloudy</th>
+<th>haze</th>
+<th>cloudy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>clear</td>
+<td>28431</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>partly_cloudy</td>
+<td>0</td>
+<td>7261</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>haze</td>
+<td>0</td>
+<td>0</td>
+<td>2697</td>
+<td>0</td>
+</tr>
+<tr>
+<td>cloudy</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2089</td>
+</tr>
+</tbody></table>
+<p>$$28431+7261+2697+2089=40478$$ 总数 40479，只有一张图片没有天气标签，哪一张？通过运算发现是第24448张。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgynnrf8dvj21p00rqdpw.jpg" referrerPolicy="no-referrer">
+
+<p>但是通过观察全部的共生矩阵可以发现，water除了跟cloudy无任何相关性，都与其他的天气情况有过共同出现的情况。</p>
+<p>注：共生矩阵显示：cloudy与其他所有类都无任何共同出现的情况，一旦标签有cloudy就不会有其他标签。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>water</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>clear</strong></td>
+<td>5502</td>
+</tr>
+<tr>
+<td><strong>partly_cloudy</strong></td>
+<td>1295</td>
+</tr>
+<tr>
+<td><strong>haze</strong></td>
+<td>613</td>
+</tr>
+<tr>
+<td><strong>cloudy</strong></td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>由此可以推出，可以忽略那张只有water的训练数据，得出天气之间的条件是互斥关系，并且每张图片都应该有一个天气标签。</p>
+<h5 id="陆地类共生矩阵（13类）"><a href="#陆地类共生矩阵（13类）" class="headerlink" title="陆地类共生矩阵（13类）"></a>陆地类共生矩阵（13类）</h5><h6 id="样本丰富的陆地类别（6类）"><a href="#样本丰富的陆地类别（6类）" class="headerlink" title="样本丰富的陆地类别（6类）"></a>样本丰富的陆地类别（6类）</h6><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgzie4juknj20ry0bwdhq.jpg" referrerPolicy="no-referrer">
+
+<p>&lt;img src=”<a href="https://ws1.sinaimg.cn/large/6177e8b1gy1fgyoksvlaej20qy0eomyx.jpg&quot;/" target="_blank" rel="noopener">https://ws1.sinaimg.cn/large/6177e8b1gy1fgyoksvlaej20qy0eomyx.jpg&quot;/</a> width=”500px”&gt;</p>
+<p>可以发现这些样本重叠的标签是比较多的，这说明这些场景出现的数目比较多，且常常伴有同时出现的情况。</p>
+<h6 id="样本稀有的陆地类别（7类）"><a href="#样本稀有的陆地类别（7类）" class="headerlink" title="样本稀有的陆地类别（7类）"></a>样本稀有的陆地类别（7类）</h6><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgzif0b3y7j21be0dkjtl.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgyparkg52j20qc0iqwgy.jpg" width="500px"/>
+
+<p>可以发现这几类比较稀有的陆地类之间的相关关系是比较小的，只有artisinal_mine和bare_ground之间同时出现的概率还比较大一点，其他类标签同时出现的概率是比较小的。</p>
+<h6 id="样本丰富和稀有的陆地类别"><a href="#样本丰富和稀有的陆地类别" class="headerlink" title="样本丰富和稀有的陆地类别"></a>样本丰富和稀有的陆地类别</h6><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fgzih1qddxj20ya0oidns.jpg" referrerPolicy="no-referrer">
+
+<table>
+<thead>
+<tr>
+<th>稀有地形标签</th>
+<th>数目</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>slash_burn</td>
+<td>209</td>
+</tr>
+<tr>
+<td>conventional mine</td>
+<td>100</td>
+</tr>
+<tr>
+<td>bare_ground</td>
+<td>862</td>
+</tr>
+<tr>
+<td>artisinal_mine</td>
+<td>339</td>
+</tr>
+<tr>
+<td>blooming</td>
+<td>332</td>
+</tr>
+<tr>
+<td>selective_logging</td>
+<td>340</td>
+</tr>
+<tr>
+<td>blow_down</td>
+<td>101</td>
+</tr>
+</tbody></table>
+<p>从中可以发现slash_burn、selective_logging、blooming、blow_down总是伴随着primary出现的，其余类别伴随primary出现的概率也非常高，基本可以判断这些陆地类型是在primary rain forest中出现的。还有其余的陆地类型也是，可以见得本次的遥感位置大多拍摄的是雨林中的图片。</p>
+<h4 id="jpg图片和tiff图片的区别："><a href="#jpg图片和tiff图片的区别：" class="headerlink" title="jpg图片和tiff图片的区别："></a>jpg图片和tiff图片的区别：</h4><p><strong>官方说法：</strong> tiff图片包含了红外频段信息可以帮助判断一些情况且包含更准确的卫星遥感信息，而jpg图片只包含了相对符合的颜色、结构信息不那么科学严谨。其中jpg图片包含三个通道(R,G,B)，而tiff包含了(R,G,B,NIR)四个通道，两种格式的图片都是从raw image中提取而来的。从理论上来说jpg图片应该等同于tiff的(R,G,B)三个通道。</p>
+<p>但是从论坛上的反应来看，tiff图片与jpg图片存在着约11%的不一致性，存在位置、颜色的偏移，以及有文件名的错误，需要进行修改。官方也给出了相关说明<a href="https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/discussion/34851" target="_blank" rel="noopener">Test tif vs. jpg - filenames &amp; image shifting</a> </p>
+<p>而标签是通过jpg图片来打的，参照其他人实践的结果，未修正错误之前，采用jpg格式训练效果更好。所以目前阶段先只考虑使用jpg图片来做数据集，暂不考虑NIR通道。</p>
+<h3 id="四、分析总结"><a href="#四、分析总结" class="headerlink" title="四、分析总结"></a>四、分析总结</h3><p>初步设想：划分成天气类和陆地类两类，每一类各在一个网络中进行训练。</p>
+<p>其中天气类比较好训练，可以视单标签训练，选出训练中概率最高的一类即可。其中需要相应提升样本量较少者。</p>
+<p>陆地类仍然存在着多标签的问题，其中各类伴随着primary的概率很高且primary的样本量最多。考虑将其再划分成两个模型来进行训练 ，一个训练不考虑primary的陆地标签，一个只对primary的陆地标签进行二分类训练。primary类可以相应减少正样本数量，与负样本数量均衡。</p>
+<h3 id="五、数据集处理"><a href="#五、数据集处理" class="headerlink" title="五、数据集处理"></a>五、数据集处理</h3><p>待完成：筛选出每一类的训练样本名称即可得出含primary、不含primary两类。天气类、陆地类训练样本集合都相同。（因为共存、除一张特殊情况）</p>
+<h3 id="六、参考："><a href="#六、参考：" class="headerlink" title="六、参考："></a>六、参考：</h3><ul>
+<li><a href="http://blog.leanote.com/post/jevonswang/%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AEjupyter-notebook" target="_blank" rel="noopener">远程访问Jupyter notebook</a></li>
+<li><a href="https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/discussion/35204" target="_blank" rel="noopener">difference between tiff and jpg</a></li>
+<li><a href="https://www.kaggle.com/codepuree/data-analysis" target="_blank" rel="noopener">Data analysis</a></li>
+<li><a href="https://www.kaggle.com/robinkraft/getting-started-with-the-data-now-with-docs" target="_blank" rel="noopener">Getting started with the data - now with docs!</a></li>
+</ul>
+<h2 id="Day2-Day3-：-分类训练"><a href="#Day2-Day3-：-分类训练" class="headerlink" title="Day2, Day3 ： 分类训练"></a>Day2, Day3 ： 分类训练</h2><p>通过上述的分析发现，天气类是比较好训练的，可以看做是一个单标签的训练问题。不需要设定阈值，直接取概率最高者作为预测标签即可。</p>
+<h3 id="解决样本不均衡"><a href="#解决样本不均衡" class="headerlink" title="解决样本不均衡"></a>解决样本不均衡</h3><p>经过上述的数据分析之后，发现样本仍然存在着较大的不均衡性。这里采用的策略是在随机批量读取数据的时候，均匀地覆盖到每一个类。</p>
+<p>每一个次都读取不同类的一张图片。例如每次随机批量训练的随机样本数量为n，通过一个<code>current_sample_index</code>来记录读取到哪个类的样本，每读取一次下标加一，弱超过样本类别数则归0。而从每一个标签类里进行读取的时候，都从随机取这个标签类里取一个index。这样子在多次训练之后，在样本量较多的类里抽取到重复的样本数量较少，在样本量较少的类里抽取到重复样本数量会较多。（注：在多标签的样本里，可能要避免同一批抽取到同下标的样本，但是影响可能也不大）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reader</span><span class="params">()</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        self.imgnames = list()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        self.labels = pd.read_csv(config.labels_file, skiprows=[<span class="number">0</span>], usecols=config.usecols, header=<span class="literal">None</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        self.labels = np.float32(self.labels.values)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        self.imgnames = pd.read_csv(config.labels_file, skiprows=[<span class="number">0</span>], usecols=[<span class="number">0</span>], header=<span class="literal">None</span>).values</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        self.size = len(self.imgnames)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        self.batch_size = config.batch_size</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        self.imgs_path = config.imgs_path</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        self.lineidx = <span class="number">0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        self.lable_tpyes_num = len(config.usecols) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        self.current_sample_index = <span class="number">0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        self.current_sample = list()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(self.lable_tpyes_num):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            self.current_sample.append([index <span class="keyword">for</span> index, value <span class="keyword">in</span> enumerate(np.transpose(self.labels)[i]) <span class="keyword">if</span> value == <span class="number">0</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="comment"># this method can return the index of every type of sample one by one when fetch random batch</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_one_random_balance_index</span><span class="params">(self)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        rand_index = random.sample(self.current_sample[self.current_sample_index], <span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        self.current_sample_index = (self.current_sample_index + <span class="number">1</span>) % self.lable_tpyes_num </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> rand_index</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">random_batch</span><span class="params">(self)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        rand = list()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> xrange(self.batch_size):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">            rand.append(self.get_one_random_balance_index()[<span class="number">0</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        batch_imgnames = list()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> rand:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">            batch_imgnames.append(self.imgnames[idx])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">        batch_labels = self.labels[rand]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">        img_list = list()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> imgname <span class="keyword">in</span> batch_imgnames:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">            path = self.imgs_path + imgname[<span class="number">0</span>] +<span class="string">".jpg"</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">            img = utils.load_image(path)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">            img_list.append(img)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">        batch_imgs = np.reshape(np.stack(img_list), [<span class="number">-1</span>,<span class="number">224</span>,<span class="number">224</span>,<span class="number">3</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">        batch_labels = np.reshape(batch_labels, [<span class="number">-1</span>, self.labels.shape[<span class="number">1</span>]])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> batch_imgs, batch_labels</span></pre></td></tr></table></figure>
+
+
+
+<h3 id="设定损失函数"><a href="#设定损失函数" class="headerlink" title="设定损失函数"></a>设定损失函数</h3><p>这里使用<a href="https://en.wikipedia.org/wiki/Cross_entropy" target="_blank" rel="noopener">交叉熵损失(Cross-entroy loss)</a>来衡量softmax之后输出的概率分布<code>vgg.prob</code>与<code>true_out</code>是否接近<br>$$<br>H(p,q)=-\sum_x p(x) \log q(x)<br>$$<br>注：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">total_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_hat, y_true))</span></pre></td></tr></table></figure>
+
+<p>等同于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">y_hat_softmax = tf.nn.softmax(y_hat)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">total_loss = tf.reduce_mean(-tf.reduce_sum(y_true * tf.log(y_hat_softmax), [<span class="number">1</span>]))</span></pre></td></tr></table></figure>
+
+<p>详细见：<a href="https://stackoverflow.com/questions/34240703/difference-between-tensorflow-tf-nn-softmax-and-tf-nn-softmax-cross-entropy-with" target="_blank" rel="noopener">StackOverflow：difference between tensorflow tf.nn.softmax and tf.nn.softmax_cross_entropy_with_logits</a></p>
+<h3 id="设定校验集"><a href="#设定校验集" class="headerlink" title="设定校验集"></a>设定校验集</h3><p>在使用随机批量训练的时候，直接观察cost的值效果其实不好，因为不同批次的样本cost可能差异较大，这样子我们对模型好坏的观察和把握其实是比较不直观的。所以这里可以划分出校验集，在一定训练次数之后对校验集合的数据进行验证计算，有助于我们直观地比较模型训练的好坏，避免过拟合。做inside test可能会出现过拟合，且需要验证的样本量比较大。</p>
+<p>通过校验集衡量出来的模型，可以再对整个训练数据集合（或校验集）进行训练，可以起到一定的提升。</p>
+<p>校验集数据，按照一定比例进行抽取，取每类约10%~25%的数据作校验集。</p>
+<p>这里通过<code>sklean.model_selection.train_test_split</code>方法来进行校验集的划分：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># validation set</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># set 10% samples to validation set</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">img_set = labels_df[<span class="string">'image_name'</span>].values</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">labels_set = labels_df[label_list].values</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">img_train, img_test, labels_train, labels_test = train_test_split(img_set, labels_set, test_size=<span class="number">0.1</span>, random_state=<span class="number">42</span>)</span></pre></td></tr></table></figure>
+
+<p>将划分好的训练集和校验集输出为新的one hot标签文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># write train set</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open( <span class="string">'./train_validation_v2_bin.csv'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    writer = csv.writer(f)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    writer.writerow([<span class="string">'image_name'</span>] + label_list)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(img_train)):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        data = [img_train[i]] + labels_train[i].tolist()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        writer.writerow(data)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment"># write validation set</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open( <span class="string">'./validation_train_v2_bin.csv'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    writer = csv.writer(f)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    writer.writerow([<span class="string">'image_name'</span>] + label_list)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(img_test)):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        data = [img_test[i]] + labels_test[i].tolist()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        writer.writerow(data)</span></pre></td></tr></table></figure>
+
+<p>由于采用的是随机取样的方法来进行划分，所以每个类的分布基本是按照原先该类别的比例分布的。所以直接采用随机取样的方法即可，不用再对每一类进行单独的按比例取样。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fh0xlcnilgj21q80lejwj.jpg" referrerPolicy="no-referrer">
+
+<h3 id="Mean-F-Score"><a href="#Mean-F-Score" class="headerlink" title="Mean F Score"></a>Mean F Score</h3><p><a href="https://www.kaggle.com/wiki/MeanFScore" target="_blank" rel="noopener">Kaggle 定义</a></p>
+<p>Kaggle对这次模型的训练结果的评分标准就是Mean F Score，且使用其中F beta score这种定义方法来进行训练。这个定义可以输出一个平均的精度值，1为最高值，0位最低值。Sklearn提供了相关的接口可以用来帮助我们观察模型训练结果的好坏。</p>
+<p>参考:</p>
+<ul>
+<li><a href="https://www.kaggle.com/anokas/fixed-f2-score-in-python" target="_blank" rel="noopener">Fixed F2 Score in Python</a></li>
+<li><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.fbeta_score.html#sklearn-metrics-fbeta-score" target="_blank" rel="noopener">sklearn.metrics.fbeta_score</a></li>
+</ul>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><h4 id="划分校验集训练"><a href="#划分校验集训练" class="headerlink" title="划分校验集训练"></a>划分校验集训练</h4><h5 id="天气类："><a href="#天气类：" class="headerlink" title="天气类："></a>天气类：</h5><p>通过观察校验集的F2 score可以帮助我们来筛选观察是否发生了过拟合，这里使用<code>sklearn.metrics.fbeta_score</code>来计算F beta score。训练校验集结果如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">0 cost: 1.11878 f2_score: 0.625</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.730731225296</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">1000 cost: 0.191897 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.877470355731</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">2000 cost: 0.0831444 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.923913043478</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">3000 cost: 0.106504 f2_score: 0.875</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.937994071146</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">4000 cost: 0.0934441 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.930335968379</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">5000 cost: 0.025127 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.93354743083</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">6000 cost: 0.0247073 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.937994071146</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">7000 cost: 0.100279 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.930088932806</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">8000 cost: 0.205701 f2_score: 0.875</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.926136363636</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">9000 cost: 0.232889 f2_score: 0.875</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.941205533597</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">10000 cost: 0.094468 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.9375</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">11000 cost: 0.0641046 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.913290513834</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">12000 cost: 0.0119296 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.937252964427</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">13000 cost: 0.0160865 f2_score: 1.0</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.933794466403</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line">14000 cost: 0.486503 f2_score: 0.875</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.938488142292</span></pre></td></tr></table></figure>
+
+<p>对模型进行了14000次训练，每1000次验证一下校验集的F2 score，发现最后F2 score基本稳定与0.93+, 其中最好一次为9000次训练之后的0.9412，所以做出初步判断，训练3000~4000次，即可到达极值附近。后续再对模型训练的时候只训练3000次左右。</p>
+<h5 id="陆地类"><a href="#陆地类" class="headerlink" title="陆地类"></a>陆地类</h5><p>仍使用<code>sklearn.metrics.fbeta_score</code>来计算校验集的f beta score，然后使用<code>sklearn.metrics.accuracy_score</code>来计算每一类的准确度。</p>
+<p>这里暂时未采用搜索最佳阈值的方法，直接采用固定阈值来测试，发现训练一定次数之后可以发现基本稳定在0.85左右，取其中一次输出来观察：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">4000 cost: 0.762351</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.859302211777</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">agriculture acy_score:	0.85128458498</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">artisinal_mine acy_score:	0.994071146245</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">bare_ground acy_score:	0.978260869565</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">blooming acy_score:	0.964673913043</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">blow_down acy_score:	0.995800395257</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">conventional_mine acy_score:	0.996541501976</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">cultivation acy_score:	0.903409090909</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">habitation acy_score:	0.933300395257</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">primary acy_score:	0.931571146245</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">road acy_score:	0.927124505929</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">selective_logging acy_score:	0.994565217391</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">slash_burn acy_score:	0.993577075099</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">water acy_score:	0.900691699605</span></pre></td></tr></table></figure>
+
+<p>具体看每个类，可以发现样本量比较大的<code>agriculture、</code>反而是比较低，像一些稀有样本量反而准确率更高一些。考虑可能跟阈值设定有关，且正样本量多可能容易误判，在后续调整成搜索阈值之后再作进一步的观察。</p>
+<h4 id="不划分校验集训练"><a href="#不划分校验集训练" class="headerlink" title="不划分校验集训练"></a>不划分校验集训练</h4><p>通过上面训练出基础模型之后再对整个训练集进行少量训练，包括校验集。精度应该获得少量的提升。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://stackoverflow.com/questions/34240703/difference-between-tensorflow-tf-nn-softmax-and-tf-nn-softmax-cross-entropy-with" target="_blank" rel="noopener">StackOverflow: cost function : cross-entropy and softmax</a></p>
+<h2 id="Day-4：阈值设定"><a href="#Day-4：阈值设定" class="headerlink" title="Day 4：阈值设定"></a>Day 4：阈值设定</h2><h3 id="阈值搜索"><a href="#阈值搜索" class="headerlink" title="阈值搜索"></a>阈值搜索</h3><p>相比与固定的阈值在空间内搜索最佳的阈值往往可以达到一个更好的效果。这里采用了F beta score的值作为衡量标准，对每一类的阈值进行了搜索。总体来说可以有一个0.01~0.03的提升。</p>
+<p>参考了Kaggle上了一篇讨论，该讨论对每一类的阈值做了搜索，但是不是全局空间，未考虑到所有可能的组合方式，有点采用贪婪的思想，先找每一类中最好的阈值，再来找其他类。作者认为，每一类中最好的阈值一定是最好的，无论其他类的阈值如何。但作者还未进行数学上的证明。</p>
+<p>我对下面的代码做了一定的修改，添加了阈值搜索的起始值，将阈值搜索的起始值，设为上一次的最优值，再来对每一个类重新寻找阈值的最佳值进行搜索。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimise_f2_thresholds</span><span class="params">(y, p, thres, verbose=True, resolution=<span class="number">100</span>)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    type_num = y.shape[<span class="number">1</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mf</span><span class="params">(x)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        p2 = np.zeros_like(p)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(type_num):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            p2[:, i] = (p[:, i] &gt; x[i]).astype(np.int)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        score = fbeta_score(y, p2, beta=<span class="number">2</span>, average=<span class="string">'samples'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> score</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    x = thres</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(type_num):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        best_i2 = <span class="number">0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        best_score = <span class="number">0</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> i2 <span class="keyword">in</span> range(resolution):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            i2 = i2 / float(resolution)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">            x[i] = i2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">            score = mf(x)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> score &gt; best_score:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">                best_i2 = i2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">                best_score = score</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        x[i] = best_i2</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> verbose:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">            print(i, best_i2, best_score)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> x</span></pre></td></tr></table></figure>
+
+<blockquote>
+<p>作者说明：</p>
+<p>The arguments <code>y</code> and <code>p</code> are both Nx17 numpy array arrays, where N is the number of rows in the validation set. I wouldn’t recommend using this if you’re not doing validation, as the threshold on the training set could be vastly different. It returns a list of size 17 <code>x</code>, which contains the best thresholds for each class.</p>
+</blockquote>
+<p>作者推荐在校验集上进行最佳阈值的搜索。</p>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">validation_f2_score: 0.875932907368</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">acy_score:	agriculture 	0.889575098814</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">acy_score:	artisinal_mine 	0.97233201581</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">acy_score:	bare_ground 	0.970849802372</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">acy_score:	blooming 	0.992588932806</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">acy_score:	blow_down 	0.995800395257</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">acy_score:	conventional_mine 	0.994318181818</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">acy_score:	cultivation 	0.892045454545</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">acy_score:	habitation 	0.903162055336</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">acy_score:	primary 	0.933053359684</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">acy_score:	road 	0.912055335968</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">acy_score:	selective_logging 	0.994812252964</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">acy_score:	slash_burn 	0.993577075099</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">acy_score:	water 	0.851037549407</span></pre></td></tr></table></figure>
+
+<p>经过一定次数的训练之后，可以发现校验集的F beta score稳定在0.87左右，有了0.02左右的提升。但是<code>arigiculture, cultivation, primary, road, water, habitation</code>等丰富的土地类从精度来看仍比较差。</p>
+<p>单独拆开丰富陆地类训练F2 beta可达0.88左右。原先单类精度较高的稀有陆地类F2 score的分数反而很低，由此可以推测，是因为之前校验集中稀有样本太少了，负样本过多，导致判断都是负样本，单方面造成精度高，但是实际遇到正样本识别能力仍然很差。</p>
+<p>所以新增一个校验集合，单独划分出稀有类的校验集和训练集。训练集与校验集各占50%，新增校验集<code>rare_validation_train_v2_bin.csv</code>, 训练集<code>rare_train_validation_v2_bin.csv</code></p>
+<h4 id="再训练"><a href="#再训练" class="headerlink" title="再训练"></a>再训练</h4><p>通过校验集的动态搜索找到一个较好的阈值之后，对全部的样本再进行一定训练。</p>
+<h4 id="陆地类分类训练效果不佳"><a href="#陆地类分类训练效果不佳" class="headerlink" title="陆地类分类训练效果不佳"></a>陆地类分类训练效果不佳</h4><p>发现陆地类进行分类训练就算加上了动态阈值搜索，仍值在0.87左右。下面采用了对17个类一起训练，vgg 16 + 阈值搜索，就达到了0.91521的成绩，超出预期值。</p>
+<h3 id="初步提交-LB-0-91521"><a href="#初步提交-LB-0-91521" class="headerlink" title="初步提交(LB 0.91521)"></a>初步提交(LB 0.91521)</h3><h4 id="对17个类进行训练"><a href="#对17个类进行训练" class="headerlink" title="对17个类进行训练"></a>对17个类进行训练</h4><p>由于分类效果不佳，所以尝试使用了对17个类不分类进行训练，加上阈值搜索，发现得到了比预期要好的结果</p>
+<p>采用阈值搜索的方法加上解决样本失衡的方法进行训练，取最后一次推导出来的最佳阈值再对校验集进行一定训练，取最后最佳阈值来进行预测，得到结果：成绩0.91521。相比于之前同样采用vgg训练的0.78的结果，有了大幅度的改进。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fh2j48zjxpj20ql03tjru.jpg" referrerPolicy="no-referrer">
+
+
+
+<h3 id="改进提交-0-003-LB"><a href="#改进提交-0-003-LB" class="headerlink" title="改进提交(+0.003 LB)"></a>改进提交(+0.003 LB)</h3><p>通过在阈值搜索的过程中，加入对cloudy类的处理，如果判断为cloudy类，则其他类全部设定为0来计算f beta score。因为在上述情况下仍会出现cloudy与其他类同时存在的矛盾情况。这样子就会提升cloudy类判断的阈值门槛，因为如果误判为cloudy类，其他类全部为0，这样子f beta score会很低。从而加入cloudy类与其他类之间的关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimise_f2_thresholds</span><span class="params">(y, p, thres, isAll, verbose=True, resolution=<span class="number">100</span>)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    type_num = y.shape[<span class="number">1</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mf</span><span class="params">(x)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        p2 = np.zeros_like(p)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(type_num):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            p2[:,i] = (p[:,i] &gt; x[i]).astype(np.int)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">            <span class="comment"># consider relation between classes in all classes</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">if</span> isAll:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(p2.shape[<span class="number">0</span>]):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">                    <span class="comment"># if cloudy others are all zero</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">                    <span class="keyword">if</span> p2[i,<span class="number">6</span>] == <span class="number">1</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">                        p2[i,:] = np.zeros(p2.shape[<span class="number">1</span>]).astype(np.int)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">                        p2[i,<span class="number">6</span>] = <span class="number">1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">                    <span class="comment"># if slash_burn, blooming, selective_logging, primary are 1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">                    <span class="comment">#if (p2[i,3] + p2[i,14] + p2[i,15]) &gt; 0:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">                    <span class="comment">#    p2[i,13] = 1</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        score = fbeta_score(y, p2, beta=<span class="number">2</span>, average=<span class="string">'samples'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> score</span></pre></td></tr></table></figure>
+
+<p>其余同上述步骤，得到最后最佳阈值<code>thres = [0.07, 0.01, 0.07, 0.05, 0.05, 0.06, 0.48, 0.01, 0.05, 0.05, 0.09, 0.04, 0.08, 0.08, 0.04, 0.02, 0.06]</code>进行预测。结果:0.91816， 有了0.03的提升。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fh2jds7biqj20qp03t3yy.jpg" referrerPolicy="no-referrer">
+
+
+
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<li><a href="https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/discussion/32475" target="_blank" rel="noopener">Better optimisation of F2 threshold (+0.01 LB)</a></li>
+</ul>
+<h2 id="Day-5：针对LB0-918结果分析改进"><a href="#Day-5：针对LB0-918结果分析改进" class="headerlink" title="Day 5：针对LB0.918结果分析改进"></a>Day 5：针对LB0.918结果分析改进</h2><h3 id="LB0-918结果分析"><a href="#LB0-918结果分析" class="headerlink" title="LB0.918结果分析"></a>LB0.918结果分析</h3><p>对0.918的提交结果进行分析，得到如下结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">muti weather samples number: 6085</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">none weather samples number: 7</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">test_4 cloudy partly_cloudy primary</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">test_6 agriculture clear cultivation habitation haze partly_cloudy primary water</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">test_9 agriculture clear haze primary</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">test_18 clear haze primary</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">test_35 clear partly_cloudy primary</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">file_9967 cloudy partly_cloudy primary</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">file_9968 cloudy partly_cloudy primary</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">file_9975 clear partly_cloudy primary</span></pre></td></tr></table></figure>
+
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>发现仍存在存在着一些问题：</p>
+<ul>
+<li>cloudy与其他类别同时出现</li>
+<li>有的预测结果有多个天气标签，与之前数据分析不符</li>
+<li>有的预测结果没有天气标签</li>
+</ul>
+<p>以上问题都违反了之前输出分析所得出来的结果，只在阈值搜索的时候加入了对cloudy的考量，但是没有强制规则，下面将探讨如何针对以上问题进行改进。</p>
+<h4 id="困难"><a href="#困难" class="headerlink" title="困难"></a>困难</h4><p>在改进过程中也发现其实存在着一定的困难：</p>
+<ul>
+<li>若设置cloudy为1，则其他类强制设为0，cloudy误判的时候对整体的影响结果太大</li>
+<li>如何选出唯一一个天气类，17类带阈值一起训练，单纯取最大似乎不可取</li>
+<li>分出天气类进行单独训练，效果不够好，F beta score 最高也只接近0.94，综合起来效果可能更差</li>
+</ul>
+<h4 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h4><h5 id="Strategy-1"><a href="#Strategy-1" class="headerlink" title="Strategy 1:"></a>Strategy 1:</h5><p>在搜索阈值空间和预测的时候加入一定的策略：</p>
+<ul>
+<li>从天气类中，选出一类大于其阈值最多的类，作为该类的天气类</li>
+<li>若在上述天气步骤中判断为cloudy，则其他标签均设为0</li>
+<li>若陆地类全为0，则该天气类应设为cloudy</li>
+</ul>
+<p>从目前训练的结果来看：</p>
+<ul>
+<li>对训练集训练，校验集的f2 score可以达到0.92+。</li>
+<li>对校验集训练，校验集的f2 score可以达到0.93+(inside test容易过拟合)。</li>
+</ul>
+<p>提交结果：目前仍未超过0.918，无改进，考虑更换其他网络结构，如ResNet50</p>
+<p>TODO: 提高训练速度，校验集label只读取一次保存起来，不用每次做校验都重新读取</p>
+<h2 id="Day-6-Keras-Inception-v3"><a href="#Day-6-Keras-Inception-v3" class="headerlink" title="Day 6: Keras + Inception_v3"></a>Day 6: Keras + Inception_v3</h2><h3 id="模型更换"><a href="#模型更换" class="headerlink" title="模型更换"></a>模型更换</h3><p>经过长时间的vgg 调试发现结果很难提升了，所以打算更换一下网络的模型，同组的同学使用ResNet 50，大概可以到LB 0.927。所以我考虑用一种不一样的模型，最后决定先尝试一下Inception_v3 在论文中，Image Net的分类上，它可以可以达到比ResNet 50更好的效果。</p>
+<p>由于之前使用的Vgg16，ResNet都是用网上别人写好的tensorflow模板，几乎所有的代码都是源码出现，比如添加层数之类的，修改起来异常繁琐和复杂。后来发现了Keras其实可以以tensorflow为后端进行神经网络的设计，而且官方给了很多API和pre-trained model，很适合做快速的原型验证。用了一个早上的时间就上手了，确实很好用，接口清晰方便，修改起来也相对容易，代码的条理性更强，方便我们做修改。</p>
+<p>Inception v3的论文可以参考 <a href="http://arxiv.org/abs/1512.00567" target="_blank" rel="noopener">Rethinking the Inception Architecture for Computer Vision</a>，在Keras下可以直接当成一个黑盒来使用了，具体的神经网络设计后面再继续了解。先跑起来训练看效果如何。</p>
+<h3 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h3><p>Keras的上手主要参考<a href="https://keras.io/applications/" target="_blank" rel="noopener">Fine-tune InceptionV3 on a new set of classes</a>，非常简单的几行代码，只要添加上对图片的读取和处理即可使用。</p>
+<p>这里使用了<code>fit_generator(self, generator, steps_per_epoch, epochs=1, verbose=1, callbacks=None, validation_data=None, validation_steps=None, class_weight=None, max_queue_size=10, workers=1, use_multiprocessing=False, initial_epoch=0)</code>来进行训练。</p>
+<p>我们可以在generator调用读取图片的方法，最后用<code>yield</code>使得这个函数变为一个generator。下面是我写的两个generator，一个是随机批量读取一个是顺序批量读取，两个都非常简洁。直接调用我之前在reader中写好的读取图像的方法即可，只是在这里包装为一个生成器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_batch_generator</span><span class="params">(config)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    reader = Reader(config)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        batch_features, batch_labels = reader.random_batch()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">yield</span> batch_features, batch_labels</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">batch_generator</span><span class="params">(config)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    reader = Reader(config)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        batch_features, batch_labels = reader.batch()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">yield</span> batch_features, batch_labels</span></pre></td></tr></table></figure>
+
+<h4 id="模型的保存和读取"><a href="#模型的保存和读取" class="headerlink" title="模型的保存和读取"></a>模型的保存和读取</h4><p>当我们训练到一定的次数可以用<code>model.save(path)</code>的方法将神经网络的结构和权重保存在<code>.h5</code>文件中，当要重新载入模型和权重进行训练的时候用<code>keras.models.load_model(path)</code>进行重新读取即可。</p>
+<p>参考：<a href="http://blog.sina.com.cn/s/blog_d76227260102wxuh.html" target="_blank" rel="noopener">如何保存Keras深度学习模型？</a></p>
+<h4 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">500/500 [==============================] - 125s - loss: 4.0212 - val_loss: 4.3960</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">Epoch 2/50</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">500/500 [==============================] - 120s - loss: 4.0317 - val_loss: 4.3766</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">Epoch 3/50</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">500/500 [==============================] - 120s - loss: 3.9788 - val_loss: 4.3717</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">Epoch 4/50</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">500/500 [==============================] - 119s - loss: 4.0052 - val_loss: 4.3587</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">Epoch 5/50</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">500/500 [==============================] - 119s - loss: 4.0394 - val_loss: 4.3478</span></pre></td></tr></table></figure>
+
+<p>这里可以看到，在训练过程中，每一个epoch的validation loss都是呈下降趋势，通过观察每个epoch都会对校验集做一次检验，这样就可以清楚地观察到模型有没有过拟合了。比我之前vgg的写法要清楚很多。</p>
+<h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://medium.com/@fromtheast/implement-fit-generator-in-keras-61aa2786ce98" target="_blank" rel="noopener">Implement fit_generator( ) in Keras</a></li>
+<li><a href="https://keras.io/models/model/" target="_blank" rel="noopener">Keras: Model class API</a></li>
+<li><a href="http://arxiv.org/abs/1512.00567" target="_blank" rel="noopener">Rethinking the Inception Architecture for Computer Vision</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_d76227260102wxuh.html" target="_blank" rel="noopener">如何保存Keras深度学习模型？</a></li>
+</ul>
+<h2 id="Day-7：预处理图像"><a href="#Day-7：预处理图像" class="headerlink" title="Day 7：预处理图像"></a>Day 7：预处理图像</h2><p>卫星图像进行过翻转，镜像处理之后，其标签的值应该不会发生改变。将这一点条件加入模型中进行训练，就可以增大我们训练的样本量了，可以帮助模型更好地学到一些与空间位置无关的信息，从而来帮助更好地预测。</p>
+<p>这里主要运用了图像的旋转，翻转，镜像等方法。使用了numpy的方法，还有open cv的方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">image_preprocess</span><span class="params">(x, case)</span>:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    rows = x.shape[<span class="number">0</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    cols = x.shape[<span class="number">1</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> case == <span class="number">1</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        M = cv2.getRotationMatrix2D((rows/<span class="number">2</span>,cols/<span class="number">2</span>), <span class="number">90</span>, <span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        x = cv2.warpAffine(x,M,(rows,cols))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">elif</span> case == <span class="number">2</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        M = cv2.getRotationMatrix2D((rows/<span class="number">2</span>,cols/<span class="number">2</span>), <span class="number">180</span>, <span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        x = cv2.warpAffine(x,M,(rows,cols))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">elif</span> case == <span class="number">3</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        M = cv2.getRotationMatrix2D((rows/<span class="number">2</span>,cols/<span class="number">2</span>), <span class="number">270</span>, <span class="number">1</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        x = cv2.warpAffine(x,M,(rows,cols))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">elif</span> case == <span class="number">4</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        x = np.fliplr(x)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">elif</span> case == <span class="number">5</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        x = np.flipud(x)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">elif</span> case == <span class="number">6</span>:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">            x[:,:,i] = np.transpose(x[:,:,i])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> x</span></pre></td></tr></table></figure>
+
+
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fh9zg5ddltj20qs0qogyg.jpg" width="400px"/>
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fh9zhzdparj20o80ncdr8.jpg" width="400px"/>
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fh9zjk3monj20rk0lkn8p.jpg" width="500px"/>
+
+<p>加入这个策略之后，模型的损失有一定的降低，但是会出现一定的过拟合问题，考虑加入Dropout。</p>
+<h2 id="Day-8：Inception-v3-模型-LB-0-91815"><a href="#Day-8：Inception-v3-模型-LB-0-91815" class="headerlink" title="Day 8：Inception v3 模型 (LB 0.91815)"></a>Day 8：Inception v3 模型 (LB 0.91815)</h2><p>对模型加入了Dropout，Dropout rate使用0.5，然后继续采用对图像预处理的方法进行训练。这里仍然采用随机批量，还有随机预处理的方法。</p>
+<p>可以看到训练时候，损失已经有了一定的下降。但是仍非常难训练，损失下降很慢。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Epoch 6&#x2F;20</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">500&#x2F;500 [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;] - 188s - loss: 3.7685 - val_loss: 4.1716</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Epoch 7&#x2F;20</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">500&#x2F;500 [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;] - 193s - loss: 3.7367 - val_loss: 4.1844</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">Epoch 8&#x2F;20</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">500&#x2F;500 [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;] - 193s - loss: 3.7128 - val_loss: 4.2051</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">Epoch 9&#x2F;20</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">500&#x2F;500 [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;] - 192s - loss: 3.6974 - val_loss: 4.1923</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">Epoch 10&#x2F;20</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">500&#x2F;500 [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;] - 192s - loss: 3.6406 - val_loss: 4.1910</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">Epoch 11&#x2F;20</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">500&#x2F;500 [&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;] - 192s - loss: 3.7149 - val_loss: 4.1881</span></pre></td></tr></table></figure>
+
+<p>提交之后相对于之前单单在训练集上的Inception v3有所改进，提交之后成绩为LB 0.9185 与之前vgg 模型的最好成绩持平，但是仍未突破0.92</p>
+<h2 id="Day-9：Voting-LB-0-9218，0-9294"><a href="#Day-9：Voting-LB-0-9218，0-9294" class="headerlink" title="Day 9：Voting(LB 0.9218，0.9294)"></a>Day 9：Voting(LB 0.9218，0.9294)</h2><p>将不同处理的方法结合进行投票，得到一个综合的结果。得到结果(LB 0.9218)</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fha7ajenggj21e404o3z0.jpg"/>
+
+<p>将不同模型vgg、ResNet、Inception预测结果进行投票。得到结果(LB 0.9299)</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fha7c86bsej21i002qjrs.jpg" referrerPolicy="no-referrer">
+
+<p>结果比平均好，但是相对于训练最好的预测结构ResNet(0.9303)（同组成员所做）仍是有所降低了的。看得出来投票是一种不错的方法。</p>
+<p>改进：可以针对每一种不同处理的方法进行训练，可能单种处理方法可以训练得到一个更好的效果。最后再将结果综合起来。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/06/26/Kaggle-Planet-Records/" title="Kaggle: Planet Competion Record">https://blog.kinpzz.com/2017/06/26/Kaggle-Planet-Records/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kaggle/" rel="tag"># Kaggle</a>
+          
+            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/" rel="tag"># 图像分类</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/08/jenkins-docker-ci-cd/" rel="next" title="Jenkins + Docker 项目持续部署实践">
+                <i class="fa fa-chevron-left"></i> Jenkins + Docker 项目持续部署实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/30/Caffe-%E5%85%A5%E9%97%A8/" rel="prev" title="Caffe 入门">
+                Caffe 入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#比赛信息："><span class="nav-number">1.1.</span> <span class="nav-text">比赛信息：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要工作"><span class="nav-number">1.2.</span> <span class="nav-text">主要工作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进度"><span class="nav-number">2.</span> <span class="nav-text">进度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Previous-work"><span class="nav-number">2.1.</span> <span class="nav-text">Previous work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weeks"><span class="nav-number">2.2.</span> <span class="nav-text">weeks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体进展"><span class="nav-number">3.</span> <span class="nav-text">具体进展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-1-数据集分析-June-26th-Mon"><span class="nav-number">3.1.</span> <span class="nav-text">Day 1 : 数据集分析(June 26th. Mon)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、先前进展"><span class="nav-number">3.1.1.</span> <span class="nav-text">一、先前进展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、问题概览"><span class="nav-number">3.1.2.</span> <span class="nav-text">二、问题概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、数据集分析"><span class="nav-number">3.1.3.</span> <span class="nav-text">三、数据集分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#训练样本："><span class="nav-number">3.1.3.1.</span> <span class="nav-text">训练样本：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标签"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">标签:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共生矩阵："><span class="nav-number">3.1.3.3.</span> <span class="nav-text">共生矩阵：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#天气类别共生矩阵-4类"><span class="nav-number">3.1.3.3.1.</span> <span class="nav-text">天气类别共生矩阵(4类)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#陆地类共生矩阵（13类）"><span class="nav-number">3.1.3.3.2.</span> <span class="nav-text">陆地类共生矩阵（13类）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#样本丰富的陆地类别（6类）"><span class="nav-number">3.1.3.3.2.1.</span> <span class="nav-text">样本丰富的陆地类别（6类）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#样本稀有的陆地类别（7类）"><span class="nav-number">3.1.3.3.2.2.</span> <span class="nav-text">样本稀有的陆地类别（7类）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#样本丰富和稀有的陆地类别"><span class="nav-number">3.1.3.3.2.3.</span> <span class="nav-text">样本丰富和稀有的陆地类别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jpg图片和tiff图片的区别："><span class="nav-number">3.1.3.4.</span> <span class="nav-text">jpg图片和tiff图片的区别：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、分析总结"><span class="nav-number">3.1.4.</span> <span class="nav-text">四、分析总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、数据集处理"><span class="nav-number">3.1.5.</span> <span class="nav-text">五、数据集处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、参考："><span class="nav-number">3.1.6.</span> <span class="nav-text">六、参考：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day2-Day3-：-分类训练"><span class="nav-number">3.2.</span> <span class="nav-text">Day2, Day3 ： 分类训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决样本不均衡"><span class="nav-number">3.2.1.</span> <span class="nav-text">解决样本不均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设定损失函数"><span class="nav-number">3.2.2.</span> <span class="nav-text">设定损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设定校验集"><span class="nav-number">3.2.3.</span> <span class="nav-text">设定校验集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mean-F-Score"><span class="nav-number">3.2.4.</span> <span class="nav-text">Mean F Score</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">3.2.5.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#划分校验集训练"><span class="nav-number">3.2.5.1.</span> <span class="nav-text">划分校验集训练</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#天气类："><span class="nav-number">3.2.5.1.1.</span> <span class="nav-text">天气类：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#陆地类"><span class="nav-number">3.2.5.1.2.</span> <span class="nav-text">陆地类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不划分校验集训练"><span class="nav-number">3.2.5.2.</span> <span class="nav-text">不划分校验集训练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.2.6.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-4：阈值设定"><span class="nav-number">3.3.</span> <span class="nav-text">Day 4：阈值设定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阈值搜索"><span class="nav-number">3.3.1.</span> <span class="nav-text">阈值搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果"><span class="nav-number">3.3.2.</span> <span class="nav-text">效果</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#再训练"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">再训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#陆地类分类训练效果不佳"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">陆地类分类训练效果不佳</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初步提交-LB-0-91521"><span class="nav-number">3.3.3.</span> <span class="nav-text">初步提交(LB 0.91521)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对17个类进行训练"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">对17个类进行训练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进提交-0-003-LB"><span class="nav-number">3.3.4.</span> <span class="nav-text">改进提交(+0.003 LB)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">3.3.5.</span> <span class="nav-text">参考：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-5：针对LB0-918结果分析改进"><span class="nav-number">3.4.</span> <span class="nav-text">Day 5：针对LB0.918结果分析改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LB0-918结果分析"><span class="nav-number">3.4.1.</span> <span class="nav-text">LB0.918结果分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#困难"><span class="nav-number">3.4.1.2.</span> <span class="nav-text">困难</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尝试解决"><span class="nav-number">3.4.1.3.</span> <span class="nav-text">尝试解决</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Strategy-1"><span class="nav-number">3.4.1.3.1.</span> <span class="nav-text">Strategy 1:</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-6-Keras-Inception-v3"><span class="nav-number">3.5.</span> <span class="nav-text">Day 6: Keras + Inception_v3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型更换"><span class="nav-number">3.5.1.</span> <span class="nav-text">模型更换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keras"><span class="nav-number">3.5.2.</span> <span class="nav-text">Keras</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型的保存和读取"><span class="nav-number">3.5.2.1.</span> <span class="nav-text">模型的保存和读取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练过程"><span class="nav-number">3.5.2.2.</span> <span class="nav-text">训练过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">3.5.3.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-7：预处理图像"><span class="nav-number">3.6.</span> <span class="nav-text">Day 7：预处理图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-8：Inception-v3-模型-LB-0-91815"><span class="nav-number">3.7.</span> <span class="nav-text">Day 8：Inception v3 模型 (LB 0.91815)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Day-9：Voting-LB-0-9218，0-9294"><span class="nav-number">3.8.</span> <span class="nav-text">Day 9：Voting(LB 0.9218，0.9294)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/06/26/Kaggle-Planet-Records/';
+          this.page.identifier = '2017/06/26/Kaggle-Planet-Records/';
+          this.page.title = 'Kaggle: Planet Competion Record';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

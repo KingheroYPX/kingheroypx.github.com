@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PingFang SC:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|Alegreya:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="docker,ci,jenkins," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="导语现在很火的一个技术就是云计算服务，除了很早就开始做云计算的Amazon，阿里、腾讯、京东、百度等巨头也分分加入云计算的领域中。谈到云计算，就离不开Docker这个方便的工具啦。正如Docker的slogan所说”Build, Ship, and Run Any App, Anywhere”，它通过对应用组件的封装（Packaging）、分发（Distribution）、部署（Deploym">
+<meta name="keywords" content="docker,ci,jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 入门 &amp; CI&#x2F;CD实践">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.kinpzz.com&#x2F;2017&#x2F;05&#x2F;16&#x2F;docker-ci-cd&#x2F;index.html">
+<meta property="og:site_name" content="KINPZZ&#39;S BLOG">
+<meta property="og:description" content="导语现在很火的一个技术就是云计算服务，除了很早就开始做云计算的Amazon，阿里、腾讯、京东、百度等巨头也分分加入云计算的领域中。谈到云计算，就离不开Docker这个方便的工具啦。正如Docker的slogan所说”Build, Ship, and Run Any App, Anywhere”，它通过对应用组件的封装（Packaging）、分发（Distribution）、部署（Deploym">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffmxyqiokaj20m007ht8u.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffmzlgu3bhj20g809w41b.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffn01ubal8j20rs0c8dgx.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffn022om1ij20rs0kk40l.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffn4tyqwkqj20sg0hu403.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffn4tgku82j20iy02bjrl.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1fg9be3hbf9j21da0aqdgv.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffn4z05tg5j20sd0i8410.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffn7nv50baj20t10e9jsm.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnald3s86j21220a8406.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnane08xij216z09jaam.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnb5beexyj20mr06kq43.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbou0c93j218l0d9tb1.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbpowlplj21480frq4a.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbpvkee2j213d0gfta2.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbpzrdi8j215o0auabo.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbq47lpuj21460ez757.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbtpq5itj20a00j075l.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbvdllwhj20uy0cxwgj.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnbxr0h2cj215v0f9t9s.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffnc8z8vijj20r90j4jvm.jpg">
+<meta property="og:updated_time" content="2019-11-29T03:24:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;ws1.sinaimg.cn&#x2F;large&#x2F;6177e8b1gy1ffmxyqiokaj20m007ht8u.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/"/>
+
+
+
+
+
+  <title>Docker 入门 & CI/CD实践 | KINPZZ'S BLOG</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?82c13f33d4b1687046f4a7b5a1ba10a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=63223674";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KINPZZ'S BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习，记录，分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Paul Kinpzz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KINPZZ'S BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker 入门 & CI/CD实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T17:38:00+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/16/docker-ci-cd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/05/16/docker-ci-cd/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/05/16/docker-ci-cd/" class="leancloud_visitors" data-flag-title="Docker 入门 & CI/CD实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffmxyqiokaj20m007ht8u.jpg" referrerPolicy="no-referrer">
+
+<h1 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h1><p>现在很火的一个技术就是云计算服务，除了很早就开始做云计算的Amazon，阿里、腾讯、京东、百度等巨头也分分加入云计算的领域中。谈到云计算，就离不开Docker这个方便的工具啦。正如Docker的slogan所说”Build, Ship, and Run Any App, Anywhere”，它通过对应用组件的封装（Packaging）、分发（Distribution）、部署（Deployment）、运行（Runtime）等生命周期的管理，达到应用组件级别的”一次封装，到处运行”。</p>
+<p>今天我就来学习一下什么是Docker，以及如何在阿里云服务器上用Docker上进行持续集成/持续部署(CI/CD)的，并把学习和实践的过程整理记录下来，其中某些概念性的知识可能会直接摘录官方文档或者相关教程，希望在自己之后的项目之中，可以派的上用场。</p>
+<p>如果你已经熟悉了Docker，并会使用它了，那么请直接跳到本文的后半部分 <a href="#CI-CD-on-Docker">CI/CD on Docker</a></p>
+<a id="more"></a>
+
+<h1 id="Docker-简介"><a href="#Docker-简介" class="headerlink" title="Docker 简介"></a>Docker 简介</h1><h2 id="什么是Docker？"><a href="#什么是Docker？" class="headerlink" title="什么是Docker？"></a>什么是Docker？</h2><p>Docker它的英文本意是码头工人，也就是搬运工，这种搬运工搬运的是集装箱（Container），集装箱里面装的可不是商品货物，而是任意类型的App，Docker把App（叫Payload）装在Container内，通过Linux Container技术的包装将App变成一种标准化的、可移植的、自管理的组件，这种组件可以在你的latop上开发、调试、运行，最终非常方便和一致地运行在production环境下。</p>
+<p>Docker为App提供了一种自动化构建机制（Dockerfile），包括打包，基础设施依赖管理和安装等等；相比于传统的虚拟机技术，它不需要完整的虚拟出一个操作系统，可以降低资源的消耗，提高服务器使用效率，通过其构建工具，又可以帮助我们快速的部署运行应用。</p>
+<h2 id="为什么是Docker？"><a href="#为什么是Docker？" class="headerlink" title="为什么是Docker？"></a>为什么是Docker？</h2><p><a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/why.html" target="_blank" rel="noopener">为什么要用Docker</a>一文介绍了Docker的优势，以及我们为什么要使用它。大概有以下几点：</p>
+<ol>
+<li>更高效地利用系统资源</li>
+<li>更快速的启动时间</li>
+<li>一致的运行环境</li>
+<li>持续交付和部署</li>
+<li>更轻松的迁移</li>
+<li>更轻松的维护和拓展</li>
+</ol>
+<p>其中”持续交付和部署”是这篇博客所要重点关注的内容。</p>
+<p>对开发和运维（DevOps）人员来说，最希望的就是一次创建或配置，可以在任意地方正常运行。</p>
+<p>使用 Docker 可以通过定制应用镜像来实现持续集成、持续交付、部署。开发人员可以通过 Dockerfile 来进行镜像构建，并结合持续集成(Continuous Integration) 系统进行集成测试，而运维人员则可以直接在生产环境中快速部署该镜像，甚至结合持续部署(Continuous Delivery/Deployment) 系统进行自动部署。</p>
+<p>而且使用 Dockerfile 使镜像构建透明化，不仅仅开发团队可以理解应用运行环境，也方便运维团队理解应用运行所需条件，帮助更好的生产环境中部署该镜像。</p>
+<h2 id="Docker-基本概念"><a href="#Docker-基本概念" class="headerlink" title="Docker 基本概念"></a>Docker 基本概念</h2><p>在使用Docker之前，有几个最基本的概念我们需要了解。</p>
+<h3 id="Docker-镜像"><a href="#Docker-镜像" class="headerlink" title="Docker 镜像"></a>Docker 镜像</h3><p>Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。</p>
+<h3 id="Docker-容器"><a href="#Docker-容器" class="headerlink" title="Docker 容器"></a>Docker 容器</h3><p>镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
+<p>容器的实质是进程，但与直接在宿主执行的进程不同，容器进程运行于属于自己的独立的命名空间。容器内的进程是运行在一个隔离的环境里，使用起来，就好像是在一个独立于宿主的系统下操作一样。</p>
+<h3 id="Docker-仓库"><a href="#Docker-仓库" class="headerlink" title="Docker 仓库"></a>Docker 仓库</h3><p>镜像构建完成后，可以很容易的在当前宿主上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，Docker Registry 就是这样的服务。</p>
+<p>PS: 由于这篇博客暂时不会涉及到在不同服务器运行同一个Docker，所以关于Docker仓库的内容就会先简略跳过。</p>
+<h1 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h1><p>我将在阿里云服务器上完成Docker的安装和后续的实践。服务器为Ubuntu 16.04 LTS</p>
+<p>Docker 官方为了简化安装流程，提供了安装一套安装脚本:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">curl -sSL https://get.docker.com/ | sh</span></pre></td></tr></table></figure>
+
+<p>由于墙内原因，下载可能会出现错误，这里就直接使用了<a href="https://help.aliyun.com/knowledge_detail/42851.html" target="_blank" rel="noopener">阿里云提供</a>的安装脚本进行安装</p>
+<p>PS: 该脚本仅支持阿里云服务器内网访问，非内网用户使用不了。但是可以使用中国区优化的脚本:<a href="https://github.com/gitlawr/install-docker" target="_blank" rel="noopener">github</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/intranet | sh -</span></pre></td></tr></table></figure>
+
+
+<p>运行完脚本之后，发现Docker引擎已经完成安装，并且启动了。</p>
+<p>可以通过下面的命令，查看docker引擎运行的状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">systemctl status docker</span></pre></td></tr></table></figure>
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffmzlgu3bhj20g809w41b.jpg" referrerPolicy="no-referrer">
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">docker version # 查看docker 版本</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">Client:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> Version:      17.05.0-ce</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"> API version:  1.29</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"> Go version:   go1.7.5</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"> Git commit:   89658be</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"> Built:        Thu May  4 22:10:54 2017</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> OS/Arch:      linux/amd64</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">Server:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"> Version:      17.05.0-ce</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"> API version:  1.29 (minimum version 1.12)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"> Go version:   go1.7.5</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"> Git commit:   89658be</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"> Built:        Thu May  4 22:10:54 2017</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line"> OS/Arch:      linux/amd64</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"> Experimental: false</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line"> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">docker run --rm hello-world # 运行hello-world</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">Unable to find image 'hello-world:latest' locally</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">latest: Pulling from library/hello-world</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">78445dd45222: Pulling fs layer</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">78445dd45222: Pull complete</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">Digest: sha256:c5515758d4c5e1e838e9cd307f6c6a0d620b5e07e6f927b07d05f6d12a1ac8d7</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">Status: Downloaded newer image for hello-world:latest</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">Hello from Docker!</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">This message shows that your installation appears to be working correctly.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">To generate this message, Docker took the following steps:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line"> 1. The Docker client contacted the Docker daemon.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line"> 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line"> 3. The Docker daemon created a new container from that image which runs the</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">    executable that produces the output you are currently reading.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line"> 4. The Docker daemon streamed that output to the Docker client, which sent it</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">    to your terminal.</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">41</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">42</span></pre></td><td class="code"><pre><span class="line">To try something more ambitious, you can run an Ubuntu container with:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">43</span></pre></td><td class="code"><pre><span class="line"><span class="meta"> $</span><span class="bash"> docker run -it ubuntu bash</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">44</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">45</span></pre></td><td class="code"><pre><span class="line">Share images, automate workflows, and more with a free Docker ID:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">46</span></pre></td><td class="code"><pre><span class="line"> https://cloud.docker.com/</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">47</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">48</span></pre></td><td class="code"><pre><span class="line">For more examples and ideas, visit:</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">49</span></pre></td><td class="code"><pre><span class="line"> https://docs.docker.com/engine/userguide/</span></pre></td></tr></table></figure>
+
+<h1 id="使用镜像"><a href="#使用镜像" class="headerlink" title="使用镜像"></a>使用镜像</h1><h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><p><a href="https://hub.docker.com/explore/" target="_blank" rel="noopener">Docker Hub</a>上有大量的高质量的镜像可以用，这里我们就说一下怎么获取这些镜像并运行。</p>
+<p>从 Docker Registry 获取镜像的命令是 docker pull。其命令格式为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">docker pull [选项] [Docker Registry地址]&lt;仓库名&gt;:&lt;标签&gt;</span></pre></td></tr></table></figure>
+
+<h2 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h2><p>docker run 就是运行容器的命令</p>
+<ul>
+<li><code>-it</code>：这是两个参数，一个是 <code>-i</code>：交互式操作，一个是 <code>-t</code> 终端。我们这里打算进入 <code>bash</code> 执行一些命令并查看返回结果，因此我们需要交互式终端。</li>
+<li><code>--rm</code>：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 <code>docker rm</code>。我们这里只是随便执行个命令，看看结果，不需要排障和保留结果，因此使用 <code>--rm</code> 可以避免浪费空间。</li>
+<li><code>ubuntu:14.04</code>：这是指用 <code>ubuntu:14.04</code> 镜像为基础来启动容器。</li>
+<li><code>bash</code>：放在镜像名后的是<strong>命令</strong>，这里我们希望有个交互式 Shell，因此用的是 <code>bash</code>。</li>
+</ul>
+<p>进入容器后，我们可以在 Shell 下操作，执行任何所需的命令。这里，我们执行了 <code>cat /etc/os-release</code>，这是 Linux 常用的查看当前系统版本的命令，从返回的结果可以看到容器内是 <code>Ubuntu 14.04.5 LTS</code> 系统。</p>
+<p>最后我们通过 <code>exit</code> 退出了这个容器。</p>
+<h2 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h2><p>要想列出已经下载下来的镜像，可以使用 <code>docker images</code> 命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker images</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">hello-world         latest              48b5124b2768        4 months ago        1.84kB</span></pre></td></tr></table></figure>
+
+
+
+<h1 id="CI-CD-on-Docker"><a href="#CI-CD-on-Docker" class="headerlink" title="CI/CD on Docker"></a>CI/CD on Docker</h1><h2 id="什么是CI-CD"><a href="#什么是CI-CD" class="headerlink" title="什么是CI/CD?"></a>什么是CI/CD?</h2><p><strong>持续集成</strong>（Continuous Integration）简称CI，持续集成强调开发人员提交了新代码之后，立刻进行构建、（单元）测试。根据测试结果，我们可以确定新代码和原有代码能否正确地集成在一起。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffn01ubal8j20rs0c8dgx.jpg" referrerPolicy="no-referrer">
+
+<p><strong>持续部署</strong>（Continuous Delivery/Deployment）简称CD，持续部署则是在持续交付的基础上，把部署到生产环境的过程自动化。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffn022om1ij20rs0kk40l.jpg" referrerPolicy="no-referrer">
+
+<p>从<a href="http://www.mindtheproduct.com/2016/02/what-the-hell-are-ci-cd-and-devops-a-cheatsheet-for-the-rest-of-us/" target="_blank" rel="noopener">The Product Managers’ Guide to Continuous Delivery and DevOps</a>一文中对持续集成、持续交付、持续部署三个概念的解释，我们大概可以了解到三者是递进关系的，后者再前者的基础之上进一步自动化。本文只做一个简单的demo，以后根据业务场景的不同再进行更改。</p>
+<h2 id="Travis-CI"><a href="#Travis-CI" class="headerlink" title="Travis CI"></a>Travis CI</h2><p>在之前我所写的博文<a href="https://blog.kinpzz.com/2017/04/09/GitHub-Travis-CI/">GitHub+Travis CI 持续集成</a> 一文中，介绍了如何使用GitHub和Travis CI 进行持续集成。使用Travis CI也可以在CI过程中使用Docker来进行部署、运行、测试。只需要在<code>.travis.yml</code>中添加简单的配置即可</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attr">sudo:</span> <span class="string">required</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">  <span class="bullet">-</span> <span class="string">docker</span></span></pre></td></tr></table></figure>
+
+<p>然后在<code>before_install</code>标签下，添加相关的docker语句即可。由于Travis CI 使用的是在线的服务，所以不需要自己再另外安装Docker，如果是自己在服务器上私有的Travis CI才需要。给人感觉整体的配置流程是比较简单，方便的。具体可以参考官方文档<a href="https://docs.travis-ci.com/user/docker/" target="_blank" rel="noopener">Using Docker in Builds</a>。 与配置完Jenkins之后的持续部署类似，本文不再详细叙述，有需要的话再进行学。</p>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><p>在玩过了Travis CI之后，这次再尝试学习一下另一款持续集成工具Jenkins，并学习、记录下如何使用Jenkins和Docker做持续集成。这里与Travis CI不同，是直接使用自己的服务器来进行持续集成的，可以实现更多的定制，以及闭源代码的持续集成。（Travis CI在线服务只免费提供给GitHub开源代码）。</p>
+<h3 id="什么是Jenkins"><a href="#什么是Jenkins" class="headerlink" title="什么是Jenkins"></a>什么是Jenkins</h3><p>jenkins是一个广泛用于持续构建的可视化web工具，持续构建说得更直白点，就是各种项目的”自动化”编译、打包、分发部署。jenkins可以很好的支持各种语言（比如：java, c#, php等）的项目构建，也完全兼容ant、maven、gradle等多种第三方构建工具，同时跟svn、git能无缝集成，也支持直接与知名源代码托管网站，比如github、bitbucket直接集成。</p>
+<h3 id="通过Docker安装和启动Jenkins"><a href="#通过Docker安装和启动Jenkins" class="headerlink" title="通过Docker安装和启动Jenkins"></a>通过Docker安装和启动Jenkins</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>Jenkins需要Java环境，有了Docker这个利器，我们就省去了安装Java环境的麻烦，只需执行如下命令即可。通过执行docker pull 指令，我们可以很方便地获取到可以用来执行jenkins的docker镜像。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker pull jenkins:latest</span></span></pre></td></tr></table></figure>
+
+<p>通常的做法是把jenkins文件存储地址挂载在宿主机上，这样子如果jenkins服务器重装或者迁移就可以方便地迁移项目配置了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -d --name myjenkins -p 8080:8080 -v <span class="variable">$&#123;pwd&#125;</span>/data:/var/jenkins_home jenkins</span></span></pre></td></tr></table></figure>
+
+<p>通过这种方法来启动有时候会不成功，可能是因为路径权限存在着问题。这里使用<a href="https://github.com/AliyunContainerService/docker-jenkins" target="_blank" rel="noopener">https://github.com/AliyunContainerService/docker-jenkins</a>版本的修改版jenkins来进行构建自己的Jenkins镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/AliyunContainerService/docker-jenkins</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> docker-jenkins/jenkins</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -t myjenkins .</span></span></pre></td></tr></table></figure>
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><p>然后基于新镜像启动Jenkins容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -p 0.0.0.0:8080:8080 -p 50000:50000 -v $(<span class="built_in">pwd</span>)/data:/var/jenkins_home --name jenkins myjenkins</span></span></pre></td></tr></table></figure>
+
+<p>查看正在运行的docker 容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker ps</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                                              NAMES</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">10ea38c68ec5        myjenkins           "/entrypoint.sh"    2 minutes ago       Up 2 minutes        0.0.0.0:8080-&gt;8080/tcp, 0.0.0.0:50000-&gt;50000/tcp   jenkins</span></pre></td></tr></table></figure>
+<p>PS: <code>$(pwd)</code>是当前路径</p>
+<p>基于myjenkins镜像构建了jenkins容器，将docker 8080端口(冒号后)与宿主机的8080端口(冒号前)绑定在一起，可以通过宿主机ip+8080端口号来访问jenkins页面，访问50000端口可以获取到端口信息。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffn4tyqwkqj20sg0hu403.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffn4tgku82j20iy02bjrl.jpg" referrerPolicy="no-referrer">
+
+
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p>jenkins-&gt;系统管理-&gt;管理节点-&gt;宿主机<br><img src="https://ws1.sinaimg.cn/large/6177e8b1gy1fg9be3hbf9j21da0aqdgv.jpg" referrerPolicy="no-referrer"></p>
+<p>配置所需要的环境变量，则jenkins就可以使用到宿主机上的一些环境了。注意<code>JAVA_HOME</code>的配置要求的是JDK的位置而非JRE的位置。</p>
+<h4 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h4><p>在data/serects下查看initialAdminPassword进入Jenkins控制页面</p>
+<p>安装建议的插件</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffn4z05tg5j20sd0i8410.jpg" referrerPolicy="no-referrer">
+
+<p>开始界面</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffn7nv50baj20t10e9jsm.jpg" referrerPolicy="no-referrer">
+
+<h3 id="对大作业进行自动构建"><a href="#对大作业进行自动构建" class="headerlink" title="对大作业进行自动构建"></a>对大作业进行自动构建</h3><p>上篇博客中，完成了对大作业一个java项目的maven自动构建，这次就通过jenkins和docker来实现。</p>
+<h4 id="配置maven"><a href="#配置maven" class="headerlink" title="配置maven"></a>配置maven</h4><p>在系统管理-&gt;管理插件-&gt;可选插件 中安装<code>Maven Integration plugin</code>这个插件</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnald3s86j21220a8406.jpg" referrerPolicy="no-referrer">
+
+<p>在系统管理-&gt;Global Tool Configuration 选择maven路径，或者自动安装</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnane08xij216z09jaam.jpg" referrerPolicy="no-referrer">
+
+
+
+<h4 id="GitHub-插件"><a href="#GitHub-插件" class="headerlink" title="GitHub 插件"></a>GitHub 插件</h4><p>此外，在jenkins我们要需要安装一些关于GitHub的插件，来支持Webhook</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnb5beexyj20mr06kq43.jpg" referrerPolicy="no-referrer">
+
+
+
+<h4 id="新建-Jenkins-项目"><a href="#新建-Jenkins-项目" class="headerlink" title="新建 Jenkins 项目"></a>新建 Jenkins 项目</h4><p>这里选用自由风格的软件项目来构建</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbou0c93j218l0d9tb1.jpg" referrerPolicy="no-referrer">
+
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbpowlplj21480frq4a.jpg" referrerPolicy="no-referrer">
+
+<p>选择源码地址，需要添加GitHub账号权限，可以使用ssh key也可以使用账号密码</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbpvkee2j213d0gfta2.jpg" referrerPolicy="no-referrer">
+
+
+
+<p>可以通过脚本触发，这里使用了GitHub Plugin所提供的GitHub hook trigger for GITScm polling，当GitHub上的项目仓库发生改变之后会发出相应的请求。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbpzrdi8j215o0auabo.jpg" referrerPolicy="no-referrer">
+
+<p>其中maven版本选择刚刚所设置的，执行clean和install目标。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbq47lpuj21460ez757.jpg" referrerPolicy="no-referrer">
+
+<h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><p>点击立即构建，就可以完成构建了。红色表示失败，蓝色表示成功，点击进去可以查看详细。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbtpq5itj20a00j075l.jpg" referrerPolicy="no-referrer">
+
+<h4 id="GitHub-自动触发"><a href="#GitHub-自动触发" class="headerlink" title="GitHub 自动触发"></a>GitHub 自动触发</h4><p>在仓库的settings-&gt;services中添加jenkins配置，根据提示添加触发url即可。url地址为<a href="http://your_jenkins_url/github-webhook/" target="_blank" rel="noopener">http://your_jenkins_url/github-webhook/</a> 。这样子当GitHub仓库发生更新时就会触发自动构建功能了。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbvdllwhj20uy0cxwgj.jpg" referrerPolicy="no-referrer">
+
+<h4 id="自动部署"><a href="#自动部署" class="headerlink" title="自动部署"></a>自动部署</h4><p>构建中，可以执行shell指令，如果在后期大作业完成前端与后端之后，就可以直接在构建中，创建一个docker镜像、容器并且运行这个容器，使得我们可以直接访问到部署完成的网页了。这个会在后续继续改进。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnbxr0h2cj215v0f9t9s.jpg" referrerPolicy="no-referrer">
+
+<p>PS：这次是直接在宿主机上进行配置，此外Jenkins还可以配置另外的主机节点来运行maven等构建，同时也可以指定一些环境，因为每一次都重新下载maven的话其实是比较花时间的。大致的流程就可以像下图所示一样。</p>
+<img src="https://ws1.sinaimg.cn/large/6177e8b1gy1ffnc8z8vijj20r90j4jvm.jpg" referrerPolicy="no-referrer">
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在了解了Docker之后，发现这是一个比虚拟机更加强大的工具，速度也很快，方便我们快速部署应用。在Docker上实现CI/CD可以让我们只需要提交GitHub上的代码更改之后，便可以在网页上看到产品的新版本了。大量地减轻了这些重复性的工作。</p>
+<p>这次也了解了Jenkins，相比于Travis CI的话，配置会更加麻烦一些，整体的流程都是相近的，但是可以定制更多自己想要的功能，在后续过程中如果与Docker结合，可以看到一个产品的完整生命周期，自动化完成的过程。因为还没有完成大作业的前后端全部功能，所以看具体的效果可以参考<a href="https://wayearn.com/2016/12/gitlab-jenkins-docker-maven/" target="_blank" rel="noopener">Gitlab+Jenkins+docker完成Maven项目的自动部署</a>一文。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://hujb2000.gitbooks.io/docker-flow-evolution/content/cn/basis/what.html" target="_blank" rel="noopener">Docker入门与实践</a></p>
+<p><a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/why.html" target="_blank" rel="noopener">Docker —— 从入门到实践</a></p>
+<p><a href="http://blog.csdn.net/pmlpml/article/details/71083907" target="_blank" rel="noopener">构建微服务实验环境（一）：容器与应用</a></p>
+<p><a href="http://www.mindtheproduct.com/2016/02/what-the-hell-are-ci-cd-and-devops-a-cheatsheet-for-the-rest-of-us/" target="_blank" rel="noopener">The Product Managers’ Guide to Continuous Delivery and DevOps</a></p>
+<p><a href="http://www.jianshu.com/p/144254a055ba" target="_blank" rel="noopener">jenkins 入门教程</a></p>
+<p><a href="http://liu-xin.me/2016/07/13/%E5%88%A9%E7%94%A8Jenkins%E5%92%8CDocker%E5%81%9A%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/" target="_blank" rel="noopener">利用Jenkins和Docker做持续集成</a></p>
+<p><a href="https://my.oschina.net/kernalsky/blog/483110" target="_blank" rel="noopener">希云cSphere-最佳实战Docker持续集成图文详解</a></p>
+<p><a href="https://wayearn.com/2016/12/gitlab-jenkins-docker-maven/" target="_blank" rel="noopener">Gitlab+Jenkins+docker完成Maven项目的自动部署</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://ws1.sinaimg.cn/large/6177e8b1gy1fl0226urhgj20w00w0mzs.jpg" alt="Paul Kinpzz WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Paul Kinpzz
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.kinpzz.com/2017/05/16/docker-ci-cd/" title="Docker 入门 & CI/CD实践">https://blog.kinpzz.com/2017/05/16/docker-ci-cd/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/ci/" rel="tag"># ci</a>
+          
+            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/25/face-morphing/" rel="next" title="Face Morphing 人脸融合">
+                <i class="fa fa-chevron-left"></i> Face Morphing 人脸融合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/04/connect-mysql-server/" rel="prev" title="连接mysql远程服务器">
+                连接mysql远程服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars1.githubusercontent.com/u/14824514?v=4&s=460"
+               alt="Paul Kinpzz" />
+          <p class="site-author-name" itemprop="name">Paul Kinpzz</p>
+           
+              <p class="site-description motion-element" itemprop="description">Computer Vision & Deep Learning</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Kinpzz" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/paul-kinpzz" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-link"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://spinpx.com/" title="Spinpx" target="_blank">Spinpx</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://http://sysu-hcp.net/home/" title="HCP-I2 Lab" target="_blank">HCP-I2 Lab</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-简介"><span class="nav-number">2.</span> <span class="nav-text">Docker 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Docker？"><span class="nav-number">2.1.</span> <span class="nav-text">什么是Docker？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么是Docker？"><span class="nav-number">2.2.</span> <span class="nav-text">为什么是Docker？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-基本概念"><span class="nav-number">2.3.</span> <span class="nav-text">Docker 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-镜像"><span class="nav-number">2.3.1.</span> <span class="nav-text">Docker 镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-容器"><span class="nav-number">2.3.2.</span> <span class="nav-text">Docker 容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-仓库"><span class="nav-number">2.3.3.</span> <span class="nav-text">Docker 仓库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-安装"><span class="nav-number">3.</span> <span class="nav-text">Docker 安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用镜像"><span class="nav-number">4.</span> <span class="nav-text">使用镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取镜像"><span class="nav-number">4.1.</span> <span class="nav-text">获取镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行镜像"><span class="nav-number">4.2.</span> <span class="nav-text">运行镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列出镜像"><span class="nav-number">4.3.</span> <span class="nav-text">列出镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CI-CD-on-Docker"><span class="nav-number">5.</span> <span class="nav-text">CI/CD on Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是CI-CD"><span class="nav-number">5.1.</span> <span class="nav-text">什么是CI/CD?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Travis-CI"><span class="nav-number">5.2.</span> <span class="nav-text">Travis CI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins"><span class="nav-number">5.3.</span> <span class="nav-text">Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Jenkins"><span class="nav-number">5.3.1.</span> <span class="nav-text">什么是Jenkins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Docker安装和启动Jenkins"><span class="nav-number">5.3.2.</span> <span class="nav-text">通过Docker安装和启动Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动"><span class="nav-number">5.3.2.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置环境变量"><span class="nav-number">5.3.2.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装插件"><span class="nav-number">5.3.2.4.</span> <span class="nav-text">安装插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对大作业进行自动构建"><span class="nav-number">5.3.3.</span> <span class="nav-text">对大作业进行自动构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置maven"><span class="nav-number">5.3.3.1.</span> <span class="nav-text">配置maven</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitHub-插件"><span class="nav-number">5.3.3.2.</span> <span class="nav-text">GitHub 插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新建-Jenkins-项目"><span class="nav-number">5.3.3.3.</span> <span class="nav-text">新建 Jenkins 项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建"><span class="nav-number">5.3.3.4.</span> <span class="nav-text">构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GitHub-自动触发"><span class="nav-number">5.3.3.5.</span> <span class="nav-text">GitHub 自动触发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动部署"><span class="nav-number">5.3.3.6.</span> <span class="nav-text">自动部署</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul Kinpzz</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Kinpzz.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://blog.kinpzz.com/2017/05/16/docker-ci-cd/';
+          this.page.identifier = '2017/05/16/docker-ci-cd/';
+          this.page.title = 'Docker 入门 & CI/CD实践';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Kinpzz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("uGBLXdCgjNN2yEqOB63aNNPx-gzGzoHsz", "MhguE8xXWlYKd87YpmHSvUfY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
